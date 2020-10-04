@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent">
+    <!-- <TextView
+         android:id="@+id/name"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:background="@color/colorPrimary"
+         android:paddingTop="15dp"
+         android:paddingLeft="20dp"
+         android:paddingBottom="10dp"
+         android:text="Settings"
+         android:textAllCaps="false"
+         android:textColor="#fff"
+         android:textSize="20dp" />-->
+    <RelativeLayout
+        android:id="@+id/toolbars"
+        android:background="@drawable/toolbarmainbg"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="55dp">
+        <ImageView
+            android:id="@+id/backarrow"
+            android:layout_width="25dp"
+            android:layout_height="38dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:tint="@color/white"
+            android:src="@drawable/ic_leftarrow" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:padding="5dp"
+            android:id="@+id/title"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+        <!-- <Button
+             android:id="@+id/set_as_btn"
+             android:layout_width="35dp"
+             android:layout_height="35dp"
+             android:drawablePadding="5dp"
+             android:layout_alignParentRight="true"
+             android:background="@drawable/ic_tick"
+             android:layout_centerVertical="true"
+             android:layout_marginRight="20dp" />-->
+        <!--<ImageView
+            android:id="@+id/img_alarm"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_alarm" />-->
+
+
+    </RelativeLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="50dp"
+        android:padding="5dp"
+        android:scrollbars="none"
+        android:divider="@color/white"
+        android:dividerHeight="0dp"
+        android:layout_below="@+id/toolbars"
+        android:id="@+id/list"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@id/vv"
+        android:layout_alignParentTop="true"
+        >
+    </ListView>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/ad_layout"
+        android:layout_marginBottom="2dp"
+        android:id="@+id/vv"
+        android:background="#AFAFAF" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ad_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ad_size_land"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Ads Space"
+            android:gravity="center"
+            />
+        <LinearLayout
+            android:id="@+id/banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            />
+
+    </RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D2000000"
+        android:id="@+id/loading_adlayout"
+        android:visibility="gone"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+
+
+            >
+            <ProgressBar
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:progressTint="@color/white"
+                android:indeterminateTint="@color/white"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading Ad"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/loading_ad_text"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

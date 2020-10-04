@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translate
+    android:repeatCount="1"
+    android:repeatMode="reverse"
+    android:interpolator="@android:anim/linear_interpolator"
+    android:duration="3000"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

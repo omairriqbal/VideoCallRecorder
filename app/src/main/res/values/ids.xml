@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    <item name="screen_recorder" type="id">1122</item>
+    <item name="screen_shot" type="id">100</item>
+    <item name="setting" type="id">200</item>
+    <item name="videos" type="id">300</item>
+    <item name="bg" type="id">1</item>
+    <item name="stop" type="id">555</item>
+    <item name="cc" type="id">777</item>
+    <item name="resume" type="id">155</item>
+    <item name="pause" type="id">3095</item>-->
+    <item name="screen_recorder" type="id"/>
+    <item name="screen_shot" type="id"/>
+    <item name="setting" type="id"/>
+    <item name="videos" type="id"/>
+    <item name="bg" type="id"/>
+    <item name="stop" type="id"/>
+    <item name="cc" type="id"/>
+    <item name="resume" type="id"/>
+    <item name="pause" type="id"/>
+</resources>

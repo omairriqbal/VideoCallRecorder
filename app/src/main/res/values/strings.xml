@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name"> Video Call Recorder</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="msg">Please let us know about the problem you faced.\nThanks for your support!</string>
+    <string name="notify_record">Notify rec</string>
+    <string name="notify_shutdown">notify_shutdown</string>
+    <string name="title_dynamic_feature">Screen Recorder</string>
+    <string name="Description_text">Unlimited, Free </string>
+
+    <string name="warn_1">Attention:The videos and images stored in SD card will be deleted when you uninstall this app</string>
+    <string name="warn_2">Make sure you\'ve know that and would like to change storage location to SD card</string>
+    <string name="satisfaied">Are you satisfied using</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="admob_interstitial_main">ca-app-pub-1171613999339314/8792023421</string>
+    <string name="admob_interstitial_settings">ca-app-pub-1171613999339314/7095798376</string>
+    <string name="admob_interstitial_ad_acc">ca-app-pub-1171613999339314/2964981675</string>
+
+
+    <string name="fb_native_main">473672993427341_473673200093987</string>
+    <string name="fb_native_setting">473672993427341_473673463427294</string>
+    <string name="fb_native_ad_acc">473672993427341_473673580093949</string>
+
+
+    <string name="admob_banner_setting">ca-app-pub-1171613999339314/4419386348</string>
+    <string name="admob_banner_main">ca-app-pub-1171613999339314/7813983679</string>
+    <string name="admob_banner_back">ca-app-pub-1171613999339314/9096997954</string>
+
+
+    <string name="fb_banner_setting">473672993427341_473673460093961</string>
+    <string name="test_ad_inter">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="test_ad_native">ca-app-pub-3940256099942544/1044960115</string>
+
+
+</resources>

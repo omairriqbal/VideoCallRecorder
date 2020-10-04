@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:background="#A4EBEAEA"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:id="@+id/top"
+        android:divider="@color/colorPrimary"
+        android:showDividers="end"
+        android:background="#fff"
+        android:padding="5dp"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal"
+
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+             android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:visibility="gone"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recorder is ready"
+                android:layout_gravity="center_horizontal"
+                android:textSize="12dp"
+                android:textColor="#000"
+
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:weightSum="3"
+    android:padding="5dp"
+
+    >
+    <ImageView
+        android:id="@+id/btn_play"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_rec"
+        android:padding="5dp"
+        android:layout_weight="1"
+        android:text="Resume" />
+    <ImageView
+        android:id="@+id/btn_stop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_stop"
+        android:padding="5dp"
+        android:layout_weight="1"
+
+        android:text="Stop" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_more"
+        android:tint="@color/colorPrimaryDark"
+        android:padding="5dp"
+        android:layout_weight="1"
+        android:id="@+id/openApp"
+
+        />
+
+</LinearLayout>
+
+</LinearLayout>

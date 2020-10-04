@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="140dp"
+    android:layout_width="match_parent"
+    android:padding="2dp"
+    android:layout_margin="2dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardBackgroundColor="#fff"
+    android:elevation="3dp"
+    >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F6F4F4"
+            android:orientation="vertical"
+            >
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/top"
+
+                    >
+
+                        <!-- <ImageView
+                             android:layout_width="135dp"
+                             android:layout_height="135dp"
+                             android:layout_marginStart="5dp"
+                             android:layout_marginBottom="5dp"
+                             android:background="@drawable/frame_border"
+                             android:id="@+id/frame"
+                             android:layout_centerHorizontal="true"
+                             />-->
+                        <ImageView
+                            android:id="@+id/video_thumbnail"
+                            android:layout_width="135dp"
+                            android:layout_height="match_parent"
+                            android:background="#000"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_centerHorizontal="true"
+
+                            />
+
+
+                        <!-- <ImageView
+                             android:layout_width="30dp"
+                             android:layout_height="30dp"
+                             android:tint="@color/colorPrimaryDark"
+                             android:src="@mipmap/btn_play"
+                             android:layout_marginTop="45dp"
+                             android:layout_centerHorizontal="true"
+
+                             />
+         -->
+
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/video_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Name of Image File"
+                    android:layout_toEndOf="@id/top"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="#000"
+                    android:textSize="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="2dp"
+                    />
+                <TextView
+                    android:id="@+id/video_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="40mb"
+                    android:layout_toEndOf="@id/top"
+                    android:padding="0dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_below="@+id/video_name"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@android:color/tab_indicator_text"
+                    android:textSize="9dp"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_marginBottom="2dp"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@id/top">
+                        <TextView
+                            android:id="@+id/date"
+                            android:text="23-03-4432"
+                            android:textAllCaps="false"
+                            android:textSize="9sp"
+                            android:layout_marginStart="10sp"
+                            android:textColor="@android:color/tab_indicator_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/icon_play"
+                            android:layout_weight="1"
+                            android:visibility="gone"
+                            android:id="@+id/play"
+                            />
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="20dp"
+                            android:tint="@color/colorPrimary"
+                            android:padding="2dp"
+                            android:layout_margin="5dp"
+                            android:layout_toStartOf="@+id/delete"
+                            android:src="@drawable/ic_share"
+                            android:id="@+id/share"
+
+                            />
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:tint="@color/colorPrimary"
+                            android:layout_height="20dp"
+                            android:layout_margin="5dp"
+                            android:padding="2dp"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/ic_rubbish_bin"
+                            android:id="@+id/delete"
+                            />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/sdcard"
+                    android:layout_margin="3dp"
+                    />
+
+        </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+

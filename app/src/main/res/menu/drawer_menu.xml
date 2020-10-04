@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+        <item
+            android:id="@+id/navigationMenuSettings"
+            android:title="Settings"
+            android:icon="@drawable/ic_settings"/>
+        <item
+            android:id="@+id/navigationMenuRate"
+            android:title="Rate us"
+            android:icon="@drawable/ic_rate"/>
+        <item
+            android:id="@+id/navigationMenuFeedback"
+            android:title="Feedback"
+            android:icon="@drawable/ic_feedback"/>
+        <item
+            android:id="@+id/navigationMenuShare"
+            android:title="Share"
+            android:icon="@drawable/ic_share"/>
+        <item
+            android:id="@+id/navigationMenuRemoveAd"
+            android:title="Remove Ad"
+            android:icon="@drawable/ic_remove_ads"/>
+        <item
+            android:id="@+id/navigationMenuMore"
+            android:title="More Apps"
+            android:icon="@drawable/ic_more_apps"/>
+
+</menu>

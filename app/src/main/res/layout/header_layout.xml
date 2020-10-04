@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbarmainbg"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            android:elevation="5dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:dividerPadding="8dp"
+                android:orientation="horizontal"
+                android:showDividers="end">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_hamburg_icon"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:padding="10dp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:id="@+id/hamburgIcon"
+                    />
+
+                <TextView
+                    android:id="@+id/title_text"
+                    style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_toRightOf="@+id/hamburgIcon"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="0dp"
+                     android:text="@string/app_name"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                     android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:onClick="buyClick"
+                    android:id="@+id/buy"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ads"
+                    android:visibility="gone"
+
+                    />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+</LinearLayout>

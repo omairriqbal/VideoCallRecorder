@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:background="#d6d5d5"
+    android:id="@+id/parent"
+
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/toolbarmainbg"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="5dp"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:dividerPadding="8dp"
+            android:orientation="horizontal"
+            android:showDividers="end">
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:src="@drawable/ic_settings"
+                android:padding="10dp"
+                android:id="@+id/settings"
+                android:onClick="openSettings"
+                />
+
+            <TextView
+                android:id="@+id/title_text"
+                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="0dp"
+                android:paddingRight="14dp"
+                android:text="@string/app_name"
+                android:textAllCaps="false"
+                android:textColor="#fff" android:layout_toRightOf="@+id/settings"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:onClick="buyClick"
+                android:id="@+id/buy"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ads"
+                android:visibility="gone"
+
+                />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="fill_parent"
+        android:layout_height="37dp"
+        app:tabGravity="fill"
+        app:tabTextColor="@color/colorPrimary"
+        android:layout_below="@+id/toolbar"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabIndicatorColor="@color/colorPrimary"
+        android:background="@color/white"
+        app:tabTextAppearance="@style/MineCustomTabText"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed" />
+
+    <androidx.viewpager.widget.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabs"
+        android:layout_above="@id/vv"
+        android:layout_marginBottom="5dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#000"
+        android:layout_alignBottom="@+id/pager"
+        android:id="@+id/permissions_layout"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="Permssions Missing">
+
+        </TextView>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Allow"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorAccent"
+            android:textAllCaps="false"
+            android:onClick="ask_permissions"/>
+    </LinearLayout>
+    <!-- <ImageView
+         android:layout_width="65dp"
+         android:layout_height="65dp"
+         android:layout_centerHorizontal="true"
+         android:layout_below="@+id/toolbar"
+         android:layout_marginBottom="10dp"
+         android:onClick="go"
+         android:id="@+id/vidd"
+         android:adjustViewBounds="true"
+         android:background="@drawable/whitecircle"
+
+         />-->
+
+    <ImageView
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:src="@drawable/button_recorder"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="8dp"
+        android:onClick="go"
+        android:id="@+id/vid"
+        android:adjustViewBounds="true"
+        android:padding="12dp"
+        android:background="@drawable/whitecircle"
+
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/native_container"
+        android:layout_below="@+id/toolbar"
+        android:background="#D2000000"
+        android:layout_above="@+id/ad_layout"
+        android:onClick="do_nothing"
+        android:visibility="gone"
+
+        >
+        <com.facebook.ads.NativeAdLayout
+            android:id="@+id/native_ad_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/ad_layout"
+        android:layout_marginBottom="1dp"
+        android:id="@+id/vv"
+        android:background="#AFAFAF" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ad_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/ad_size_land"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Ads Space"
+            android:gravity="center"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/banner_container"
+            android:orientation="vertical"
+            ></LinearLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D2000000"
+        android:id="@+id/loading_adlayout"
+        android:visibility="gone"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+
+
+            >
+            <ProgressBar
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:progressTint="@color/white"
+                android:indeterminateTint="@color/white"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading Ad"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/loading_ad_text"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

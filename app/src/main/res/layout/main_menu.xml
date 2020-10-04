@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:background="#d6d5d5"
+    android:id="@+id/parent"
+    android:orientation="vertical">
+
+ <include layout="@layout/header_layout"/>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_below="@id/tabs"
+        android:layout_marginTop="2dp" />
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorHeight="0dp"
+        app:tabMaxWidth="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/MineCustomTabText"
+        app:tabTextColor="#c5c5c5" />
+
+    <ImageView
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/button_recorder"
+        android:layout_gravity="center"
+        android:layout_marginTop="-70dp"
+        android:onClick="go"
+        android:id="@+id/vid"
+        android:adjustViewBounds="true"
+        android:padding="12dp"
+        android:background="@drawable/whitecircle" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#000"
+        android:layout_alignBottom="@+id/pager"
+        android:id="@+id/permissions_layout"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="Permssions Missing">
+
+        </TextView>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Allow"
+            android:background="@android:color/transparent"
+            android:textColor="@color/colorAccent"
+            android:textAllCaps="false"
+            android:onClick="ask_permissions"/>
+    </LinearLayout>
+    <!-- <ImageView
+         android:layout_width="65dp"
+         android:layout_height="65dp"
+         android:layout_centerHorizontal="true"
+         android:layout_below="@+id/toolbar"
+         android:layout_marginBottom="10dp"
+         android:onClick="go"
+         android:id="@+id/vidd"
+         android:adjustViewBounds="true"
+         android:background="@drawable/whitecircle"
+
+         />-->
+
+
+</LinearLayout>

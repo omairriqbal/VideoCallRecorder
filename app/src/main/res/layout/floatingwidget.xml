@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+
+  <!--  <RelativeLayout
+        android:id="@+id/relativeLayoutParent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent"
+        >-->
+
+        <!-- this is the expanded layout -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/center"
+            >
+            <ImageView
+                android:id="@+id/collapsed_iv"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/button_recorder"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="10dp"
+                android:id="@+id/timmer"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical"
+                />
+
+        </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

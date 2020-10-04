@@ -1,0 +1,102 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://plugins.gradle.org/m2/'}
+
+    }
+
+    dependencies
+            {
+        classpath 'io.fabric.tools:gradle:1.+'
+                classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.0, 0.99.99]'
+
+            }
+}
+apply plugin: 'com.android.application'
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+/*dependencies {
+    implementation('com.crashlytics.sdk.android:crashlytics:17.2.2@aar') {
+        transitive = true;
+    }
+}*/
+apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.firebase-perf'
+
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.recorder.screen.recordingapp.editor"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 3
+        versionName "3.0.0"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        setProperty("archivesBaseName", "Screen Recorder-$versionName-$versionCode")
+        manifestPlaceholders = [
+                onesignal_app_id: 'cd9b7860-677e-4dfa-948f-e6424e17109d',
+                onesignal_google_project_number: 'REMOTE'
+        ]
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.github.codekidX:storage-chooser:2.0.4.4'
+
+    // implementation 'com.github.hotchemi:permissionsdispatcher.2'
+   // annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.2'
+    testImplementation 'junit:junit:4.12'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.gms:play-services-ads:16.+'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
+
+    //  implementation 'com.github.karanvs:hiddenshot:v1.2'
+
+    implementation files('libs/activation.jar')
+    implementation files('libs/additionnal.jar')
+    implementation files('libs/mail.jar')
+    implementation project(':unity-ads')
+
+    implementation 'com.google.firebase:firebase-core:16.+'
+    implementation 'com.google.firebase:firebase-perf:15.2.0'
+    implementation 'com.google.android.gms:play-services-analytics:16.+'
+    implementation 'com.google.firebase:firebase-dynamic-links:16.+'
+    implementation 'com.google.firebase:firebase-invites:16.+'
+    implementation 'com.google.firebase:firebase-messaging:17.+'
+
+
+    implementation 'com.facebook.android:audience-network-sdk:5.3.0'
+    implementation 'com.onesignal:OneSignal:[3.9.1, 3.99.99]'
+    implementation 'com.google.firebase:firebase-firestore:19.0.1'
+
+}
+apply plugin: 'com.google.gms.google-services'

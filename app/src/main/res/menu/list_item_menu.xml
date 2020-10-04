@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/rename"
+        android:icon="@drawable/ic_edit_menu"
+        android:title="Rename" />
+
+    <item
+        android:id="@+id/shareLink"
+        android:icon="@drawable/ic_share_menu"
+        android:title="Share" />
+
+
+    <item
+        android:id="@+id/deleteListItem"
+        android:icon="@drawable/ic_delete_menu"
+        android:title="Delete" />
+
+
+</menu>

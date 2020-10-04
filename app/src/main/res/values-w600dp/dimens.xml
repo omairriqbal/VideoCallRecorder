@@ -1,0 +1,6 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <dimen name="ad_size">90dp</dimen>
+    <dimen name="ad_size_land">50dp</dimen>
+
+</resources>

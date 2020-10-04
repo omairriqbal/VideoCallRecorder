@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove Ads "
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:textColor="@android:color/tab_indicator_text"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/title"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/title"
+        >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+          android:weightSum="2"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_margin="5dp"
+            android:elevation="3dp"
+            android:background="#fff"
+            android:paddingLeft="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text=" "
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#f2813a"
+                android:layout_margin="0dp"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:id="@+id/title1"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_buy"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="12dp"
+                    android:layout_weight="1"
+                    android:id="@+id/text1"
+                    />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@mipmap/ic_buy"
+                    android:text="Buy"
+                    android:textAllCaps="false"
+                    android:onClick="buyClick_day"
+                    />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_margin="5dp"
+            android:elevation="3dp"
+            android:background="#fff"
+            android:paddingLeft="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="  "
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#f2813a"
+                android:layout_margin="0dp"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:id="@+id/title2"
+
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_buy"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="12dp"
+                    android:layout_weight="1"
+                    android:id="@+id/text2"
+
+                    />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@mipmap/ic_buy"
+                    android:text="Buy"
+                    android:textAllCaps="false"
+                    android:onClick="buyClick_day_3" />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="0dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_margin="5dp"
+            android:elevation="3dp"
+            android:background="#fff"
+            android:paddingLeft="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+
+            >
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text=""
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#f2813a"
+                android:layout_margin="0dp"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:id="@+id/title3"
+
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_buy"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="12dp"
+                    android:layout_weight="1"
+                    android:id="@+id/text3"
+
+                    />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@mipmap/ic_buy"
+                    android:text="Buy"
+                    android:textAllCaps="false"
+                    android:onClick="buyClick_day15" />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_margin="5dp"
+            android:elevation="3dp"
+            android:background="#fff"
+            android:paddingLeft="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text=""
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#f2813a"
+                android:layout_margin="0dp"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:id="@+id/title4"
+
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_buy"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="12dp"
+                    android:layout_weight="1"
+                    android:id="@+id/text4"
+
+                    />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@mipmap/ic_buy"
+                    android:text="Buy"
+                    android:textAllCaps="false"
+                    android:onClick="buyClick_month" />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="0dp"
+        android:padding="5dp"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_margin="5dp"
+            android:elevation="3dp"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:layout_weight="1"
+
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text=""
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#f2813a"
+                android:layout_margin="0dp"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:id="@+id/title5"
+                 android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_buy"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:textColor="#000"
+                    android:layout_weight="1"
+                    android:id="@+id/text5"
+                    android:textSize="12dp"
+
+                    />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@mipmap/ic_buy"
+                    android:text="Buy"
+                    android:textAllCaps="false"
+                    android:onClick="buyClick_months" />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_margin="5dp"
+            android:elevation="3dp"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:layout_weight="1"
+
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text=" "
+                android:layout_weight="1"
+                android:textColor="#000"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#f2813a"
+                android:layout_margin="0dp"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:id="@+id/title6"
+
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_buy"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text=""
+                    android:textColor="#000"
+                    android:layout_weight="1"
+                    android:id="@+id/text6"
+                    android:textSize="12dp"
+
+                    />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:src="@mipmap/ic_buy"
+                    android:text="Buy"
+                    android:textAllCaps="false"
+                    android:onClick="buyClick_forever" />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right"
+        >
+
+        <Button
+            android:id="@+id/cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:onClick="close"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@android:color/tab_indicator_text"
+            />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:onClick="ok"
+            android:text="Ok"
+            android:textAllCaps="false"
+            android:textColor="@android:color/tab_indicator_text"
+            />
+    </LinearLayout>
+    </LinearLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/pb"
+        />
+</RelativeLayout>
