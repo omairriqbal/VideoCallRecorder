@@ -63,7 +63,7 @@ public final class Utils {
      * aid testing on a local box, not for use on production.
      */
 
-    public static List<TabsModel> tabsList=new ArrayList<>();
+
 
     public static void disableSSLCertificateChecking() {
         TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
@@ -152,20 +152,4 @@ public final class Utils {
         }
     }
 
-    public static DividerItemDecoration createDivider(final Context context) {
-        DividerItemDecoration divider = new DividerItemDecoration(context,
-                DividerItemDecoration.VERTICAL) {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView
-                    .State state) {
-                int verticalSpacing = (int) Math.ceil(TypedValue.applyDimension(TypedValue
-                        .COMPLEX_UNIT_SP, 4, context.getResources()
-                        .getDisplayMetrics()));
-                outRect.top = verticalSpacing;
-                outRect.bottom = verticalSpacing;
-            }
-        };
-        divider.setDrawable(context.getResources().getDrawable(R.drawable.greydivider));
-        return divider;
-    }
 }
