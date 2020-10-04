@@ -89,7 +89,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
             menu  = itemView.findViewById(R.id.menu);
 
             menu.setOnClickListener((View v) ->{
-buildPopupMenu(v);
+//buildPopupMenu(v);
             });
 
            videoThumbnail.setShapeAppearanceModel(videoThumbnail.getShapeAppearanceModel()
@@ -245,7 +245,7 @@ buildPopupMenu(v);
         }
     }
 
-    @SuppressLint("RestrictedApi")
+/*    @SuppressLint("RestrictedApi")
     private void buildPopUpMenu(View view) {
         @SuppressLint("RestrictedApi") MenuBuilder menuBuilder = new MenuBuilder(context);
         MenuInflater inflater = new MenuInflater(context);
@@ -396,7 +396,7 @@ buildPopupMenu(v);
         });
 
         optionsMenu.show();
-    }
+    }*/
 
     private void showWarning(int position) {
 
