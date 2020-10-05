@@ -40,13 +40,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.ads.AdListener;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.firebase.perf.metrics.AddTrace;
 
@@ -58,8 +51,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -131,10 +122,8 @@ public class main_menu  extends BaseActivity
         super.onCreate(icicle);
 
         AppRater.app_launched(this,getPackageName(),getResources().getString(R.string.app_name));
-        check_InApp();
 
-
-        create_back_dialog();
+//        create_back_dialog();
        //Ad_data();
         Locale current = getResources().getConfiguration().locale;
         languagepair="en-"+current.getLanguage();
@@ -155,10 +144,6 @@ public class main_menu  extends BaseActivity
             editor.commit();
         }
         this.registerReceiver(this.mBroadcastReceiver, new IntentFilter("com.action.close"));
-
-
-        save_millis_to_db();
-
 
          initPaging();
         first=false;
@@ -370,7 +355,6 @@ public void openSettings(View v)
     public void onResume()
     {
         super.onResume();
-        check_InApp();
 
             if (feedback)
             {
@@ -387,31 +371,7 @@ public void openSettings(View v)
         startActivity(in);
 
     }
-    @Override
-    public void onBackPressed()
-    {
-        Intent in=new Intent(main_menu.this,Acc_Setting.class);
-        startActivity(in);
 
-      /*  if(drawerLayout.isDrawerOpen(GravityCompat.START))
-        {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return;
-        }*/
-
-
-
-        if(viewPager.getCurrentItem()==1)
-        {
-            viewPager.setCurrentItem(0);
-            return;
-        }
-
-            dialog.getWindow().setWindowAnimations(R.style.Animation);
-            dialog.show();
-
-
-    }
     public  void showWarning(final Context mContext, final String APP_PNAME)
     {
         String yes,no,rate_us,satisfied,app_name;
@@ -458,18 +418,12 @@ public void openSettings(View v)
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                                 // showPopup(mContext);
-                                showDD();
+
                             }
                         });
 
         androidx.appcompat.app.AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    public void showDD()
-    {
-        Intent in=new Intent(main_menu.this,dialogg.class);
-        startActivity(in);
     }
 
 
@@ -692,214 +646,12 @@ public void openSettings(View v)
     /*    mgr = (MediaProjectionManager) getApplicationContext().getSystemService(MEDIA_PROJECTION_SERVICE);
         startActivityForResult(mgr.createScreenCaptureIntent(), REQUEST_SCREENSHOT);*/
     }
-    public void check_InApp()
-    {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("ads", 0);
-        buy = pref.getBoolean("buy", false);
-        if(buy) {
-            boolean foever = pref.getBoolean("forever", false);
-            if (!foever) {
-                Calendar cal = Calendar.getInstance();
-                long time = cal.getTimeInMillis();
-                long prev = pref.getLong("Ad_time", 0);
-                Date current = new Date(time);
-                Date previous = new Date(prev);
-                int duration = pref.getInt("duration", 0);
-                if (duration == 0)
-                    return;
-                long diff = current.getTime() - previous.getTime();
-                long days = TimeUnit.MILLISECONDS.toDays(diff);
-                if (duration != 6) {
-                    if (days >= duration)
-                    {
-                        SharedPreferences prefs = getApplicationContext().getSharedPreferences("ads", 0);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("buy", false);
-                        editor.putLong("Ad_time", 0);
-                        editor.putString("duration", "0");
-                        editor.commit();
-                        buy = false;
-                    }
-
-                }
-                else if (duration == 6) {
-                    duration = 6 * 30;
-                    if (days >= duration) {
-                        SharedPreferences prefs = getApplicationContext().getSharedPreferences("ads", 0);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("buy", false);
-                        editor.putLong("Ad_time", 0);
-                        editor.putString("duration", "0");
-                        editor.commit();
-                        buy = false;
-                    }
-                }
-
-
-            }
-        }
-        if(!buy)
-        {
-
-        }
-        else
-        {
-            ImageView buy = (ImageView) findViewById(R.id.buy);
-            buy.setVisibility(View.GONE);
-            if(animShake!=null)
-            {
-                animShake.setAnimationListener(null);
-                sss.setAnimationListener(null);
-                animShake.cancel();
-                sss.cancel();
-                buy.clearAnimation();
-
-            }
-            if(mAdView!=null)
-                mAdView.setVisibility(View.GONE);
-        }
-
-
-    }
 
     Handler handler_admob,handler_fb;
-    Runnable admob,fb;
-    int retry_1=0,retry_2=0;
+
 
     Dialog dialog;
-    public void create_back_dialog()
-    {
-        dialog = new Dialog(main_menu.this, R.style.exit);
-        dialog.setContentView(R.layout.exit);
-        dialog.setCanceledOnTouchOutside(true);
 
-
-
-
-
-
-        (dialog.findViewById(R.id.yes)).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                //  MainActivity.super.onBackPressed();
-                    dialog.cancel();
-                finish();
-            }
-        });
-        (dialog.findViewById(R.id.no)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.cancel();
-            }
-        });
-
-
-
-
-
-
-    }
-
-    public AdView load_banner(LinearLayout ad_layout)
-    {
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-
-
-
-        AdView adView = new AdView(this);
-        adView.setAdSize(new AdSize(300,200));
-        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-        adView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-                //   Toast.makeText(getApplicationContext(),"Loaded",Toast.LENGTH_SHORT);
-
-                if(adView.getParent() != null) {
-                    ((ViewGroup)adView.getParent()).removeView(adView); // <- fix
-                }
-
-                ad_layout.addView(adView);
-                ad_layout.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode)
-            {
-                // Code to be executed when an ad request fails.
-               Toast.makeText(getApplicationContext(),"failed "+errorCode,Toast.LENGTH_SHORT);
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
-            }
-        });
-        return adView;
-    }
-
-    public void load_banner()
-    {
-        // String id=Ads.get("banner_main_id").toString();
-        final AdView adView = new AdView(this);
-        adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(Ads.get("admob_banner_main").toString());
-        //  adView.setAdUnitId("ca-app-pub-5314370732177423/9394341771");
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-
-
-        LinearLayout bottom_ad=(LinearLayout) findViewById(R.id.banner_container);
-        if(adView.getParent() != null) {
-            ((ViewGroup)adView.getParent()).removeView(adView);
-        }
-        bottom_ad.addView(adView);
-    }
-
-    public void save_millis_to_db()
-    {
-        long current=System.currentTimeMillis();
-        SharedPreferences prefs = getSharedPreferences("first_time", 0);
-
-        boolean saved=prefs.getBoolean("time_saved",false);
-
-        if(!saved) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putLong("time", current);
-            editor.putBoolean("time_saved",true);
-            editor.commit();
-        }
-
-    }
-
-    public long get_millis()
-    {
-
-        SharedPreferences prefs = getSharedPreferences("first_time", 0);
-        long millis=prefs.getLong("time",System.currentTimeMillis());
-        return millis;
-
-
-    }
 
     public  Boolean group1=false,group2=false;
 
@@ -920,12 +672,6 @@ public void openSettings(View v)
 
         array_list.add("No videos");
         array_list.add("No images");
-
-
-
-
-
-
 
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("translation", 0);
@@ -959,9 +705,7 @@ public void openSettings(View v)
 
         try
         {
-
-
-            translated_string.put("videos",outputString.get(0));
+translated_string.put("videos",outputString.get(0));
             translated_string.put("ss",outputString.get(1));
 
             translated_string.put("satisfied",outputString.get(2));
@@ -975,35 +719,11 @@ public void openSettings(View v)
             translated_string.put("no_pic",outputString.get(9));
 
 
-
-            ((TextView)findViewById(R.id.title_text)).setText(translated_string.get("app_name").toString());
-
-            if(pagerAdapter!=null)
-            pagerAdapter.set_title(translated_string.get("videos").toString(),translated_string.get("ss").toString());
-
-//            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-//            tabLayout.getTabAt(0).setText(translated_string.get("videos").toString());
-//            tabLayout.getTabAt(1).setText(translated_string.get("ss").toString());
-
-                ((TextView) dialog.findViewById(R.id.exit_text)).setText(translated_string.get("exit").toString());
-                ((Button) dialog.findViewById(R.id.yes)).setText(translated_string.get("yes").toString());
-                ((Button) dialog.findViewById(R.id.no)).setText(translated_string.get("no").toString());
-
-
-
            if(frag!=null)
             frag.setMsg(translated_string.get("no_vid").toString());
 
             if(frag1!=null)
                 frag1.setMsg(translated_string.get("no_pic").toString());
-
-
-
-
-
-
-
-
 
         }
         catch (Exception e)

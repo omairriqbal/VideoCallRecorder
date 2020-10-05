@@ -28,7 +28,7 @@
                             android:scaleType="fitXY"
                             android:background="@android:color/transparent"
                             card_view:shapeAppearanceOverlay="@style/circleImageView"
-                            android:src="@drawable/test" />
+                           />
                 </RelativeLayout>
                 <TextView
                     android:id="@+id/video_name"

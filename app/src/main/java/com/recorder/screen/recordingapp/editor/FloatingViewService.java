@@ -1265,65 +1265,9 @@ try {
 
             }
         }
-        if(!recording)
-        {
-            if(!check_Ad()) {
-
-
-                // Toast.makeText(getApplicationContext(), "started", Toast.LENGTH_SHORT).show();
-                WindowManager.LayoutParams countdown_pram = new WindowManager.LayoutParams(
-                        WindowManager.LayoutParams.WRAP_CONTENT,
-                        WindowManager.LayoutParams.WRAP_CONTENT,
-                        LAYOUT_FLAG,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                        PixelFormat.TRANSLUCENT);
-                countdown_pram.gravity = Gravity.CENTER;
-                countdown_pram.x = 0;
-                countdown_pram.y = 0;
-            try {
-                mWindowManager.addView(countdown, countdown_pram);
-            }
-            catch (Exception e)
-            {
-
-            }
-                SharedPreferences settings1 = getSharedPreferences("MY_PREF", 0);
-                int sec = settings1.getInt("timmer", 3);
-                recording = !recording;
-                if(sec!=0)
-                start_Timer(1000 * (sec+1));
-
-                else
-                    start_Timer(1000 * sec);
-            }
-        }
-
 
     }
-    public boolean check_Ad()
-    {
-        if(!buy)
-        {
-            incremntCount();
-            check_InApp();
-            SharedPreferences prefs = getApplicationContext().getSharedPreferences("recorder", 0);
-            int count = prefs.getInt("count", 0);
-            //   Toast.makeText(MainActivity.this, ""+count, Toast.LENGTH_SHORT).show();
-            if (count >= 5) {
 
-                Intent mainIntent = new Intent(getApplicationContext(), Ad_Acc.class);
-                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(mainIntent);
-                return true;
-
-            }
-        }
-        return false;
-       /* Intent mainIntent = new Intent(getApplicationContext(), Ad_Acc.class);
-        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(mainIntent);
-        return true;*/
-    }
     public void stop()
     {
         if(recording) {

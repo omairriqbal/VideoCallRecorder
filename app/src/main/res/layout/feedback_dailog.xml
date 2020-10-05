@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/dailog_background"
     android:layout_gravity="center_vertical|center_horizontal"
     android:gravity="center_vertical"
     android:layout_centerHorizontal="true"
-    android:id="@+id/main"
-    >
+    android:id="@+id/main">
 
     <ImageView
         android:layout_width="65dp"
@@ -17,15 +16,19 @@
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_feedback_icon"
         android:gravity="center_horizontal" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:gravity="center"
         android:textSize="13sp"
-        android:fontFamily="sans-serif-medium"
+         android:fontFamily="sans-serif-medium"
         android:textStyle="normal"
         android:textColor="#2c2c2c"
         android:lineSpacingExtra="4sp"
-        android:gravity="center_horizontal"
         android:text="Please let us know what's the
 problem you're facing?" />
 

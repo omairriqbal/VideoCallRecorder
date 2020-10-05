@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/dailog_background"
-    android:layout_gravity="center_vertical|center_horizontal"
+    android:background="@drawable/list_background"
+    android:layout_gravity="center"
     android:gravity="center_vertical"
     android:layout_centerHorizontal="true"
-    android:id="@+id/main"
-    >
+    android:id="@+id/main">
 
     <ImageView
         android:id="@+id/smileyImage"
@@ -22,12 +21,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
         android:textSize="13sp"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal"
         android:textColor="#2c2c2c"
-        android:lineSpacingExtra="4sp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="How was your experience with Video Call Recoder?" />
 
 

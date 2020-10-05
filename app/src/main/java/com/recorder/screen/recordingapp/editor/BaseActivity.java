@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -118,7 +119,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -130,13 +130,40 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(this,RateUs.class));
                 break;
             case R.id.navigationMenuFeedback:
-                startActivity(new Intent(this,FeedbackDailog.class));
+                getFeedBackDialog();
                 break;
             case R.id.navigationMenuShare:
-                Toast.makeText(this, "gallery", Toast.LENGTH_SHORT).show();
+                if (drawerLayout.isDrawerOpen(Gravity.LEFT))
+                    drawerLayout.closeDrawer(Gravity.LEFT);
+
+                shareUrl();
+            case R.id.navigationMenuRemoveAd:
+                if (drawerLayout.isDrawerOpen(Gravity.LEFT))
+                    drawerLayout.closeDrawer(Gravity.LEFT);
+                startActivity( new Intent(this, buy_panel.class));
+
+                break;
+
+            case R.id.navigationMenuMore:
+                if (drawerLayout.isDrawerOpen(Gravity.LEFT))
+                    drawerLayout.closeDrawer(Gravity.LEFT);
+
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Kito+Apps"));
+                startActivity(browserIntent);
+
                 break;
         }
         return true;
+    }
+
+    private void shareUrl() {
+        Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        String app_url = " https://play.google.com/store/apps/details?id=" + this.getPackageName();
+        shareIntent.putExtra(Intent.EXTRA_TEXT,
+                "Hey check out my app at \n\n" + app_url);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "WhatsApp Status Saver");
+        startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
     @Override
@@ -145,6 +172,35 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             drawerLayout.closeDrawer(Gravity.LEFT);
         else
             getExitDailog();
+    }
+    private void getFeedBackDialog() {
+
+        final AlertDialog.Builder textBuilder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View view = inflater.inflate(R.layout.feedback_dailog, null);
+
+        TextView yes = view.findViewById(R.id.feedbackSubmit);
+        TextView cancel = view.findViewById(R.id.feedbackCancel);
+
+        yes.setOnClickListener((View v) ->{
+            String msg = "Thanks for your support";
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            finish(); });
+
+        cancel.setOnClickListener((View v) ->{
+            InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            dialog.cancel();  });
+
+        textBuilder.setView(view);
+        dialog = textBuilder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
     }
 
     private void getExitDailog() {
@@ -168,6 +224,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         textBuilder.setView(view);
         dialog = textBuilder.create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         Window window = dialog.getWindow();
         window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

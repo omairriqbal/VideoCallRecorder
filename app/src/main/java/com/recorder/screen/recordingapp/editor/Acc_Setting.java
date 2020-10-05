@@ -718,18 +718,14 @@ public class Acc_Setting extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                                 // showPopup(mContext);
-                                showDD();
+
                             }
                         });
 
         androidx.appcompat.app.AlertDialog alert = builder.create();
         alert.show();
     }
-    public void showDD()
-    {
-        Intent in=new Intent(Acc_Setting.this,dialogg.class);
-        startActivity(in);
-    }
+
 
     public void onBackPressed()
     {

@@ -34,7 +34,6 @@ public class RateUs extends Activity {
     ScaleRatingBar ratingBar;
     float rate = 0;
     TextView btnSend ,btnClose;
-    TextView tvtClose, tvtChange;
     ImageView imageView ,smileyImg;
     private AlertDialog dialog;
 
@@ -55,12 +54,7 @@ public class RateUs extends Activity {
             public void onRatingChange(BaseRatingBar ratingBar, float rating, boolean fromUser) {
 
                 rate = rating;
-               /* if (rating <= 3) {
-                    tvtChange.setText("Feedback");
 
-                } else {
-                    tvtChange.setText("Rate us");
-                }*/
                 if (rating == 1) {
                     imageView.setImageDrawable(getResources().getDrawable(R.drawable.smiley1));
                 } else if (rating == 2) {
@@ -78,7 +72,7 @@ public class RateUs extends Activity {
         btnSend.setOnClickListener((View v) -> {
 
             if (rate < 4) {
-                finish();
+//                finish();
                 getFeedBackDialog();
 
             } else {
@@ -114,6 +108,7 @@ public class RateUs extends Activity {
         textBuilder.setView(view);
         dialog = textBuilder.create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         Window window = dialog.getWindow();
         window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -143,6 +138,7 @@ public class RateUs extends Activity {
         textBuilder.setView(view);
         dialog = textBuilder.create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         Window window = dialog.getWindow();
         window.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

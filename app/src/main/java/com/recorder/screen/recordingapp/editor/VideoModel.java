@@ -10,6 +10,7 @@ public class VideoModel {
     private String url;
     private String name;
     private String size;
+    private String date;
     private int id;
     private boolean sdcard;
     private Bitmap imageBitmap;
@@ -52,5 +53,13 @@ public class VideoModel {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

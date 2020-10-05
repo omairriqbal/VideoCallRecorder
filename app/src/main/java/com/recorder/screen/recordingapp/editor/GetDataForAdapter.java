@@ -7,12 +7,16 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.provider.MediaStore;
+import android.text.format.DateFormat;
 import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.unity3d.ads.properties.ClientProperties.getApplicationContext;
@@ -116,6 +120,22 @@ public void getData()
                String length = Formatter.formatFileSize(context, file.length());
                 model.setSize(length);
                 model.setUrl(file.getAbsolutePath());
+            Date lastModDate = new Date(file.lastModified());
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE dd MMM yyyy");
+
+
+            String day = (String) DateFormat.format("dd", lastModDate); // 20
+            String monthString = (String) DateFormat.format("MMM", lastModDate); // Jun
+            String month = (String) DateFormat.format("MM", lastModDate); // 06
+            String year = (String) DateFormat.format("yyyy", lastModDate); // 2013
+
+
+            String parseDate = day + "/" + month + "/" + year;
+
+            System.out.println("date : "+ parseDate.toString());
+
+            model.setDate(parseDate);
                 model.setImageBitmap(bitmap);
                 model.setCheck(true);
                 model.setId(0);

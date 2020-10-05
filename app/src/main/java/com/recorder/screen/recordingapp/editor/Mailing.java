@@ -42,7 +42,7 @@ public class Mailing extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dd);
+//        setContentView(R.layout.dd);
         Intent intent = getIntent();
         jobNo = intent.getStringExtra("Job_No");
         teamNo = intent.getStringExtra("Team_No");

@@ -74,7 +74,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
     class GridViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener {
         PopupMenu popupMenu;
         ImageView videoThumbnail;
-        TextView name,size;
+        TextView name,size,date;
         ImageView menu;
 
         public GridViewHolder(View itemView) {
@@ -83,6 +83,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
             name=itemView.findViewById(R.id.video_name);
             size = itemView.findViewById(R.id.video_size);
             menu = itemView.findViewById(R.id.menu);
+            date = itemView.findViewById(R.id.date);
 
             videoThumbnail.setOnClickListener((View v)->{
                 VideoModel model=dataList.get(getAdapterPosition());
@@ -124,6 +125,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
                 scaleBitmap(model.getImageBitmap());
                 name.setText(model.getName());
                 size.setText(model.getSize());
+                date.setText(model.getDate());
             }catch (Exception e)
             {
 

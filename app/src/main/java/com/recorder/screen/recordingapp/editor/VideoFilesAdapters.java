@@ -37,6 +37,8 @@ import com.google.android.material.shape.CornerFamily;
 import com.google.android.material.shape.ShapeAppearanceModel;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -86,10 +88,11 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
     class GridViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener {
         PopupMenu popupMenu;
         ImageView videoThumbnail;
-        TextView name,size;
+        TextView name,size,date;
         ImageView menu;
 
 
+        @SuppressLint("ResourceType")
         public GridViewHolder(View itemView) {
             super(itemView);
 
@@ -97,6 +100,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
             name=itemView.findViewById(R.id.video_name);
             size=itemView.findViewById(R.id.video_size);
             menu = itemView.findViewById(R.id.menu);
+            date = itemView.findViewById(R.id.date);
 
            /*  ((itemView.findViewById(R.id.play))).setOnClickListener(this);
             ((itemView.findViewById(R.id.share))).setOnClickListener(this);
@@ -104,16 +108,19 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
 
 
             menu.setOnClickListener((View v)->{
+                //Creating the instance of PopupMenu
+                int pos = getAdapterPosition();
+         buildPopupMenu(v,pos);
 
 //                menuClickedPosition = getAdapterPosition();
-                Context wrapper = new ContextThemeWrapper(context, R.style.MyPopupMenu);
+               /* Context wrapper = new ContextThemeWrapper(context, R.style.MyPopupMenu);
                 popupMenu =new PopupMenu(wrapper,v);
                 popupMenu.setOnMenuItemClickListener(this);
                 popupMenu.inflate(R.menu.list_item_menu);
                 popupMenu.show();
                 Log.e("ViewId",v.getId()+"");
-                VideoModel model=dataList.get(getAdapterPosition());
-                Log.e("ArrayList index",model.getName());
+                VideoModel model=dataList.get(getAdapterPosition());*/
+
                 //context.startActivity(intent);
 //                buildPopupMenu(v,position);
             });
@@ -140,6 +147,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
         {
             size.setText(model.getSize());
             name.setText(model.getName());
+            date.setText(model.getDate());
             // videoThumbnail.setImageBitmap(model.getImageBitmap());
             try {
                 scaleBitmap(model.getImageBitmap());
@@ -186,36 +194,6 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
                 case R.id.rename:
                     String oldName = dataList.get(getAdapterPosition()).getName();
                    renameDailog(oldName);
-
-                    /*new RenameDialog(context,oldName) {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-
-                        }
-
-                        @Override
-                        public void onOK(String newName) {
-                            SharedPreferences settings1= context.getSharedPreferences("shared preferences",MODE_PRIVATE);
-
-                            String fullPath = settings1.getString("storage path","storage/emulated/0/");
-                            String finalPath = fullPath + "/Video Call Recorder";
-
-                            if (finalPath != null) {
-                                File renamedFile = new File(finalPath, newName );
-                                File file = new File(finalPath, oldName);
-                                try {
-                                    if (file.renameTo(renamedFile)) {
-                                        notifyDataSetChanged();
-                                    } else {
-                                        Toast.makeText(context, "Failed: Invalid Filename", Toast
-                                                .LENGTH_SHORT).show();
-                                    }
-                                } catch (Exception e) {
-                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }
-                    };*/
                     break;
                 case R.id.shareLink:
                     Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -303,7 +281,8 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
             public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
                 switch ((item.getItemId())) {
                     case R.id.rename:
-                        Toast.makeText(context, "rename", Toast.LENGTH_SHORT).show();
+                        String oldName = dataList.get(position).getName();
+                        renameDailog(oldName);
                         break;
                     case R.id.shareLink:
                         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -325,6 +304,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
 
             }
         });
+        optionsMenu.show();
     }
 
     private void showWarning(int position) {
