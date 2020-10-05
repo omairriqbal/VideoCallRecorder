@@ -11,7 +11,9 @@
     android:elevation="@dimen/_5sdp"
     app:ignore="NamespaceTypo">
 
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,90 +21,94 @@
             android:background="@drawable/list_background"
             android:id="@+id/top">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/video_thumbnail"
-                    android:scaleType="fitXY"
-                    android:background="@android:color/transparent"
-                    card_view:shapeAppearanceOverlay="@style/circleImageView"
-                    android:src="@drawable/test" />
-
-                <TextView
-                    android:id="@+id/video_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/video_thumbnail"
-                    android:gravity="center"
-
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif-medium"
-                    android:textStyle="normal"
-                    android:textColor="#ff6a25"
-                    android:text="Name of Image File"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="20dp" />
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="23-03-2019"
-                    android:textAllCaps="false"
-                    android:textSize="9sp"
-                    android:paddingRight="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:textColor="@android:color/tab_indicator_text" />
-
-                <TextView
-                    android:id="@+id/video_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="40mb"
-                    android:textColor="@android:color/tab_indicator_text"
-                    android:textSize="9dp"
-                    android:paddingBottom="10dp"                            android:layout_centerHorizontal="true"
-                    android:layout_alignParentBottom="true" />
-
-                <ImageView
-                    android:id="@+id/menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="@dimen/_10sdp"
-                    android:src="@drawable/dashboard_dotted_menu" />
-
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/video_thumbnail"
+                android:scaleType="fitXY"
+                android:background="@android:color/transparent"
+                card_view:shapeAppearanceOverlay="@style/circleImageView"
+                android:src="@drawable/test" />
         </RelativeLayout>
+        <TextView
+            android:id="@+id/video_name"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/top"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="normal"
+            android:textColor="#ff6a25"
+            android:text="Name of Image File"
+            android:layout_marginTop="15dp" />
 
-          <ImageView
-              android:layout_width="30dp"
-              android:layout_height="25dp"
-              android:tint="@color/colorPrimary"
-              android:padding="2dp"
-              android:layout_margin="5dp"
-              android:layout_toStartOf="@+id/delete"
-              android:src="@drawable/ic_share"
-              android:id="@+id/share"
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23-03-2019"
+            android:textAllCaps="false"
+            android:textSize="9sp"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@android:color/tab_indicator_text" />
 
-              />
-          <ImageView
-              android:layout_width="30dp"
-              android:tint="@color/colorPrimary"
-              android:layout_height="25dp"
-              android:layout_marginEnd="15dp"
-              android:layout_marginTop="@dimen/_5sdp"
-              android:layout_marginBottom="@dimen/_5sdp"
-              android:padding="2dp"
-              android:layout_alignParentEnd="true"
-              android:src="@drawable/ic_rubbish_bin"
-              android:id="@+id/delete"
-              />
+        <TextView
+            android:id="@+id/video_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/top"
+            android:text="40mb"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/tab_indicator_text"
+            android:textSize="9dp"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingBottom="10dp"
+            android:layout_alignParentBottom="true" />
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="30dp"
+
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:paddingTop="10dp"
+            android:paddingRight="5dp"
+            android:src="@drawable/dashboard_dotted_menu" />
+
+    </RelativeLayout>
+
+ <!--   <ImageView
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:tint="@color/colorPrimary"
+        android:padding="2dp"
+        android:layout_margin="5dp"
+        android:layout_toStartOf="@+id/delete"
+        android:src="@drawable/ic_share"
+        android:id="@+id/share"
+
+        />
+    <ImageView
+        android:layout_width="30dp"
+        android:tint="@color/colorPrimary"
+        android:layout_height="25dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:padding="2dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_rubbish_bin"
+        android:id="@+id/delete"
+        />-->
 
 </androidx.cardview.widget.CardView>
 

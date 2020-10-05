@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.provider.MediaStore;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.unity3d.ads.properties.ClientProperties.getApplicationContext;
 
 /**
  * Created by umair on 02/10/2020.
@@ -111,6 +113,8 @@ public void getData()
                 Bitmap  bitmap= ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
                 VideoModel model = new VideoModel();
                 model.setName(file.getName());
+               String length = Formatter.formatFileSize(context, file.length());
+                model.setSize(length);
                 model.setUrl(file.getAbsolutePath());
                 model.setImageBitmap(bitmap);
                 model.setCheck(true);

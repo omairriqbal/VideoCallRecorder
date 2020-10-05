@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 public class VideoModel {
     private String url;
     private String name;
+    private String size;
     private int id;
     private boolean sdcard;
     private Bitmap imageBitmap;
@@ -43,5 +44,13 @@ public class VideoModel {
     }
     public int getId(){
         return id;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }
