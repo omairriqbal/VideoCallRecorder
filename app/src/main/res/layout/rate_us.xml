@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dailog_background"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:gravity="center_vertical"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/main"
+    >
+
+    <ImageView
+        android:id="@+id/smileyImage"
+        android:layout_width="65dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:src="@drawable/smiley1"
+        android:gravity="center_horizontal" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="#2c2c2c"
+        android:lineSpacingExtra="4sp"
+        android:gravity="center_horizontal"
+        android:text="How was your experience with Video Call Recoder?" />
+
+
+    <com.willy.ratingbar.ScaleRatingBar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/simpleRatingBar"
+        android:onClick="getSimley"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        app:srb_clearRatingEnabled="true"
+        app:srb_clickable="true"
+        app:srb_drawableEmpty="@drawable/empty"
+        app:srb_drawableFilled="@drawable/filled"
+        app:srb_isIndicator="false"
+        app:srb_minimumStars="0"
+        app:srb_numStars="5"
+        app:srb_rating="0"
+        app:srb_scrollable="true"
+        app:srb_starHeight="30dp"
+        app:srb_starPadding="10dp"
+        app:srb_starWidth="30dp"
+        app:srb_stepSize="1" />
+
+    <TextView
+        android:id="@+id/rateSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/enable_button"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:gravity="center"
+        android:text="Submit"
+        android:onClick="submit"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textAllCaps="false"/>
+
+    <TextView
+        android:id="@+id/rateCancel"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/disabe_button"
+        android:textColor="@color/black"
+        android:onClick="close"
+        android:textSize="11sp"
+        android:gravity="center"
+        android:text="Later"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textAllCaps="false"/>
+
+
+</LinearLayout>

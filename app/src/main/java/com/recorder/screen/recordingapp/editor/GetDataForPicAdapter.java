@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.provider.MediaStore;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -156,6 +157,8 @@ public class GetDataForPicAdapter
                     // Bitmap  bitmap= ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
                     VideoModel model=new VideoModel();
                     model.setName(file.getName());
+                    String length = Formatter.formatFileSize(context, file.length());
+                    model.setSize(length);
                     model.setUrl(file.getAbsolutePath());
                     model.setImageBitmap(resized);
                     model.setCheck(true);

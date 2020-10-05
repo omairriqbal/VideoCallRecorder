@@ -7,8 +7,10 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +40,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.codekidlabs.storagechooser.StorageChooser.dialog;
 
 /**
@@ -46,7 +50,10 @@ import static com.codekidlabs.storagechooser.StorageChooser.dialog;
 public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.GridViewHolder> {
     private Context context;
     private ArrayList<VideoModel> dataList=new ArrayList<>();
+    VideoModel model;
     LayoutInflater inflater;
+    private AlertDialog alertDialog;
+
     public VideoFilesAdapters(Context context, ArrayList<VideoModel> dataList){
         this.context=context;
 
@@ -67,7 +74,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
 
     @Override
     public void onBindViewHolder(GridViewHolder holder, int position) {
-        VideoModel model=dataList.get(position);
+        model=dataList.get(position);
         holder.setViews(model);
     }
 
@@ -81,6 +88,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
         ImageView videoThumbnail;
         TextView name,size;
         ImageView menu;
+
 
         public GridViewHolder(View itemView) {
             super(itemView);
@@ -96,8 +104,8 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
 
 
             menu.setOnClickListener((View v)->{
-                Toast.makeText(context, "menu", Toast.LENGTH_SHORT).show();
-                int position = getAdapterPosition();
+
+//                menuClickedPosition = getAdapterPosition();
                 Context wrapper = new ContextThemeWrapper(context, R.style.MyPopupMenu);
                 popupMenu =new PopupMenu(wrapper,v);
                 popupMenu.setOnMenuItemClickListener(this);
@@ -110,7 +118,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
 //                buildPopupMenu(v,position);
             });
             videoThumbnail.setOnClickListener((View v) ->{
-                Toast.makeText(context, "thumbnail", Toast.LENGTH_SHORT).show();
+
                 try {
                     final Intent i = new Intent(Intent.ACTION_VIEW);
                     //   Uri videoUri = FileProvider.getUriForFile(context,context.getPackageName(), new File(dataList.get(getAdapterPosition()).getUrl()));
@@ -140,7 +148,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
 
             }
             if((model.getCheck()))
-            name.setText(model.getName());
+                name.setText(model.getName());
                 /*sdcard.setVisibility(View.VISIBLE);
                 sdcard.setImageResource(R.drawable.sdcard);*/
 
@@ -176,7 +184,38 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
         public boolean onMenuItemClick(MenuItem item) {
             switch ((item.getItemId())) {
                 case R.id.rename:
-                    Toast.makeText(context, "rename", Toast.LENGTH_SHORT).show();
+                    String oldName = dataList.get(getAdapterPosition()).getName();
+                   renameDailog(oldName);
+
+                    /*new RenameDialog(context,oldName) {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+
+                        }
+
+                        @Override
+                        public void onOK(String newName) {
+                            SharedPreferences settings1= context.getSharedPreferences("shared preferences",MODE_PRIVATE);
+
+                            String fullPath = settings1.getString("storage path","storage/emulated/0/");
+                            String finalPath = fullPath + "/Video Call Recorder";
+
+                            if (finalPath != null) {
+                                File renamedFile = new File(finalPath, newName );
+                                File file = new File(finalPath, oldName);
+                                try {
+                                    if (file.renameTo(renamedFile)) {
+                                        notifyDataSetChanged();
+                                    } else {
+                                        Toast.makeText(context, "Failed: Invalid Filename", Toast
+                                                .LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                    };*/
                     break;
                 case R.id.shareLink:
                     Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -209,6 +248,46 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
     */
 
 
+    }
+
+    private void renameDailog(String oldName) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+
+        View dialogView = inflater.inflate(R.layout.rename_dailog, null);
+        dialogBuilder.setView(dialogView);
+
+        EditText editText = (EditText) dialogView.findViewById(R.id.renameEdt);
+        TextView okay = dialogView.findViewById(R.id.okRename);
+        TextView cancel = dialogView.findViewById(R.id.cancelRename);
+        editText.setText(oldName);
+        cancel.setOnClickListener((View v)->{
+            alertDialog.dismiss();
+        });
+        okay.setOnClickListener((View v)->{
+            SharedPreferences settings1= context.getSharedPreferences("shared preferences",MODE_PRIVATE);
+
+            String fullPath = settings1.getString("storage path","storage/emulated/0/");
+            String finalPath = fullPath + "/Video Call Recorder";
+
+            if (finalPath != null) {
+                File renamedFile = new File(finalPath, editText.getText().toString() );
+                File file = new File(finalPath, oldName);
+                try {
+                    if (file.renameTo(renamedFile)) {
+                        notifyDataSetChanged();
+//                        new Handler().postDelayed(() ->   notifyDataSetChanged(), 1000);
+                    } else {
+                        Toast.makeText(context, "Failed: Invalid Filename", Toast
+                                .LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+            alertDialog.dismiss();
+        });
+         alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 
     @SuppressLint("RestrictedApi")

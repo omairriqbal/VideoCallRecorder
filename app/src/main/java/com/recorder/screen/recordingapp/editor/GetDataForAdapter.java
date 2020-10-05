@@ -106,8 +106,8 @@ public void getData()
     File listFile[] = dir.listFiles();
     if (listFile != null && listFile.length > 0) {
         for (File file : listFile) {
-            if (file.getName().endsWith(".mp4")
-                    || file.getName().endsWith(".3gp")) {
+      /*      if (file.getName().endsWith(".mp4")
+                    || file.getName().endsWith(".3gp")) {*/
                 String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
                 //   Bitmap resized = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(file.getAbsolutePath()), 180, 300);
                 Bitmap  bitmap= ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
@@ -120,7 +120,7 @@ public void getData()
                 model.setCheck(true);
                 model.setId(0);
                 models.add(model);
-            }
+//            }
 
         }
     }

@@ -41,6 +41,12 @@
             </intent-filter>
 
         </activity>
+        <activity
+            android:name=".RateUs"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+        <activity
+            android:name=".FeedbackDailog"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
 
         <activity android:name=".dialogg" android:theme="@style/Theme.AppCompat.Light.Dialog"/>
         <activity android:name=".permission_dialog" android:theme="@style/Theme.AppCompat.Light.Dialog"/>

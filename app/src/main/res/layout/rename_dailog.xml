@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dailog_background"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:gravity="center_vertical"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/dd"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="#2c2c2c"
+        android:lineSpacingExtra="4sp"
+        android:gravity="center_horizontal"
+        android:text="Rename"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="#2c2c2c"
+        android:lineSpacingExtra="4sp"
+        android:gravity="center_horizontal"
+        android:text="Enter new name" />
+
+    <EditText
+        android:id = "@+id/renameEdt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_background"
+        android:layout_margin="15dp"
+        android:hint="Type name here"/>
+
+    <TextView
+        android:id="@+id/okRename"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/enable_button"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:gravity="center"
+         android:text="Okay"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textAllCaps="false"/>
+
+    <TextView
+        android:id="@+id/cancelRename"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/disabe_button"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:gravity="center"
+        android:text="Cancel"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textAllCaps="false"/>
+
+
+</LinearLayout>
