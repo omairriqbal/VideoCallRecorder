@@ -102,10 +102,10 @@ public void getData()
 {
     SharedPreferences settings1= context.getSharedPreferences("shared preferences",MODE_PRIVATE);
 
-    String fullPath = settings1.getString("storage path","storage/emulated/0/");
-    String finalPath = fullPath + "/Video Call Recorder";
+    String path =  settings1.getString("storage path","storage/emulated/0/");
+    String fullPath = path + "/Video Call Recorder";
 
-    File dir = new File(finalPath);
+    File dir = new File(fullPath);
 
     File listFile[] = dir.listFiles();
     if (listFile != null && listFile.length > 0) {

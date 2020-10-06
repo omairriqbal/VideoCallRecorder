@@ -148,7 +148,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 if (drawerLayout.isDrawerOpen(Gravity.LEFT))
                     drawerLayout.closeDrawer(Gravity.LEFT);
 
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Kito+Apps"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Global+Apps+Technology"));
                 startActivity(browserIntent);
 
                 break;

@@ -622,7 +622,7 @@ public class Acc_Setting extends AppCompatActivity
         chooser.show();
     }
 
-    @Override
+   /* @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
 
 
@@ -630,7 +630,7 @@ public class Acc_Setting extends AppCompatActivity
         {
 
         }
-    }
+    }*/
     private void showWarning()
     {
         String yes,no,exit;

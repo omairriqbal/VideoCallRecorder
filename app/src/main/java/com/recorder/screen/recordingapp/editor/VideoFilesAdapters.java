@@ -51,32 +51,32 @@ import static com.codekidlabs.storagechooser.StorageChooser.dialog;
 
 public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.GridViewHolder> {
     private Context context;
-    private ArrayList<VideoModel> dataList=new ArrayList<>();
+    private ArrayList<VideoModel> dataList = new ArrayList<>();
     VideoModel model;
     LayoutInflater inflater;
     private AlertDialog alertDialog;
 
-    public VideoFilesAdapters(Context context, ArrayList<VideoModel> dataList){
-        this.context=context;
+    public VideoFilesAdapters(Context context, ArrayList<VideoModel> dataList) {
+        this.context = context;
 
-        int x=(dataList.size())-1;
-        for(int i=x;i>=0;i--)
-        {
+        int x = (dataList.size()) - 1;
+        for (int i = x; i >= 0; i--) {
             this.dataList.add(dataList.get(i));
         }
-        inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
     }
+
     @Override
     public GridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=inflater.inflate(R.layout.single_view_of_video_new,parent,false);
-        GridViewHolder viewHolder=new GridViewHolder(view);
+        View view = inflater.inflate(R.layout.single_view_of_video_new, parent, false);
+        GridViewHolder viewHolder = new GridViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(GridViewHolder holder, int position) {
-        model=dataList.get(position);
+        model = dataList.get(position);
         holder.setViews(model);
     }
 
@@ -85,10 +85,10 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
         return dataList.size();
     }
 
-    class GridViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener {
+    class GridViewHolder extends RecyclerView.ViewHolder /*implements PopupMenu.OnMenuItemClickListener*/ {
         PopupMenu popupMenu;
         ImageView videoThumbnail;
-        TextView name,size,date;
+        TextView name, size, date;
         ImageView menu;
 
 
@@ -96,35 +96,19 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
         public GridViewHolder(View itemView) {
             super(itemView);
 
-            videoThumbnail=itemView.findViewById(R.id.video_thumbnail);
-            name=itemView.findViewById(R.id.video_name);
-            size=itemView.findViewById(R.id.video_size);
+            videoThumbnail = itemView.findViewById(R.id.video_thumbnail);
+            name = itemView.findViewById(R.id.video_name);
+            size = itemView.findViewById(R.id.video_size);
             menu = itemView.findViewById(R.id.menu);
             date = itemView.findViewById(R.id.date);
 
-           /*  ((itemView.findViewById(R.id.play))).setOnClickListener(this);
-            ((itemView.findViewById(R.id.share))).setOnClickListener(this);
-            ((itemView.findViewById(R.id.delete))).setOnClickListener(this);*/
-
-
-            menu.setOnClickListener((View v)->{
+            menu.setOnClickListener((View v) -> {
                 //Creating the instance of PopupMenu
                 int pos = getAdapterPosition();
-         buildPopupMenu(v,pos);
+                buildPopupMenu(v, pos);
 
-//                menuClickedPosition = getAdapterPosition();
-               /* Context wrapper = new ContextThemeWrapper(context, R.style.MyPopupMenu);
-                popupMenu =new PopupMenu(wrapper,v);
-                popupMenu.setOnMenuItemClickListener(this);
-                popupMenu.inflate(R.menu.list_item_menu);
-                popupMenu.show();
-                Log.e("ViewId",v.getId()+"");
-                VideoModel model=dataList.get(getAdapterPosition());*/
-
-                //context.startActivity(intent);
-//                buildPopupMenu(v,position);
             });
-            videoThumbnail.setOnClickListener((View v) ->{
+            videoThumbnail.setOnClickListener((View v) -> {
 
                 try {
                     final Intent i = new Intent(Intent.ACTION_VIEW);
@@ -133,54 +117,51 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
 
                     //  i.setDataAndType(Uri.fromFile(new File(dataList.get(getAdapterPosition()).getUrl())), "video/*");
                     context.startActivity(i);
-                }
-                catch (Exception e)
-                {
-                    String msg=e.getMessage();
-                    Log.e("ViewId",msg);
-                    Toast.makeText(context, "rrr "+msg, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    String msg = e.getMessage();
+                    Log.e("ViewId", msg);
+                    Toast.makeText(context, "rrr " + msg, Toast.LENGTH_SHORT).show();
                 }
 
             });
         }
-        public void setViews(VideoModel model)
-        {
+
+        public void setViews(VideoModel model) {
             size.setText(model.getSize());
             name.setText(model.getName());
             date.setText(model.getDate());
             // videoThumbnail.setImageBitmap(model.getImageBitmap());
             try {
                 scaleBitmap(model.getImageBitmap());
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
-            if((model.getCheck()))
+            if ((model.getCheck()))
                 name.setText(model.getName());
                 /*sdcard.setVisibility(View.VISIBLE);
                 sdcard.setImageResource(R.drawable.sdcard);*/
 
 
         }
-        public void scaleBitmap(Bitmap srcBmp)
-        {
+
+        public void scaleBitmap(Bitmap srcBmp) {
             Bitmap dstBmp;
-            if (srcBmp.getWidth() >= srcBmp.getHeight()){
+            if (srcBmp.getWidth() >= srcBmp.getHeight()) {
 
                 dstBmp = Bitmap.createBitmap(
                         srcBmp,
-                        srcBmp.getWidth()/2 - srcBmp.getHeight()/2,
+                        srcBmp.getWidth() / 2 - srcBmp.getHeight() / 2,
                         0,
                         srcBmp.getHeight(),
                         200
                 );
 
-            }else{
+            } else {
 
                 dstBmp = Bitmap.createBitmap(
                         srcBmp,
                         0,
-                        srcBmp.getHeight()/2 - srcBmp.getWidth()/2,
+                        srcBmp.getHeight() / 2 - srcBmp.getWidth() / 2,
                         srcBmp.getWidth(),
                         200
                 );
@@ -188,176 +169,130 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
             videoThumbnail.setImageBitmap(dstBmp);
         }
 
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            switch ((item.getItemId())) {
-                case R.id.rename:
-                    String oldName = dataList.get(getAdapterPosition()).getName();
-                   renameDailog(oldName);
-                    break;
-                case R.id.shareLink:
-                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                    sharingIntent.setType("video/*");
-                    sharingIntent.putExtra(Intent.EXTRA_SUBJECT,"Title");
-                    sharingIntent.putExtra(Intent.EXTRA_STREAM,
-                            Uri.parse(dataList.get(getAdapterPosition()).getUrl()));
-                    context.startActivity(Intent.createChooser(sharingIntent,"share:"));
-                    break;
-                case R.id.deleteListItem:
-                    int position = getAdapterPosition();
-                    showWarning(position);
-                    break;
-            }
-            return false;
-        }
-        /*    @Override
-            public void onClick(View view)
-            {
-                Context wrapper = new ContextThemeWrapper(context, R.style.MyPopupMenu);
-                popupMenu =new PopupMenu(wrapper,view);
-                popupMenu.setOnMenuItemClickListener(this);
-                popupMenu.inflate(R.menu.video_context_menu);
-                popupMenu.show();
-                Log.e("ViewId",view.getId()+"");
-                VideoModel model=dataList.get(getAdapterPosition());
-                Log.e("ArrayList index",model.getName());
-                //context.startActivity(intent);
-            }
-    */
+        private void renameDailog(String oldName) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
 
+            View dialogView = inflater.inflate(R.layout.rename_dailog, null);
+            dialogBuilder.setView(dialogView);
 
-    }
+            EditText editText = (EditText) dialogView.findViewById(R.id.renameEdt);
+            TextView okay = dialogView.findViewById(R.id.okRename);
+            TextView cancel = dialogView.findViewById(R.id.cancelRename);
+            editText.setText(oldName);
+            cancel.setOnClickListener((View v) -> {
+                alertDialog.dismiss();
+            });
+            okay.setOnClickListener((View v) -> {
+                SharedPreferences settings1 = context.getSharedPreferences("shared preferences", MODE_PRIVATE);
 
-    private void renameDailog(String oldName) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                String fullPath = settings1.getString("storage path", "storage/emulated/0/");
+                String finalPath = fullPath + "/Video Call Recorder";
 
-        View dialogView = inflater.inflate(R.layout.rename_dailog, null);
-        dialogBuilder.setView(dialogView);
-
-        EditText editText = (EditText) dialogView.findViewById(R.id.renameEdt);
-        TextView okay = dialogView.findViewById(R.id.okRename);
-        TextView cancel = dialogView.findViewById(R.id.cancelRename);
-        editText.setText(oldName);
-        cancel.setOnClickListener((View v)->{
-            alertDialog.dismiss();
-        });
-        okay.setOnClickListener((View v)->{
-            SharedPreferences settings1= context.getSharedPreferences("shared preferences",MODE_PRIVATE);
-
-            String fullPath = settings1.getString("storage path","storage/emulated/0/");
-            String finalPath = fullPath + "/Video Call Recorder";
-
-            if (finalPath != null) {
-                File renamedFile = new File(finalPath, editText.getText().toString() );
-                File file = new File(finalPath, oldName);
-                try {
-                    if (file.renameTo(renamedFile)) {
-                        notifyDataSetChanged();
+                if (finalPath != null) {
+                    File renamedFile = new File(finalPath, editText.getText().toString());
+                    File file = new File(finalPath, oldName);
+                    try {
+                        if (file.renameTo(renamedFile)) {
+                            notifyDataSetChanged();
 //                        new Handler().postDelayed(() ->   notifyDataSetChanged(), 1000);
-                    } else {
-                        Toast.makeText(context, "Failed: Invalid Filename", Toast
-                                .LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Failed: Invalid Filename", Toast
+                                    .LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
-                } catch (Exception e) {
-                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-            }
-            alertDialog.dismiss();
-        });
-         alertDialog = dialogBuilder.create();
-        alertDialog.show();
-    }
-
-    @SuppressLint("RestrictedApi")
-    private void buildPopupMenu(View v, int position) {
-        @SuppressLint("RestrictedApi") MenuBuilder menuBuilder = new MenuBuilder(context);
-        MenuInflater inflater = new MenuInflater(context);
-        inflater.inflate(R.menu.list_item_menu, menuBuilder);
-        @SuppressLint("RestrictedApi") MenuPopupHelper optionsMenu = new MenuPopupHelper(context, menuBuilder, v);
-        optionsMenu.setForceShowIcon(true);
-
-        menuBuilder.setCallback(new MenuBuilder.Callback() {
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
-                switch ((item.getItemId())) {
-                    case R.id.rename:
-                        String oldName = dataList.get(position).getName();
-                        renameDailog(oldName);
-                        break;
-                    case R.id.shareLink:
-                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                        sharingIntent.setType("video/*");
-                        sharingIntent.putExtra(Intent.EXTRA_SUBJECT,"Title");
-                        sharingIntent.putExtra(Intent.EXTRA_STREAM,
-                                Uri.parse(dataList.get(position).getUrl()));
-                        context.startActivity(Intent.createChooser(sharingIntent,"share:"));
-                        break;
-                    case R.id.deleteListItem:
-                        showWarning(position);
-                        break;
-                }
-                return false;
-            }
-
-            @Override
-            public void onMenuModeChange(@NonNull MenuBuilder menu) {
-
-            }
-        });
-        optionsMenu.show();
-    }
-
-    private void showWarning(int position) {
-
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
-        Locale.getDefault().getDisplayLanguage();
-        builder.setMessage("Video will be deleted permanently")
-                .setNegativeButton("Proceed",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-
-
-                                if(dataList.size()>0) {
-                                    if (dataList.get(position).getId() == 0) {
-                                        String path = dataList.get(position).getUrl();
-                                        boolean anfffs = new File(path).delete();
-                                    }
-                                }
-                                else {
-                                    Uri uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dataList.
-                                            get(position).getId());
-                                    ContentResolver resolver = context.getContentResolver();
-                                    resolver.delete(uri, null, null);
-                                }
-
-                                try
-                                {
-
-                                }catch (Exception e)
-                                {
-                                    dataList.remove(position);
-                                    notifyItemRemoved(position);
-                                }
-
-                            }
-                        })
-                .setPositiveButton("Cancel",
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-
-                            }
-                        });
-
-        androidx.appcompat.app.AlertDialog alert = builder.create();
-        alert.getWindow().setWindowAnimations(R.style.Animation);
-        try {
-            alert.show();
+                alertDialog.dismiss();
+            });
+            alertDialog = dialogBuilder.create();
+            alertDialog.show();
         }
-        catch (Exception e)
-        {
+
+        @SuppressLint("RestrictedApi")
+        private void buildPopupMenu(View v, int position) {
+            @SuppressLint("RestrictedApi") MenuBuilder menuBuilder = new MenuBuilder(context);
+            MenuInflater inflater = new MenuInflater(context);
+            inflater.inflate(R.menu.list_item_menu, menuBuilder);
+            @SuppressLint("RestrictedApi") MenuPopupHelper optionsMenu = new MenuPopupHelper(context, menuBuilder, v);
+            optionsMenu.setForceShowIcon(true);
+
+            menuBuilder.setCallback(new MenuBuilder.Callback() {
+                @Override
+                public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
+                    switch ((item.getItemId())) {
+                        case R.id.rename:
+                            String oldName = dataList.get(position).getName();
+                            renameDailog(oldName);
+                            break;
+                        case R.id.shareLink:
+                            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                            sharingIntent.setType("video/*");
+                            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Title");
+                            sharingIntent.putExtra(Intent.EXTRA_STREAM,
+                                    Uri.parse(dataList.get(position).getUrl()));
+                            context.startActivity(Intent.createChooser(sharingIntent, "share:"));
+                            break;
+                        case R.id.deleteListItem:
+                            showWarning(position);
+                            break;
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onMenuModeChange(@NonNull MenuBuilder menu) {
+
+                }
+            });
+            optionsMenu.show();
+        }
+
+        private void showWarning(int position) {
+
+            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
+            Locale.getDefault().getDisplayLanguage();
+            builder.setMessage("Video will be deleted permanently")
+                    .setNegativeButton("Proceed",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+
+
+                                    if (dataList.size() > 0) {
+                                        if (dataList.get(position).getId() == 0) {
+                                            String path = dataList.get(position).getUrl();
+                                            boolean anfffs = new File(path).delete();
+                                        }
+                                    } else {
+                                        Uri uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dataList.
+                                                get(position).getId());
+                                        ContentResolver resolver = context.getContentResolver();
+                                        resolver.delete(uri, null, null);
+                                    }
+
+                                    try {
+
+                                    } catch (Exception e) {
+                                        dataList.remove(position);
+                                        notifyItemRemoved(position);
+                                    }
+
+                                }
+                            })
+                    .setPositiveButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+
+                                }
+                            });
+
+            androidx.appcompat.app.AlertDialog alert = builder.create();
+            alert.getWindow().setWindowAnimations(R.style.Animation);
+            try {
+                alert.show();
+            } catch (Exception e) {
             /*try
             {
                 if(dataList.get(position).getId()==0)
@@ -378,7 +313,8 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
             {
 
             }*/
-        }
+            }
 
+        }
     }
 }

@@ -31,8 +31,6 @@ import android.os.Looper;
 import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import androidx.core.app.ActivityCompat;
-
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -53,6 +51,8 @@ import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -90,7 +90,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         ORIENTATIONS.append(Surface.ROTATION_180, 270);
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
-   String fullpath,name;
+   String name;
     View right,left;
     private WindowManager mWindowManager,windowManagerClose;
     private View mFloatingView;
@@ -313,7 +313,7 @@ static boolean recording=false;
                 case ACTION_OPEN_MAIN:
                     clearAll();
 
-                    Intent in=new Intent(getApplicationContext(),main_menu.class);
+                    Intent in=new Intent(getApplicationContext(), main_menu.class);
                     in.setFlags(FLAG_ACTIVITY_NEW_TASK);
                     startActivity(in);
                     break;
@@ -349,7 +349,7 @@ static boolean recording=false;
             show = AnimationUtils.loadAnimation(getApplication(), R.anim.show);
          hide = AnimationUtils.loadAnimation(getApplication(), R.anim.left_in);
         bottom_down = AnimationUtils.loadAnimation(getApplication(), R.anim.bottom_down);
-        bottom_up = AnimationUtils.loadAnimation(getApplication(),R.anim.bottom_up);
+        bottom_up = AnimationUtils.loadAnimation(getApplication(), R.anim.bottom_up);
         DisplayMetrics metrics = new DisplayMetrics();
         mProjectionManager = (MediaProjectionManager) getSystemService
                 (Context.MEDIA_PROJECTION_SERVICE);
@@ -718,7 +718,7 @@ else
         {
             closeButton = new Intent(this, FloatingViewService.class);
             closeButton.setAction(ACTION_PAUSE);
-            notificationView.setImageViewResource(R.id.btn_play,R.mipmap.ic_pause);
+            notificationView.setImageViewResource(R.id.btn_play, R.mipmap.ic_pause);
             circle_1.setImageResource(R.mipmap.ic_action_pause);
             circle_1.setId(R.id.pause);
         }
@@ -726,7 +726,7 @@ else
         {
             closeButton = new Intent(this, FloatingViewService.class);
             closeButton.setAction(ACTION_RESUME);
-            notificationView.setImageViewResource(R.id.btn_play,R.mipmap.ic_action_resume);
+            notificationView.setImageViewResource(R.id.btn_play, R.mipmap.ic_action_resume);
             circle_1.setImageResource(R.mipmap.ic_resume);
             circle_1.setId(R.id.resume);
         }
@@ -734,7 +734,7 @@ else
         {
             closeButton = new Intent(this, FloatingViewService.class);
             closeButton.setAction(ACTION_PAUSE_PLAY);
-            notificationView.setImageViewResource(R.id.btn_play,R.mipmap.ic_rec);
+            notificationView.setImageViewResource(R.id.btn_play, R.mipmap.ic_rec);
             circle_1.setImageResource(R.mipmap.widget_rec);
             circle_1.setId(R.id.rec);
 
@@ -940,7 +940,7 @@ else
         }
         stopForeground(true);
      stopSelf();
-     stopService(new Intent(this,FloatingViewService.class));
+     stopService(new Intent(this, FloatingViewService.class));
      notificationManager.cancelAll();
     }
 
@@ -1018,7 +1018,7 @@ else
                     timmer.animate().translationX(x).translationY(0f).setInterpolator(new AccelerateDecelerateInterpolator()).start();
 
                 }
-                Intent in=new Intent(getApplicationContext(),main_menu.class);
+                Intent in=new Intent(getApplicationContext(), main_menu.class);
                 in.setFlags(FLAG_ACTIVITY_NEW_TASK);
                 startActivity(in);
                 break;
@@ -1265,9 +1265,65 @@ try {
 
             }
         }
+        if(!recording)
+        {
+            if(!check_Ad()) {
+
+
+                // Toast.makeText(getApplicationContext(), "started", Toast.LENGTH_SHORT).show();
+                WindowManager.LayoutParams countdown_pram = new WindowManager.LayoutParams(
+                        WindowManager.LayoutParams.WRAP_CONTENT,
+                        WindowManager.LayoutParams.WRAP_CONTENT,
+                        LAYOUT_FLAG,
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                        PixelFormat.TRANSLUCENT);
+                countdown_pram.gravity = Gravity.CENTER;
+                countdown_pram.x = 0;
+                countdown_pram.y = 0;
+            try {
+                mWindowManager.addView(countdown, countdown_pram);
+            }
+            catch (Exception e)
+            {
+
+            }
+                SharedPreferences settings1 = getSharedPreferences("MY_PREF", 0);
+                int sec = settings1.getInt("timmer", 3);
+                recording = !recording;
+                if(sec!=0)
+                start_Timer(1000 * (sec+1));
+
+                else
+                    start_Timer(1000 * sec);
+            }
+        }
+
 
     }
+    public boolean check_Ad()
+    {
+        if(!buy)
+        {
+            incremntCount();
+            check_InApp();
+            SharedPreferences prefs = getApplicationContext().getSharedPreferences("recorder", 0);
+            int count = prefs.getInt("count", 0);
+            //   Toast.makeText(MainActivity.this, ""+count, Toast.LENGTH_SHORT).show();
+            if (count >= 5) {
 
+                Intent mainIntent = new Intent(getApplicationContext(), Ad_Acc.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(mainIntent);
+                return true;
+
+            }
+        }
+        return false;
+       /* Intent mainIntent = new Intent(getApplicationContext(), Ad_Acc.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(mainIntent);
+        return true;*/
+    }
     public void stop()
     {
         if(recording) {
@@ -1291,19 +1347,12 @@ try {
                 }
             }).start();
 
-            SharedPreferences settings1= getSharedPreferences("shared preferences",MODE_PRIVATE);
+            SharedPreferences settings = getSharedPreferences("shared preferences", MODE_PRIVATE);
 
+            String path =  settings.getString("storage path","storage/emulated/0/");
+            String fullPath = path + "/Video Call Recorder";
 
-            String fullPath = settings1.getString("storage path","storage/emulated/0/");
-            String finalPath = fullPath + "/Video Call Recorder";
-
-            File ff=new File(finalPath);
-            if(!(ff.exists()))
-            {
-                ff.mkdir();
-            }
-
-            String output = finalPath + name;
+            String output = fullPath + name;
             stopScreenSharing();
             MediaScannerConnection.scanFile(getApplicationContext(), new String[]{output}, null,
                     new MediaScannerConnection.OnScanCompletedListener() {
@@ -1321,12 +1370,12 @@ try {
             notificationManager.notify(1, myNotification);
 
 
-            Intent in=new Intent(FloatingViewService.this,Finish_popup.class);
+           /* Intent in=new Intent(FloatingViewService.this,Finish_popup.class);
             in.setFlags(FLAG_ACTIVITY_NEW_TASK);
             in.putExtra("name",name);
-            in.putExtra("url",finalPath);
+            in.putExtra("url",fullPath);*/
 
-            new Handler().postDelayed(() -> startActivity(in), 1000);
+//            new Handler().postDelayed(() -> startActivity(in), 1000);
             hide_circle();
             collapsed_iv.setAlpha(130);
             collapsed_iv.animate().scaleX(0.7f).scaleY(0.7f).setDuration(100);
@@ -1379,17 +1428,19 @@ try {
         else
             ext=".3gp";
          name="/SR_"+cc.getTimeInMillis()+ext;
+        //fullpath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/Screen Recorder";//+ ;
+        SharedPreferences settings = getSharedPreferences("shared preferences", MODE_PRIVATE);
 
-        SharedPreferences settings= getSharedPreferences("shared preferences",0);
-       String fullpath = settings.getString("storage path","storage/emulated/0/");;
-        String finalPath = fullpath + "/Video Call Recorder";
+        String path =  settings1.getString("storage path","storage/emulated/0/");
+        String fullPath = path + "/Video Call Recorder";
 
-        File ff=new File(finalPath);
+        File ff=new File(fullPath);
         if(!(ff.exists()))
         {
             ff.mkdir();
         }
-
+       /* CamcorderProfile cpHigh = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+        mMediaRecorder.setProfile(cpHigh);*/
         try {
             mMediaRecorder = new MediaRecorder();
             mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -1398,7 +1449,7 @@ try {
            /* mMediaRecorder.setOutputFile(Environment
                     .getExternalStoragePublicDirectory(Environment
                             .DIRECTORY_DOWNLOADS) + name);*/
-            mMediaRecorder.setOutputFile(finalPath + name);
+            mMediaRecorder.setOutputFile(fullPath + name);
             mMediaRecorder.setVideoSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
             mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
             mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);

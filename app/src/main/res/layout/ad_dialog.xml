@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center_vertical"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:padding="5dp"
+android:background="#FAFAFA"
+    tools:ignore="MissingDefaultResource">
+<LinearLayout
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FAFAFA"
+    android:layout_gravity="center_vertical|center_horizontal"
+    android:gravity="center_vertical"
+    android:layout_centerHorizontal="true"
+android:id="@+id/dd"
+    android:layout_marginTop="10dp"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="20dp"
+        android:text="Watch Ad to record more videos"
+        android:layout_marginLeft="15dp"
+        android:textSize="12sp"
+        android:textColor="@android:color/tab_indicator_text"
+        />
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_gravity="end"
+     android:gravity="end"
+     android:layout_marginBottom="10dp"
+     >
+     <Button
+         android:layout_width="50dp"
+         android:layout_height="30dp"
+         android:background="@android:color/transparent"
+         android:text="Watch Ad"
+         android:textAllCaps="false"
+         android:textColor="@android:color/tab_indicator_text"
+         android:layout_marginRight="10dp"
+         android:id="@+id/watch"
+         android:textSize="10sp" />
+
+ </LinearLayout>
+
+</LinearLayout>
+<ImageView
+    android:layout_width="15dp"
+    android:layout_height="15dp"
+    android:layout_alignEnd="@+id/dd"
+    android:src="@android:drawable/ic_menu_close_clear_cancel"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:id="@+id/close"
+
+    app:tint="@android:color/tab_indicator_text" />
+</RelativeLayout>

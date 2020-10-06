@@ -72,7 +72,7 @@ public class FloatingViewService_notification extends Service
         ORIENTATIONS.append(Surface.ROTATION_180, 270);
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
-    String fullpath,name;
+    String name;
     View right,left;
     private WindowManager mWindowManager,windowManagerClose;
     private View mFloatingView;
@@ -80,7 +80,7 @@ public class FloatingViewService_notification extends Service
     View layout;
     LinearLayout options;
     private ImageView collapsed_iv,fab1;
-     ComponentName serviceName;
+    ComponentName serviceName;
     private Handler handler=new Handler();
     TextView timmer;
     private MediaProjectionManager mgr;
@@ -116,11 +116,11 @@ public class FloatingViewService_notification extends Service
             {
                 if(intent.hasExtra(EXTRA_RESULT_CODE))
                 {
-                      resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
+                    resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
                     resultData=intent.getParcelableExtra(EXTRA_RESULT_INTENT);
                 }
                 else
-               openPermissionActivity();
+                    openPermissionActivity();
             }
             /*else
             {
@@ -129,12 +129,12 @@ public class FloatingViewService_notification extends Service
                 startActivity(in);
             }*/
 
-          //  resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
-           // resultData=intent.getParcelableExtra(EXTRA_RESULT_INTENT);
+            //  resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
+            // resultData=intent.getParcelableExtra(EXTRA_RESULT_INTENT);
             //foregroundify();
         }
-       else if (intent != null && intent.getAction() != null)
-       {
+        else if (intent != null && intent.getAction() != null)
+        {
 
             switch (intent.getAction())
             {
@@ -147,7 +147,7 @@ public class FloatingViewService_notification extends Service
 
                     break;
                 case ACTION_PERMISSION:
-                     resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
+                    resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
                     resultData=intent.getParcelableExtra(EXTRA_RESULT_INTENT);
                     createRecordNotification();
                     break;
@@ -159,11 +159,11 @@ public class FloatingViewService_notification extends Service
                     break;
 
 
-                    case ACTION_PAUSE_PLAY:
+                case ACTION_PAUSE_PLAY:
                     // pause or play song
 
-                       record();
-                        break;
+                    record();
+                    break;
 
 
                 case ACTION_PAUSE:
@@ -175,9 +175,9 @@ public class FloatingViewService_notification extends Service
                             update_Noti("pause");
                         }
                         catch(Exception e)
-                            {
+                        {
 
-                            }
+                        }
 
 
                     }
@@ -222,7 +222,7 @@ public class FloatingViewService_notification extends Service
                     break;
             }
         }
-      //  return START_NOT_STICKY;
+        //  return START_NOT_STICKY;
         return START_NOT_STICKY;
     }
 
@@ -320,21 +320,21 @@ public class FloatingViewService_notification extends Service
 
        /* Intent clear = new Intent(this, FloatingViewService.class);
         clear.setAction(ACTION_CLEAR);*/
-       // PendingIntent pendingClearIntent = PendingIntent.getService(getApplicationContext(), 2, clear, 0);
+        // PendingIntent pendingClearIntent = PendingIntent.getService(getApplicationContext(), 2, clear, 0);
 
         Intent home = new Intent(this, FloatingViewService_notification.class);
         home.setAction(ACTION_OPEN_MAIN);
         PendingIntent pendingHomeIntent = PendingIntent.getService(getApplicationContext(), 3, home, 0);
 
 
-         notificationView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.widget_new_notification);
+        notificationView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.widget_new_notification);
 
         RemoteViews notificationView_samll = new RemoteViews(getApplicationContext().getPackageName(), R.layout.widget_small_notification);
-         notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
-           notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = null;
             channel = new NotificationChannel("default",
                     "Channel name",
@@ -354,9 +354,9 @@ public class FloatingViewService_notification extends Service
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             myNotification  = new Notification.Builder(getApplicationContext(),"default")
-                   .setSmallIcon(R.drawable.ic_noti)
-                   .setTicker("Recorder is ready")
-                   .setAutoCancel(false).build();
+                    .setSmallIcon(R.drawable.ic_noti)
+                    .setTicker("Recorder is ready")
+                    .setAutoCancel(false).build();
         }
         else {
             myNotification  = new Notification.Builder(getApplicationContext())
@@ -369,17 +369,17 @@ public class FloatingViewService_notification extends Service
         myNotification.bigContentView = notificationView;
         myNotification.contentView = notificationView_samll;
 
-      //  notificationView.setProgressBar(R.id.pb_progress, 100, 12, false);
+        //  notificationView.setProgressBar(R.id.pb_progress, 100, 12, false);
 
         Notification.Builder builder = new Notification.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setTicker("Recorder is ready").setContent(notificationView).setAutoCancel(false);
         notificationView.setOnClickPendingIntent(R.id.btn_stop, pendingStopIntent);
         notificationView.setOnClickPendingIntent(R.id.btn_play, pendingSwitchIntent);
-       // notificationView.setOnClickPendingIntent(R.id.btnClear, pendingClearIntent);
+        // notificationView.setOnClickPendingIntent(R.id.btnClear, pendingClearIntent);
         notificationView.setOnClickPendingIntent(R.id.openApp, pendingHomeIntent);
 
         notificationView_samll.setOnClickPendingIntent(R.id.btn_stop, pendingStopIntent);
         notificationView_samll.setOnClickPendingIntent(R.id.btn_play, pendingSwitchIntent);
-      //  notificationView_samll.setOnClickPendingIntent(R.id.btnClear, pendingClearIntent);
+        //  notificationView_samll.setOnClickPendingIntent(R.id.btnClear, pendingClearIntent);
         notificationView_samll.setOnClickPendingIntent(R.id.openApp, pendingHomeIntent);
         notificationManager.notify(1, myNotification);
 
@@ -390,9 +390,9 @@ public class FloatingViewService_notification extends Service
     {
         super.onDestroy();
         stopForeground(true);
-     stopSelf();
-     stopService(new Intent(this,FloatingViewService_notification.class));
-     notificationManager.cancelAll();
+        stopSelf();
+        stopService(new Intent(this,FloatingViewService_notification.class));
+        notificationManager.cancelAll();
     }
 
 
@@ -400,11 +400,11 @@ public class FloatingViewService_notification extends Service
     public void start_Timer(long time)
     {
 
-         cdt = new CountDownTimer(time, 1000) {
+        cdt = new CountDownTimer(time, 1000) {
             @Override
             public void onTick(long millisUntilFinished)
             {
-               // currentTime = millisUntilFinished;
+                // currentTime = millisUntilFinished;
                 long days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished);
                 millisUntilFinished -= TimeUnit.DAYS.toMillis(days);
 
@@ -424,18 +424,18 @@ public class FloatingViewService_notification extends Service
             {
 
 
-try {
-    initRecorder();
-    shareScreen();
+                try {
+                    initRecorder();
+                    shareScreen();
 
-}catch (Exception e)
-{
+                }catch (Exception e)
+                {
 
-}
+                }
 
-                    notificationView.setTextViewText(R.id.text, "Recorder is recording. Tap stop to finish");
-                    myNotification.bigContentView = notificationView;
-                    notificationManager.notify(1, myNotification);
+                notificationView.setTextViewText(R.id.text, "Recorder is recording. Tap stop to finish");
+                myNotification.bigContentView = notificationView;
+                notificationManager.notify(1, myNotification);
 
             }
         };
@@ -445,14 +445,14 @@ try {
     {
         if(!recording)
         {
-                SharedPreferences settings1 = getSharedPreferences("MY_PREF", 0);
-                int sec = settings1.getInt("timmer", 3);
-                recording = !recording;
-                if(sec!=0)
-                    start_Timer(1000 * (sec+1));
+            SharedPreferences settings1 = getSharedPreferences("MY_PREF", 0);
+            int sec = settings1.getInt("timmer", 3);
+            recording = !recording;
+            if(sec!=0)
+                start_Timer(1000 * (sec+1));
 
-                else
-                    start_Timer(1000 * sec);
+            else
+                start_Timer(1000 * sec);
 
         }
 
@@ -470,16 +470,57 @@ try {
 
     public void record()
     {
-            if(!haspermission())
-            {
-                Toast.makeText(this, "Can't Record! Permissions Missing", Toast.LENGTH_SHORT).show();
+        if(!haspermission())
+        {
+            Toast.makeText(this, "Can't Record! Permissions Missing", Toast.LENGTH_SHORT).show();
 
-                return;
+            return;
 
+        }
+
+
+        if(!recording)
+        {
+            if(!check_Ad()) {
+
+                SharedPreferences settings1 = getSharedPreferences("MY_PREF", 0);
+                int sec = settings1.getInt("timmer", 3);
+                recording = !recording;
+                if(sec!=0)
+                    start_Timer(1000 * 1);
+
+                else
+                    start_Timer(1000 * sec);
             }
+        }
+
 
     }
+    public boolean check_Ad()
+    {
+        if(!buy)
+        {
+            incremntCount();
+            check_InApp();
+            SharedPreferences prefs = getApplicationContext().getSharedPreferences("recorder", 0);
+            int count = prefs.getInt("count", 0);
+            //   Toast.makeText(MainActivity.this, ""+count, Toast.LENGTH_SHORT).show();
+            if (count >= 5) {
 
+                Intent mainIntent = new Intent(getApplicationContext(), Ad_Acc.class);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(mainIntent);
+                return true;
+
+
+            }
+        }
+        return false;
+       /* Intent mainIntent = new Intent(getApplicationContext(), Ad_Acc.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(mainIntent);
+        return true;*/
+    }
     public void stop()
     {
         if(recording) {
@@ -495,18 +536,19 @@ try {
                 return;
                 //  mMediaRecorder.release();
             }
-            SharedPreferences settings1= getSharedPreferences("MY_PREF",0);
-            int ch=settings1.getInt("storage path",1);
-            String fullPath;
+            SharedPreferences settings1 = getSharedPreferences("shared preferences", MODE_PRIVATE);
+            String path =  settings1.getString("storage path","storage/emulated/0/");
+            String fullPath = path + "/Video Call Recorder";
+            /*String fullPath;
             if(ch==1)
-             fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screen Recorder";//+ ;
+                fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screen Recorder";//+ ;
             else
-                {
+            {
                 fullPath = getExternalFilesDir("Screen Recorder").getAbsolutePath() ;
                 File f1 = new File("/storage/");
                 String[] list = f1.list();
                 fullPath = fullPath.replace("emulated/0",list[0]) ;
-            }
+            }*/
 
             String output = fullPath + name;
             stopScreenSharing();
@@ -517,18 +559,18 @@ try {
                             Log.i("ExternalStorage", "-> uri=" + uri);
                         }
                     });
-           // Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
 
 
 
             notificationView.setTextViewText(R.id.text, "Recorder is ready.");
             myNotification.bigContentView = notificationView;
             notificationManager.notify(1, myNotification);
-            Intent in=new Intent(FloatingViewService_notification.this,Finish_popup.class);
+          /*  Intent in=new Intent(FloatingViewService_notification.this,Finish_popup.class);
             in.setFlags(FLAG_ACTIVITY_NEW_TASK);
             in.putExtra("name",name);
             in.putExtra("url",fullPath);
-            new Handler().postDelayed(() -> startActivity(in), 1000);
+            new Handler().postDelayed(() -> startActivity(in), 1000);*/
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             {
                 update_Noti("stop");
@@ -562,19 +604,13 @@ try {
             ext=".mp4";
         else
             ext=".3gp";
-         name="/SR_"+cc.getTimeInMillis()+ext;
+        name="/SR_"+cc.getTimeInMillis()+ext;
         //fullpath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/Screen Recorder";//+ ;
-        int ch1=settings1.getInt("storage path",1);
-        if(ch1==1)
-            fullpath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screen Recorder";//+ ;
-        else
-        {
-            fullpath = getExternalFilesDir("Screen Recorder").getAbsolutePath() ;
-            File f1 = new File("/storage/");
-            String[] list = f1.list();
-            fullpath = fullpath.replace("emulated/0",list[0]) ;
-        }
-        File ff=new File(fullpath);
+        SharedPreferences settings = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        String path =  settings.getString("storage path","storage/emulated/0/");
+        String fullPath = path + "/Video Call Recorder";
+
+        File ff=new File(fullPath);
         if(!(ff.exists()))
         {
             ff.mkdir();
@@ -589,7 +625,7 @@ try {
            /* mMediaRecorder.setOutputFile(Environment
                     .getExternalStoragePublicDirectory(Environment
                             .DIRECTORY_DOWNLOADS) + name);*/
-            mMediaRecorder.setOutputFile(fullpath + name);
+            mMediaRecorder.setOutputFile(fullPath + name);
             mMediaRecorder.setVideoSize(DISPLAY_WIDTH, DISPLAY_HEIGHT);
             mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
             mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
@@ -602,7 +638,7 @@ try {
             mgr=(MediaProjectionManager)getSystemService(MEDIA_PROJECTION_SERVICE);
             mMediaProjection=mgr.getMediaProjection(resultCode, resultData);
             if(mMediaProjectionCallback!=null)
-            mMediaProjection.registerCallback(mMediaProjectionCallback, null);
+                mMediaProjection.registerCallback(mMediaProjectionCallback, null);
             else
             {
                 mMediaProjectionCallback=new MediaProjectionCallback();
@@ -615,7 +651,7 @@ try {
         catch (Exception e)
         {
             e.printStackTrace();
-           // Toast.makeText(getApplicationContext(), "ex 1", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(), "ex 1", Toast.LENGTH_SHORT).show();
         }
     }
 
