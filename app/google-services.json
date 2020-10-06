@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "1078982706945",
-    "firebase_url": "https://do-screen-recorder.firebaseio.com",
-    "project_id": "do-screen-recorder",
-    "storage_bucket": "do-screen-recorder.appspot.com"
+    "project_number": "727406249650",
+    "firebase_url": "https://video-call-screen-recorder.firebaseio.com",
+    "project_id": "video-call-screen-recorder",
+    "storage_bucket": "video-call-screen-recorder.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1078982706945:android:9bbe52d47122ac59",
+        "mobilesdk_app_id": "1:727406249650:android:fc655ce19bc6190355abab",
         "android_client_info": {
-          "package_name": "com.recorder.screen.recordingapp.editor"
+          "package_name": "com.videocaht.recorder.facetime.videocall.screenrecorder"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1078982706945-3vq604s11p0fbgu0cbrc2euitnr49vp2.apps.googleusercontent.com",
+          "client_id": "727406249650-auh79evi0eedovs4o88q88e819irq819.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDKCofUUDB_gsTqJROZj9dSvEnuW5d_74g"
+          "current_key": "AIzaSyDmp5wFS4lxOjPeCaVEAH9GyHAXnBh-SrI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1078982706945-3vq604s11p0fbgu0cbrc2euitnr49vp2.apps.googleusercontent.com",
+              "client_id": "727406249650-auh79evi0eedovs4o88q88e819irq819.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

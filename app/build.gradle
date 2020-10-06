@@ -34,7 +34,7 @@ repositories {
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.recorder.screen.recordingapp.editor"
+        applicationId "com.videocaht.recorder.facetime.videocall.screenrecorder"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 3

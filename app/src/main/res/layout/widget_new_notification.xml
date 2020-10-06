@@ -17,8 +17,8 @@ android:id="@+id/top"
         >
         <ImageView
             android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_app_icon"
             />
         <LinearLayout
             android:layout_width="wrap_content"

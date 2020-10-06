@@ -28,21 +28,26 @@
         android:text="Video Call Recorder" />
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/firstLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:gravity="bottom"
         android:layout_gravity="bottom">
 
         <CheckBox
             android:id="@+id/privacyCheck"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:singleLine="false"
+
+            android:text="I agree to Privacy Policy of this app."
             android:buttonTint="@color/colorAccent"
-            android:textSize="14sp"/>
+            android:textSize="11sp"/>
 
         <ImageView
             android:id="@+id/enable_startup_button"
@@ -52,7 +57,7 @@
             android:layout_marginTop="5dp"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_first_enable_button"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="40dp"
             android:visibility="gone"/>
 
         <ImageView
@@ -62,7 +67,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_first_disable_button"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="40dp"/>
     </RelativeLayout>
 
 </LinearLayout>

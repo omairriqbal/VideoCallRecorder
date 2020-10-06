@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.recorder.screen.recordingapp.editor">
+    package="com.videocaht.recorder.facetime.videocall.screenrecorder">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -15,6 +15,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
+        android:name=".VideoCallRecorderApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,8 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FirstActivity"></activity>
-        <activity android:name=".main_menu">
+        <activity android:name=".FirstActivity">
             <intent-filter>
                 <action android:name="com.action.close" />
             </intent-filter>
@@ -38,6 +38,8 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+        <activity android:name=".main_menu"/>
+
         <activity
             android:name=".RateUs"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
@@ -65,6 +67,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Ad_Acc"/>
+        <activity android:name=".PrivacyPolicy"/>
 
         <service
             android:name=".ScreenshotService"
@@ -86,7 +89,7 @@
         -->
         <provider
             android:name=".GenericFileProvider"
-            android:authorities="com.recorder.screen.recordingapp.editor"
+            android:authorities="com.videocaht.recorder.facetime.videocall.screenrecorder"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
