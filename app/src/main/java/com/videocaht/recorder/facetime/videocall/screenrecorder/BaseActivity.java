@@ -140,7 +140,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             case R.id.navigationMenuRemoveAd:
                 if (drawerLayout.isDrawerOpen(Gravity.LEFT))
                     drawerLayout.closeDrawer(Gravity.LEFT);
-                startActivity( new Intent(this, buy_panel.class));
+                startActivity( new Intent(this, PrivacyPolicy.class));
 
                 break;
 

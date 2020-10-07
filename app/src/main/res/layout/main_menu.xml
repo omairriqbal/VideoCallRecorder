@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:background="#d6d5d5"
+
     android:id="@+id/parent"
     android:orientation="vertical">
 
@@ -23,9 +23,9 @@
         android:id="@+id/tabs"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:elevation="6dp"
         android:background="@color/white"
         app:tabGravity="fill"
+        android:elevation="@dimen/_5sdp"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabIndicatorHeight="0dp"
         app:tabMaxWidth="0dp"
@@ -38,6 +38,7 @@
         android:layout_width="66dp"
         android:layout_height="wrap_content"
         android:src="@drawable/button_recorder"
+        android:elevation="@dimen/_5sdp"
         android:layout_gravity="center"
         android:layout_marginTop="-70dp"
         android:onClick="go"

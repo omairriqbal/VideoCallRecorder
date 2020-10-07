@@ -62,9 +62,9 @@ public class DataProvider {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
         mInterstitialAd = new InterstitialAd(VideoCallRecorderApplication.getContext());
         check_InApp();
-        //   Ad_data();
+        //     Ad_data();
 
-         ((new check_Ads())).execute();
+             ((new check_Ads())).execute();
 
 
     }
@@ -131,13 +131,9 @@ public class DataProvider {
 
             }
 
-
             return null;
         }
-
-        protected void onPostExecute(Void result) {
-
-        }
+        protected void onPostExecute(Void result) { }
 
     }
 
@@ -162,9 +158,7 @@ public class DataProvider {
             editor.putBoolean("time_saved", true);
             editor.commit();
 
-
         }
-
     }
 
     boolean first = false;
@@ -184,27 +178,16 @@ public class DataProvider {
                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                    if (task.isSuccessful()) {
 
-
                                                        DocumentSnapshot document = task.getResult();
                                                        Ads = document.getData();
                                                        read_data_remainig = true;
 
                                                        (new write_ads_to_db()).execute();
-                                                      // Toast.makeText(mcontext, "write", Toast.LENGTH_SHORT).show();
+                                                       Toast.makeText(mcontext, "write", Toast.LENGTH_SHORT).show();
                                                    } else {
-                                                      // Toast.makeText(mcontext, "read", Toast.LENGTH_SHORT).show();
+                                                       Toast.makeText(mcontext, "read", Toast.LENGTH_SHORT).show();
                                                        ((new get_Ads_from_db())).execute();
-
-                                                   }
-
-
-                                               }
-
-                                           }
-        );
-
-
-    }
+                                                   } }}); }
 
     private class write_ads_to_db extends AsyncTask<Void, Void, Void> {
 

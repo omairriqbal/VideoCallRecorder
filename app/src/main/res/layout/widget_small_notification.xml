@@ -5,77 +5,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="horizontal"
-    android:layout_margin="5dp"
-    android:background="@drawable/list_background">
+    android:layout_margin="5dp">
 
- <!--   <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        android:elevation="@dimen/_10sdp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:weightSum="4"
+        android:padding="5dp">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="45dp"
-            android:layout_margin="@dimen/_5sdp"
-            android:src="@drawable/ic_app_icon"
-            android:scaleType="fitCenter"/>
+            android:id="@+id/btn_play"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_notification_play"
+            android:elevation="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:text="Resume" />
 
-    </androidx.cardview.widget.CardView>-->
+        <ImageView
+            android:id="@+id/btn_screenShot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_notification_screen_shot"
+            android:elevation="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:text="Stop" />
 
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="45dp"
-        android:layout_margin="@dimen/_5sdp"
-        android:src="@drawable/ic_app_icon"
-        android:scaleType="fitCenter"/>
+        <ImageView
+            android:id="@+id/openApp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_notification_home"
+            android:elevation="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:text="Resume" />
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:weightSum="4"
-    android:padding="5dp">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_notification_exit"
+            android:elevation="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:id="@+id/exitApp" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_weight="1.5"
-        android:textSize="12sp"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:textColor="#565656"
-        android:lineSpacingExtra="0.8sp"
-        android:text="Video Call Recorder" />
-
-    <ImageView
-        android:id="@+id/btn_play"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_notification_play"
-        android:padding="5dp"
-        android:layout_weight="0.8"
-        android:text="Resume" />
-    <ImageView
-        android:id="@+id/btn_stop"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_notification_stop"
-        android:padding="5dp"
-        android:layout_weight="0.8"
-        android:text="Stop" />
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_notification_view"
-        android:padding="5dp"
-        android:layout_weight="0.8"
-        android:id="@+id/openApp" />
-
-</LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -89,7 +89,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         ORIENTATIONS.append(Surface.ROTATION_180, 270);
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
-   String name;
+    String name;
     View right,left;
     private WindowManager mWindowManager,windowManagerClose;
     private View mFloatingView;
@@ -97,7 +97,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
     View layout;
     LinearLayout options;
     private ImageView collapsed_iv,fab1;
-     ComponentName serviceName;
+    ComponentName serviceName;
     private Handler handler=new Handler();
     TextView timmer;
     View crossLayout;
@@ -111,20 +111,20 @@ public class FloatingViewService extends Service implements View.OnClickListener
     private int resultCode;
     private Intent resultData;
     Animation show,hide,bottom_up,bottom_down;
-   static boolean open=true,r=true;
-      MoveAnimator animator=new MoveAnimator();
+    static boolean open=true,r=true;
+    MoveAnimator animator=new MoveAnimator();
     ButtonAnimator btn_animator_1=new ButtonAnimator();
     ButtonAnimator btn_animator_2=new ButtonAnimator();
     ButtonAnimator btn_animator_3=new ButtonAnimator();
     ButtonAnimator btn_animator_4=new ButtonAnimator();
     ButtonAnimator btn_animator_5=new ButtonAnimator();
-static boolean singleTap=false;
+    static boolean singleTap=false;
     private static long mDeBounce = 0;
 
     private WindowManager windowManagerPanel;
     private ImageView circle_1,circle_2,circle_3,circle_4,circle_5;
     private LinearLayout layout_1,layout_2,layout_3,layout_4,layout_5,bg;
-static boolean recording=false;
+    static boolean recording=false;
     int x1,y1,x2,y2,x3,y3,x4,y4,x5,y5;
     private boolean showWidget;
     private View countdown;
@@ -147,7 +147,7 @@ static boolean recording=false;
         mWindowManager.getDefaultDisplay().getRealMetrics(metrics);
         mScreenDensity = (int)(metrics.density * 160f);
 
-        }
+    }
     private void openPermissionActivity()
     {
         Intent mainIntent = new Intent(getApplicationContext(), PermissionActivity.class);
@@ -182,25 +182,16 @@ static boolean recording=false;
             {
                 if(intent.hasExtra(EXTRA_RESULT_CODE))
                 {
-                      resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
+                    resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
                     resultData=intent.getParcelableExtra(EXTRA_RESULT_INTENT);
                 }
                 else
-               openPermissionActivity();
+                    openPermissionActivity();
             }
-            /*else
-            {
-                Intent in=new Intent(getApplicationContext(),f.class);
-                in.setFlags(FLAG_ACTIVITY_NEW_TASK);
-                startActivity(in);
-            }*/
 
-          //  resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
-           // resultData=intent.getParcelableExtra(EXTRA_RESULT_INTENT);
-            //foregroundify();
         }
-       else if (intent != null && intent.getAction() != null)
-       {
+        else if (intent != null && intent.getAction() != null)
+        {
 
             switch (intent.getAction())
             {
@@ -213,7 +204,7 @@ static boolean recording=false;
 
                     break;
                 case ACTION_PERMISSION:
-                     resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
+                    resultCode=intent.getIntExtra(EXTRA_RESULT_CODE, 1337);
                     resultData=intent.getParcelableExtra(EXTRA_RESULT_INTENT);
                     try
                     {
@@ -230,15 +221,15 @@ static boolean recording=false;
                             params.y = 0;
                             layout.animate().translationX(0f).translationY(600f).setInterpolator(new AccelerateDecelerateInterpolator()).start();
 
-                           try {
-                               mWindowManager.addView(mFloatingView, params);
-                               windowManagerClose.addView(layout, close_prams);
+                            try {
+                                mWindowManager.addView(mFloatingView, params);
+                                windowManagerClose.addView(layout, close_prams);
 
-                               show_Circle();
-                           }catch (Exception e)
-                           {
+                                show_Circle();
+                            }catch (Exception e)
+                            {
 
-                           }
+                            }
                         }
                     }
                     catch (Exception e)
@@ -255,11 +246,11 @@ static boolean recording=false;
                     break;
 
 
-                    case ACTION_PAUSE_PLAY:
+                case ACTION_PAUSE_PLAY:
                     // pause or play song
 
-                       record();
-                        break;
+                    record();
+                    break;
 
 
                 case ACTION_PAUSE:
@@ -272,9 +263,9 @@ static boolean recording=false;
                             update_Noti("pause");
                         }
                         catch(Exception e)
-                            {
+                        {
 
-                            }
+                        }
 
 
                     }
@@ -299,16 +290,7 @@ static boolean recording=false;
                     }
 
                     break;
-               /* case ACTION_CLEAR:
-                    Intent i=
-                            new Intent(this, ScreenshotService.class)
-                                    .putExtra(ScreenshotService.EXTRA_RESULT_CODE, resultCode)
-                                    .putExtra(ScreenshotService.EXTRA_RESULT_INTENT, resultData);
 
-                    startService(i);
-                    clearAll();
-                    stopSelf();
-                    break;*/
                 case ACTION_OPEN_MAIN:
                     clearAll();
 
@@ -321,7 +303,7 @@ static boolean recording=false;
                     break;
             }
         }
-      //  return START_NOT_STICKY;
+        //  return START_NOT_STICKY;
         return START_NOT_STICKY;
     }
 
@@ -333,20 +315,20 @@ static boolean recording=false;
         SharedPreferences myPrefs = getSharedPreferences("MY_PREF", 0);
         final SharedPreferences.Editor myPrefsEdit = myPrefs.edit();
         showWidget = myPrefs.getBoolean("show widget", true);
-       // LAYOUT_FLAG =WindowManager.LayoutParams.TYPE_PHONE;
+        // LAYOUT_FLAG =WindowManager.LayoutParams.TYPE_PHONE;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
         {
 
             LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_TOAST;
         }
         else
-            {
+        {
             LAYOUT_FLAG =  WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         }
 
 
-            show = AnimationUtils.loadAnimation(getApplication(), R.anim.show);
-         hide = AnimationUtils.loadAnimation(getApplication(), R.anim.left_in);
+        show = AnimationUtils.loadAnimation(getApplication(), R.anim.show);
+        hide = AnimationUtils.loadAnimation(getApplication(), R.anim.left_in);
         bottom_down = AnimationUtils.loadAnimation(getApplication(), R.anim.bottom_down);
         bottom_up = AnimationUtils.loadAnimation(getApplication(), R.anim.bottom_up);
         DisplayMetrics metrics = new DisplayMetrics();
@@ -396,8 +378,8 @@ static boolean recording=false;
         windowManagerPanel.addView(bg, bg_pram);
         show_Circle();
 
-           mWindowManager.addView(mFloatingView, params);
-           windowManagerClose.addView(layout, close_prams);
+        mWindowManager.addView(mFloatingView, params);
+        windowManagerClose.addView(layout, close_prams);
 
         createRecordNotification();
         mFloatingView.setOnTouchListener(new View.OnTouchListener()
@@ -419,18 +401,18 @@ static boolean recording=false;
                 {
 
                 }
-else {
+                else {
                     switch (event.getAction())
                     {
 
                         case MotionEvent.ACTION_DOWN:
-                            {
-                                collapsed_iv.setAlpha(255);
-                                collapsed_iv.animate().translationX(0f).translationY(0f).setInterpolator(new AccelerateDecelerateInterpolator()).start();
-                                collapsed_iv.animate().scaleX(1f).scaleY(1f).setDuration(100);
+                        {
+                            collapsed_iv.setAlpha(255);
+                            collapsed_iv.animate().translationX(0f).translationY(0f).setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                            collapsed_iv.animate().scaleX(1f).scaleY(1f).setDuration(100);
 
-                                timmer.animate().translationX(0f).translationY(0f).setInterpolator(new AccelerateDecelerateInterpolator()).start();
-                                timmer.animate().scaleX(1f).scaleY(1f).setDuration(100);
+                            timmer.animate().translationX(0f).translationY(0f).setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                            timmer.animate().scaleX(1f).scaleY(1f).setDuration(100);
 
                             initialX = params.x;
                             initialY = params.y;
@@ -451,21 +433,21 @@ else {
                                 layout.setVisibility(View.VISIBLE);
                                 layout.animate().translationX(0f).translationY(50f).setInterpolator(new AccelerateDecelerateInterpolator()).start();
                             }
-                           // close.startAnimation(bottom_up);
+                            // close.startAnimation(bottom_up);
 
                             break;
                         }
 
 
                         case MotionEvent.ACTION_MOVE:
-                            {
+                        {
 
 
 
                             if (MathUtil.betweenExclusive(params.x, -10, 70) && MathUtil.betweenExclusive(params.y, -150+screen_height / 3, screen_height / 2)) {
                                 if(!recording)
                                 {
-                                Visibility();
+                                    Visibility();
                                     Vibrator vv = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 // Vibrate for 500 milliseconds
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -590,22 +572,22 @@ else {
 
                             }
                             else
-                                {
+                            {
 
                                 //not in either of the above cases
                                 animator.start(screen_width / 2, params.y);
                                 mWindowManager.updateViewLayout(v, params);
                             }
                             //  close.startAnimation(bottom_down);
-if(!recording) {
-    layout.animate().translationX(0f).translationY(600f).setInterpolator(new AccelerateDecelerateInterpolator()).start();
-    layout.setVisibility(View.INVISIBLE);
-}
+                            if(!recording) {
+                                layout.animate().translationX(0f).translationY(600f).setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                                layout.setVisibility(View.INVISIBLE);
+                            }
                             handler.postDelayed(() ->
                             {
                                 {
                                     if(open)
-                                    hide_circle();
+                                        hide_circle();
                                     collapsed_iv.setAlpha(130);
                                     collapsed_iv.animate().scaleX(0.7f).scaleY(0.7f).setDuration(100);
                                     timmer.animate().scaleX(0.7f).scaleY(0.7f).setDuration(100);
@@ -625,39 +607,12 @@ if(!recording) {
                             }, 5000);
 
                         }
-                        // break;
-                            /*case MotionEvent.ACTION_MOVE:
-                                layout.setVisibility(View.VISIBLE);
-                                params.x = initialX + (int) (event.getRawX() - initialTouchX);
-                                params.y = initialY + (int) (event.getRawY() - initialTouchY);
-                                windowManager.updateViewLayout(v, params);
-                                if (MathUtil.betweenExclusive((int) event.getRawX(), 0, screen_width / 5) || MathUtil.betweenExclusive((int) event.getRawX(), screen_width - (screen_width / 5), screen_width)) {
-                                    android.view.ViewGroup.LayoutParams layoutParams = smallCircle.getLayoutParams();
-                                    layoutParams.width = (int) (0.18 * screen_width);
-                                    layoutParams.height = (int) (0.18 * screen_width);
-                                    smallCircle.setLayoutParams(layoutParams);
-                                    windowManager.updateViewLayout(v, params);
-                                } else if (MathUtil.betweenExclusive((int) event.getRawX(), 2 * (screen_width / 5), 3 * (screen_width / 5))) {
-                                    android.view.ViewGroup.LayoutParams layoutParams = smallCircle.getLayoutParams();
-                                    layoutParams.width = (int) (0.18 * screen_width) + 100 + 100;
-                                    layoutParams.height = (int) (0.18 * screen_width) + 100 + 100;
-                                    smallCircle.setLayoutParams(layoutParams);
-                                    windowManager.updateViewLayout(v, params);
-                                } else if (MathUtil.betweenExclusive((int) event.getRawX(), screen_width / 5, 2 * (screen_width / 5)) || MathUtil.betweenExclusive((int) event.getRawX(), 3 * (screen_width / 5), screen_width)) {
-                                    android.view.ViewGroup.LayoutParams layoutParams = smallCircle.getLayoutParams();
-                                    layoutParams.width = (int) (0.18 * screen_width) + 100;
-                                    layoutParams.height = (int) (0.18 * screen_width) + 100;
-                                    smallCircle.setLayoutParams(layoutParams);
-                                    windowManager.updateViewLayout(v, params);
-                                }
 
-
-                                break;*/
                     }
 
 
                 }
-return true;
+                return true;
             }
         });
         serviceName = new ComponentName(this, FloatingViewService.class);
@@ -685,7 +640,7 @@ return true;
 
         }
         if(recording)
-        stop();
+            stop();
 
         if(open)
             hide_circle();
@@ -695,11 +650,11 @@ return true;
     @Override
     public void onConfigurationChanged(Configuration newConfig)
     {
-    getScreenSize();
-if(params.x<0)
-    animator.start(-screen_width/2,params.y);
-else
-    animator.start(screen_width/2,params.y);
+        getScreenSize();
+        if(params.x<0)
+            animator.start(-screen_width/2,params.y);
+        else
+            animator.start(screen_width/2,params.y);
     }
 
 
@@ -770,7 +725,7 @@ else
             int  mins = secs / 60;
             secs = secs % 60;
             int milliseconds = (int) (updatedTime % 1000);
-          //  collapsed_iv.setBackground(null);
+            //  collapsed_iv.setBackground(null);
             collapsed_iv.setImageDrawable(getApplicationContext().getResources().getDrawable(R.mipmap.ic_empty));
             timmer.setText(String.format("%02d", mins) + ":"
                     + String.format("%02d", secs));
@@ -794,7 +749,7 @@ else
 
             }
             if(open)
-            hide_circle();
+                hide_circle();
 
          /*   LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
                     .getInstance(FloatingViewService.this);
@@ -819,13 +774,13 @@ else
         @Override
         public boolean onSingleTapConfirmed(MotionEvent event)
         {
-if(open)
-    hide_circle();
-else
-            show_Circle();
+            if(open)
+                hide_circle();
+            else
+                show_Circle();
 
 
-          // Toast.makeText(getApplicationContext(),"Single tap",Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(),"Single tap",Toast.LENGTH_SHORT).show();
             singleTap=true;
             return true;
         }
@@ -855,21 +810,21 @@ else
 
        /* Intent clear = new Intent(this, FloatingViewService.class);
         clear.setAction(ACTION_CLEAR);*/
-       // PendingIntent pendingClearIntent = PendingIntent.getService(getApplicationContext(), 2, clear, 0);
+        // PendingIntent pendingClearIntent = PendingIntent.getService(getApplicationContext(), 2, clear, 0);
 
         Intent home = new Intent(this, FloatingViewService.class);
         home.setAction(ACTION_OPEN_MAIN);
         PendingIntent pendingHomeIntent = PendingIntent.getService(getApplicationContext(), 3, home, 0);
 
 
-         notificationView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.widget_new_notification);
+        notificationView = new RemoteViews(getApplicationContext().getPackageName(), R.layout.widget_new_notification);
 
         RemoteViews notificationView_samll = new RemoteViews(getApplicationContext().getPackageName(), R.layout.widget_small_notification);
-         notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
-           notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel channel = null;
             channel = new NotificationChannel("default",
                     "Channel name",
@@ -889,10 +844,10 @@ else
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             myNotification  = new Notification.Builder(getApplicationContext(),"default")
-                   .setSmallIcon(R.drawable.ic_noti)
-                   .setTicker("Recorder is ready")
+                    .setSmallIcon(R.drawable.ic_noti)
+                    .setTicker("Recorder is ready")
                     .setOnlyAlertOnce(true)
-                   .setAutoCancel(false).build();
+                    .setAutoCancel(false).build();
         }
         else {
             myNotification  = new Notification.Builder(getApplicationContext())
@@ -906,17 +861,17 @@ else
         myNotification.bigContentView = notificationView;
         myNotification.contentView = notificationView_samll;
 
-      //  notificationView.setProgressBar(R.id.pb_progress, 100, 12, false);
+        //  notificationView.setProgressBar(R.id.pb_progress, 100, 12, false);
 
         Notification.Builder builder = new Notification.Builder(getApplicationContext()).setSmallIcon(R.mipmap.ic_launcher).setTicker("Recorder is ready").setContent(notificationView).setAutoCancel(false);
         notificationView.setOnClickPendingIntent(R.id.btn_stop, pendingStopIntent);
         notificationView.setOnClickPendingIntent(R.id.btn_play, pendingSwitchIntent);
-       // notificationView.setOnClickPendingIntent(R.id.btnClear, pendingClearIntent);
+        // notificationView.setOnClickPendingIntent(R.id.btnClear, pendingClearIntent);
         notificationView.setOnClickPendingIntent(R.id.openApp, pendingHomeIntent);
 
         notificationView_samll.setOnClickPendingIntent(R.id.btn_stop, pendingStopIntent);
         notificationView_samll.setOnClickPendingIntent(R.id.btn_play, pendingSwitchIntent);
-      //  notificationView_samll.setOnClickPendingIntent(R.id.btnClear, pendingClearIntent);
+        //  notificationView_samll.setOnClickPendingIntent(R.id.btnClear, pendingClearIntent);
         notificationView_samll.setOnClickPendingIntent(R.id.openApp, pendingHomeIntent);
         notificationManager.notify(1, myNotification);
 
@@ -938,9 +893,9 @@ else
 
         }
         stopForeground(true);
-     stopSelf();
-     stopService(new Intent(this, FloatingViewService.class));
-     notificationManager.cancelAll();
+        stopSelf();
+        stopService(new Intent(this, FloatingViewService.class));
+        notificationManager.cancelAll();
     }
 
     @Override
@@ -1001,7 +956,7 @@ else
                 break;
 
             case R.id.openApp:
-               // clearAll();
+                // clearAll();
 
                 hide_circle();
                 collapsed_iv.setAlpha(130);
@@ -1072,11 +1027,11 @@ else
     public void start_Timer(long time)
     {
 
-         cdt = new CountDownTimer(time, 1000) {
+        cdt = new CountDownTimer(time, 1000) {
             @Override
             public void onTick(long millisUntilFinished)
             {
-               // currentTime = millisUntilFinished;
+                // currentTime = millisUntilFinished;
                 long days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished);
                 millisUntilFinished -= TimeUnit.DAYS.toMillis(days);
 
@@ -1103,18 +1058,18 @@ else
                 startTime = SystemClock.uptimeMillis();
                 if(!showWidget)
                     customHandler.postDelayed(updateTimerThread, 0);
-try {
-    initRecorder();
-    shareScreen();
+                try {
+                    initRecorder();
+                    shareScreen();
 
-}catch (Exception e)
-{
+                }catch (Exception e)
+                {
 
-}
+                }
 
-                    notificationView.setTextViewText(R.id.text, "Recorder is recording. Tap stop to finish");
-                    myNotification.bigContentView = notificationView;
-                    notificationManager.notify(1, myNotification);
+                notificationView.setTextViewText(R.id.text, "Recorder is recording. Tap stop to finish");
+                myNotification.bigContentView = notificationView;
+                notificationManager.notify(1, myNotification);
 
             }
         };
@@ -1172,31 +1127,31 @@ try {
         }
         if(!recording)
         {
-                // Toast.makeText(getApplicationContext(), "started", Toast.LENGTH_SHORT).show();
-                WindowManager.LayoutParams countdown_pram = new WindowManager.LayoutParams(
-                        WindowManager.LayoutParams.WRAP_CONTENT,
-                        WindowManager.LayoutParams.WRAP_CONTENT,
-                        LAYOUT_FLAG,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                        PixelFormat.TRANSLUCENT);
-                countdown_pram.gravity = Gravity.CENTER;
-                countdown_pram.x = 0;
-                countdown_pram.y = 0;
-                try {
-                    mWindowManager.addView(countdown, countdown_pram);
-                }
-                catch (Exception e)
-                {
+            // Toast.makeText(getApplicationContext(), "started", Toast.LENGTH_SHORT).show();
+            WindowManager.LayoutParams countdown_pram = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    LAYOUT_FLAG,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
+            countdown_pram.gravity = Gravity.CENTER;
+            countdown_pram.x = 0;
+            countdown_pram.y = 0;
+            try {
+                mWindowManager.addView(countdown, countdown_pram);
+            }
+            catch (Exception e)
+            {
 
-                }
-                SharedPreferences settings1 = getSharedPreferences("MY_PREF", 0);
-                int sec = settings1.getInt("timmer", 3);
-                recording = !recording;
-                if(sec!=0)
-                    start_Timer(1000 * (sec+1));
+            }
+            SharedPreferences settings1 = getSharedPreferences("MY_PREF", 0);
+            int sec = settings1.getInt("timmer", 3);
+            recording = !recording;
+            if(sec!=0)
+                start_Timer(1000 * (sec+1));
 
-                else
-                    start_Timer(1000 * sec);
+            else
+                start_Timer(1000 * sec);
 
         }
 
@@ -1279,18 +1234,18 @@ try {
                 countdown_pram.gravity = Gravity.CENTER;
                 countdown_pram.x = 0;
                 countdown_pram.y = 0;
-            try {
-                mWindowManager.addView(countdown, countdown_pram);
-            }
-            catch (Exception e)
-            {
+                try {
+                    mWindowManager.addView(countdown, countdown_pram);
+                }
+                catch (Exception e)
+                {
 
-            }
+                }
                 SharedPreferences settings1 = getSharedPreferences("MY_PREF", 0);
                 int sec = settings1.getInt("timmer", 3);
                 recording = !recording;
                 if(sec!=0)
-                start_Timer(1000 * (sec+1));
+                    start_Timer(1000 * (sec+1));
 
                 else
                     start_Timer(1000 * sec);
@@ -1360,7 +1315,7 @@ try {
                             Log.i("ExternalStorage", "-> uri=" + uri);
                         }
                     });
-           // Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+             Toast.makeText(getApplicationContext(), "SavedService", Toast.LENGTH_SHORT).show();
             customHandler.removeCallbacks(updateTimerThread);
             collapsed_iv.setImageDrawable(getApplicationContext().getResources().getDrawable(R.drawable.button_recorder));
             timmer.setText("");
@@ -1369,12 +1324,12 @@ try {
             notificationManager.notify(1, myNotification);
 
 
-           /* Intent in=new Intent(FloatingViewService.this,Finish_popup.class);
+            Intent in=new Intent(FloatingViewService.this,Finish_popup.class);
             in.setFlags(FLAG_ACTIVITY_NEW_TASK);
             in.putExtra("name",name);
-            in.putExtra("url",fullPath);*/
+            in.putExtra("url",fullPath);
 
-//            new Handler().postDelayed(() -> startActivity(in), 1000);
+             new Handler().postDelayed(() -> startActivity(in), 1000);
             hide_circle();
             collapsed_iv.setAlpha(130);
             collapsed_iv.animate().scaleX(0.7f).scaleY(0.7f).setDuration(100);
@@ -1426,7 +1381,7 @@ try {
             ext=".mp4";
         else
             ext=".3gp";
-         name="/SR_"+cc.getTimeInMillis()+ext;
+        name="/SR_"+cc.getTimeInMillis()+ext;
         //fullpath= Environment.getExternalStorageDirectory().getAbsolutePath()+"/Screen Recorder";//+ ;
         SharedPreferences settings = getSharedPreferences("shared preferences", MODE_PRIVATE);
 
@@ -1454,6 +1409,7 @@ try {
             mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mMediaRecorder.setVideoEncodingBitRate(3000000);
             mMediaRecorder.setVideoFrameRate(16);
+            Toast.makeText(this, "Savedservie2", Toast.LENGTH_SHORT).show();
             //   int rotation = getWindowManager().getDefaultDisplay().getRotation();
             int orientation = ORIENTATIONS.get(0 + 90);
             mMediaRecorder.setOrientationHint(orientation);
@@ -1461,7 +1417,7 @@ try {
             mgr=(MediaProjectionManager)getSystemService(MEDIA_PROJECTION_SERVICE);
             mMediaProjection=mgr.getMediaProjection(resultCode, resultData);
             if(mMediaProjectionCallback!=null)
-            mMediaProjection.registerCallback(mMediaProjectionCallback, null);
+                mMediaProjection.registerCallback(mMediaProjectionCallback, null);
             else
             {
                 mMediaProjectionCallback=new MediaProjectionCallback();
@@ -1474,7 +1430,7 @@ try {
         catch (Exception e)
         {
             e.printStackTrace();
-           // Toast.makeText(getApplicationContext(), "ex 1", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(), "ex 1", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -1592,12 +1548,12 @@ try {
         private float destinationX;
         private float destinationY;
         private long startingTime;
-      int count;
+        int count;
 
         private void start(float x, float y, int c) {
             this.destinationX = x;
             this.destinationY = y;
-       this.count=c;
+            this.count=c;
             startingTime = System.currentTimeMillis();
             handler.post(this);
         }
@@ -1607,7 +1563,7 @@ try {
             if (layout != null )
             {
                 float progress = Math.min(1, (System.currentTimeMillis() - startingTime) / 100f);
-               // float progress = 10f;
+                // float progress = 10f;
                 float deltaX = 0,deltaY=0;
                 if(count==1)
                 {
@@ -1737,10 +1693,10 @@ try {
         layout_5.addView(circle_5);
         circle_5.setOnClickListener(this);
 
-      bg = new LinearLayout(this);
-      bg.setBackgroundColor(getResources().getColor(R.color.bg));
-      bg.setId(R.id.bg);
-      bg.setOnClickListener(this);
+        bg = new LinearLayout(this);
+        bg.setBackgroundColor(getResources().getColor(R.color.bg));
+        bg.setId(R.id.bg);
+        bg.setOnClickListener(this);
         bg_pram = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
@@ -1766,11 +1722,11 @@ try {
                     ||(y==0))
             {
 
-                    //on left edge
+                //on left edge
                 params_1 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_1.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1782,7 +1738,7 @@ try {
                 params_2 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_2.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1794,7 +1750,7 @@ try {
                 params_3 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_3.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1806,7 +1762,7 @@ try {
                 params_4 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_4.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1818,14 +1774,14 @@ try {
                 params_5 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_5.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
                 params_5.x = x; // horizontal center for the image
                 params_5.y = y;
-x5=x + converTodp(20);
-y5=y + converTodp(60);
+                x5=x + converTodp(20);
+                y5=y + converTodp(60);
 
             }
             else
@@ -1849,7 +1805,7 @@ y5=y + converTodp(60);
                 params_1 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_1.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1861,7 +1817,7 @@ y5=y + converTodp(60);
                 params_2 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_2.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1873,7 +1829,7 @@ y5=y + converTodp(60);
                 params_3 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_3.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1885,7 +1841,7 @@ y5=y + converTodp(60);
                 params_4 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_4.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1897,7 +1853,7 @@ y5=y + converTodp(60);
                 params_5 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_5.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1907,8 +1863,8 @@ y5=y + converTodp(60);
                 y5=y + converTodp(60);
             }
 
-         }
-         else
+        }
+        else
         {
             //right edge
             if( ((y<0) && (y > topedge))
@@ -1918,7 +1874,7 @@ y5=y + converTodp(60);
                 params_1 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_1.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1930,7 +1886,7 @@ y5=y + converTodp(60);
                 params_2 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_2.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1942,7 +1898,7 @@ y5=y + converTodp(60);
                 params_3 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_3.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1954,7 +1910,7 @@ y5=y + converTodp(60);
                 params_4 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_4.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1966,7 +1922,7 @@ y5=y + converTodp(60);
                 params_5 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_5.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -1996,7 +1952,7 @@ y5=y + converTodp(60);
                 params_1 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_1.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -2008,7 +1964,7 @@ y5=y + converTodp(60);
                 params_2 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                       LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_2.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;
@@ -2046,7 +2002,7 @@ y5=y + converTodp(60);
                 params_5 = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-LAYOUT_FLAG,
+                        LAYOUT_FLAG,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
                 params_5.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN;

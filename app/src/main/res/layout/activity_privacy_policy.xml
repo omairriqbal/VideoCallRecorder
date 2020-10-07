@@ -4,15 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".utils.PrivacyPolicy"
+    tools:context=".PrivacyPolicy"
     android:orientation="vertical">
 
-    <include android:id="@+id/header"
-        layout="@layout/header_layout"/>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/toolbarmainbg"
+
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:elevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:dividerPadding="8dp"
+            android:orientation="horizontal"
+            android:showDividers="end">
+
+
+            <TextView
+                android:id="@+id/title_text"
+                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Privacy Policy"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
+        android:layout_below="@+id/toolbar"
         android:layout_above="@+id/adLayout"
         android:orientation="vertical">
     <TextView
@@ -23,6 +55,7 @@
         android:padding="10dp"
         android:textSize="15sp"/>
     </ScrollView>
+
     <LinearLayout
         android:id="@+id/adLayout"
         android:layout_width="match_parent"

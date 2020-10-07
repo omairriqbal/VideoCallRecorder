@@ -24,10 +24,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ import java.util.Locale;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by  umair on 02/10/2020.
+ * Created by  Umair
  */
 
 public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.GridViewHolder> {
@@ -128,9 +131,6 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
             }
             if ((model.getCheck()))
                 name.setText(model.getName());
-                /*sdcard.setVisibility(View.VISIBLE);
-                sdcard.setImageResource(R.drawable.sdcard);*/
-
 
         }
 
@@ -199,7 +199,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
             alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             alertDialog.show();
             Window window = alertDialog.getWindow();
-            window.setLayout(400, ViewGroup.LayoutParams.WRAP_CONTENT);
+            window.setLayout(600, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
 
         @SuppressLint("RestrictedApi")
@@ -227,7 +227,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
                             context.startActivity(Intent.createChooser(sharingIntent, "share:"));
                             break;
                         case R.id.deleteListItem:
-                            showWarning(position);
+                            getDeleteDialog(position);
                             break;
                     }
                     return false;
@@ -241,73 +241,53 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
             optionsMenu.show();
         }
 
-        private void showWarning(int position) {
+    }
 
-            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
-            Locale.getDefault().getDisplayLanguage();
-            builder.setMessage("Video will be deleted permanently")
-                    .setNegativeButton("Proceed",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
+    private void getDeleteDialog(int position) {
+        final AlertDialog.Builder textBuilder = new AlertDialog.Builder(context);
 
+        View view = inflater.inflate(R.layout.delete_dailog, null);
 
-                                    if (dataList.size() > 0) {
-                                        if (dataList.get(position).getId() == 0) {
-                                            String path = dataList.get(position).getUrl();
-                                            boolean anfffs = new File(path).delete();
-                                        }
-                                    } else {
-                                        Uri uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dataList.
-                                                get(position).getId());
-                                        ContentResolver resolver = context.getContentResolver();
-                                        resolver.delete(uri, null, null);
-                                    }
+        TextView yes = view.findViewById(R.id.feedbackSubmit);
+        TextView cancel = view.findViewById(R.id.feedbackCancel);
 
-                                    try {
+        yes.setOnClickListener((View v) ->{
 
-                                    } catch (Exception e) {
-                                        dataList.remove(position);
-                                        notifyItemRemoved(position);
-                                    }
-
-                                }
-                            })
-                    .setPositiveButton("Cancel",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-
-                                }
-                            });
-
-            androidx.appcompat.app.AlertDialog alert = builder.create();
-            alert.getWindow().setWindowAnimations(R.style.Animation);
-            try {
-                alert.show();
-            } catch (Exception e) {
-            /*try
-            {
-                if(dataList.get(position).getId()==0)
-                {
+            if (dataList.size() > 0) {
+                if (dataList.get(position).getId() == 0) {
                     String path = dataList.get(position).getUrl();
-                    boolean  anfffs= new File(path).delete();
+                    boolean anfffs = new File(path).delete();
                 }
-                else {
-                    Uri uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dataList.
-                            get(position).getId());
-                    ContentResolver resolver = context.getContentResolver();
-                    resolver.delete(uri, null, null);
-                }
-                dataList.remove(position);
-                notifyItemRemoved(position);
-            }
-            catch (Exception ee)
-            {
-
-            }*/
+            } else {
+                Uri uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, dataList.
+                        get(position).getId());
+                ContentResolver resolver = context.getContentResolver();
+                resolver.delete(uri, null, null);
             }
 
-        }
+            try {
+
+            } catch (Exception e) {
+
+            }
+            Snackbar.make(v,"Item deleted Successfully", Snackbar.LENGTH_LONG).show();
+            dataList.remove(position);
+            notifyItemRemoved(position);
+
+            alertDialog.cancel();
+        });
+
+        cancel.setOnClickListener((View v) ->{
+
+            alertDialog.cancel();  });
+
+        textBuilder.setView(view);
+        alertDialog = textBuilder.create();
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setLayout(500, ViewGroup.LayoutParams.WRAP_CONTENT);
+        alertDialog.setCancelable(false);
     }
 }

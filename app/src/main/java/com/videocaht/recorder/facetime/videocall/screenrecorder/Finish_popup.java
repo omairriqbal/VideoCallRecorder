@@ -43,6 +43,7 @@ public class Finish_popup extends AppCompatActivity {
     VideoModel model,finall;
     private Dialog dialog;
     private int selected;
+    EditText editText;
     ArrayList<VideoModel> result=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,25 +51,16 @@ public class Finish_popup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.finish_window);
-        SharedPreferences settings1= getSharedPreferences("MY_PREF",0);
-        int ch=settings1.getInt("storage path",1);
+
         vidName=getIntent().getStringExtra("name");
         url=getIntent().getStringExtra("url");
         if(vidName!=null)
         {
             vidName=vidName.replace("/","");
-            ((EditText)(findViewById(R.id.title))).setText(vidName);
+            editText =  (EditText)findViewById(R.id.title);
+            editText.setText(vidName);
+            finall= getFromSDCard();
 
-            if(ch==1)
-                finall=getVideoData();
-            else if(ch==2)
-                finall= getFromSDCard();
-
-            if(finall==null)
-                finish();
-
-            else if(finall.getUrl()==null)
-                finall.setUrl(url+"/"+vidName);
         }
 
     }
@@ -150,7 +142,7 @@ public class Finish_popup extends AppCompatActivity {
                     String path;
                     try
                     {
-                         path = finall.getUrl();
+                        path = finall.getUrl();
                     }
                     catch (Exception e)
                     {
@@ -159,36 +151,36 @@ public class Finish_popup extends AppCompatActivity {
 
                     if(selected==1)
                     {
-                            if(!path.contains("emulated"))
+                        if(!path.contains("emulated"))
+                        {
+                            newPath= Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screen Recorder";//+ ;
+                            if(!(new File(newPath).exists()))
                             {
-                                newPath= Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screen Recorder";//+ ;
-                                if(!(new File(newPath).exists()))
-                                {
-                                    new File(newPath).mkdir();
-                                }
-                                String name[]=vidName.split("\\.");
-                                String new_name[]=text.split("\\.");
-
-                                    if((text.endsWith(".mp4")  ||(text.endsWith(".3gp")) ))
-                                newPath+="/"+title.getText().toString();
-                                else
-                                    {
-                                        SharedPreferences settings1= getSharedPreferences("MY_PREF",0);
-                                        int ch=settings1.getInt("video formate",1);
-                                        String ext;
-                                        if(ch==1)
-                                            ext=".mp4";
-                                        else
-                                            ext=".3gp";
-                                        text.replace(".","");
-                                        newPath+="/"+text+"."+ext;
-                                    }
-
+                                new File(newPath).mkdir();
                             }
+                            String name[]=vidName.split("\\.");
+                            String new_name[]=text.split("\\.");
+
+                            if((text.endsWith(".mp4")  ||(text.endsWith(".3gp")) ))
+                                newPath+="/"+title.getText().toString();
                             else
                             {
-                                newPath = path.replace(vidName, title.getText().toString());
+                                SharedPreferences settings1= getSharedPreferences("MY_PREF",0);
+                                int ch=settings1.getInt("video formate",1);
+                                String ext;
+                                if(ch==1)
+                                    ext=".mp4";
+                                else
+                                    ext=".3gp";
+                                text.replace(".","");
+                                newPath+="/"+text+"."+ext;
                             }
+
+                        }
+                        else
+                        {
+                            newPath = path.replace(vidName, title.getText().toString());
+                        }
 
 
 
@@ -230,9 +222,6 @@ public class Finish_popup extends AppCompatActivity {
                         }
 
                     }
-
-///storage/emulated/0/Screen Recorder/SR_1540903419371.mp4
-                    // newPath = path.replace(vidName, title.getText().toString());
                     boolean anss = new File(path).renameTo(new File(newPath));
                     try {
                         copy(new File(path),new File(newPath));
@@ -260,11 +249,10 @@ public class Finish_popup extends AppCompatActivity {
                 }
                 finish();
 
-
-
             }
         });
     }
+
     public static void copy(File src, File dst) throws IOException
     {
         try (InputStream in = new FileInputStream(src)) {
@@ -282,17 +270,15 @@ public class Finish_popup extends AppCompatActivity {
     {
         finish();
     }
+
     public VideoModel getFromSDCard()
     {
         ArrayList<VideoModel> models=new ArrayList<>();
-        String fullPath;
-        if(vidName.endsWith(".mp4")  ||(vidName.endsWith(".3gp")))
-         fullPath = getExternalFilesDir("Screen Recorder").getAbsolutePath();
-        else
-            fullPath = getExternalFilesDir("Screen Capture Recorder").getAbsolutePath();
-        File f1 = new File("/storage/");
-        String[] list = f1.list();
-        fullPath = fullPath.replace("emulated/0", list[0]);
+
+        SharedPreferences settings1= this.getSharedPreferences("shared preferences",MODE_PRIVATE);
+
+        String path =  settings1.getString("storage path","storage/emulated/0/");
+        String fullPath = path + "/Video Call Recorder";
 
         File dir = new File(fullPath);
 
@@ -302,28 +288,28 @@ public class Finish_popup extends AppCompatActivity {
             for (File file : listFile)
             {
 
-                    if(file.getAbsoluteFile().toString().endsWith(vidName))
+                if(file.getAbsoluteFile().toString().endsWith(vidName))
+                {
+                    String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
+                    //  Bitmap resized = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(file.getAbsolutePath()), 180, 300);
+                    Bitmap  bitmap= ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
+                    model = new VideoModel();
+                    model.setName(file.getName());
+                    model.setUrl(file.getAbsolutePath());
+                    model.setImageBitmap(bitmap);
+                    try
                     {
-                        String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
-                      //  Bitmap resized = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(file.getAbsolutePath()), 180, 300);
-                        Bitmap  bitmap= ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
-                        model = new VideoModel();
-                        model.setName(file.getName());
-                        model.setUrl(file.getAbsolutePath());
-                        model.setImageBitmap(bitmap);
-                        try
-                        {
-                            if(bitmap!=null)
+                        if(bitmap!=null)
                             scaleBitmap(bitmap);
-                            else
-                                finish();
-                        }
-                        catch (Exception e)
-                        {
-
-                        }
-                        models.add(model);
+                        else
+                            finish();
                     }
+                    catch (Exception e)
+                    {
+
+                    }
+                    models.add(model);
+                }
 
 
             }
@@ -348,33 +334,33 @@ public class Finish_popup extends AppCompatActivity {
                 int data = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
 
 
-                    do {
-                        String nn=cursor.getString(name);
-                        if(nn!=null)
+                do {
+                    String nn=cursor.getString(name);
+                    if(nn!=null)
                         if (nn.equals(vidName))
                         {
-                        model = new VideoModel();
-                        model.setName(cursor.getString(name));
-                        model.setUrl(cursor.getString(data));
-                        model.setId(cursor.getInt(id));
-                        Bitmap bitmap = MediaStore.Video.Thumbnails.getThumbnail(contentResolver, model.getId(), MediaStore.Images.Thumbnails.MINI_KIND,
-                                null);
-                        if (bitmap == null)
-                        {
-                            bitmap = ThumbnailUtils.createVideoThumbnail(model.getUrl(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
-                        }
-                        model.setImageBitmap(bitmap);
+                            model = new VideoModel();
+                            model.setName(cursor.getString(name));
+                            model.setUrl(cursor.getString(data));
+                            model.setId(cursor.getInt(id));
+                            Bitmap bitmap = MediaStore.Video.Thumbnails.getThumbnail(contentResolver, model.getId(), MediaStore.Images.Thumbnails.MINI_KIND,
+                                    null);
+                            if (bitmap == null)
+                            {
+                                bitmap = ThumbnailUtils.createVideoThumbnail(model.getUrl(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
+                            }
+                            model.setImageBitmap(bitmap);
                             if(bitmap!=null)
-                               scaleBitmap(bitmap);
+                                scaleBitmap(bitmap);
                             else
                                 finish();
-                        models.add(model);
+                            models.add(model);
 
-                        Log.e("video file name",
-                                cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)));
-                        break;
-                    }
-                    } while (cursor.moveToNext());
+                            Log.e("video file name",
+                                    cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)));
+                            break;
+                        }
+                } while (cursor.moveToNext());
 
             }
             else{
@@ -397,7 +383,7 @@ public class Finish_popup extends AppCompatActivity {
     {
         if(srcBmp==null)
             return;
-            Bitmap dstBmp;
+        Bitmap dstBmp;
         if (srcBmp.getWidth() >= srcBmp.getHeight()){
 
             dstBmp = Bitmap.createBitmap(
@@ -455,22 +441,22 @@ public class Finish_popup extends AppCompatActivity {
             path=url+"/"+vidName;
         }
         try{
-        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-        sharingIntent.setType("video/*");
-        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Title");
-        sharingIntent.putExtra(Intent.EXTRA_STREAM,
-                Uri.parse(path));
-        startActivity(Intent.createChooser(sharingIntent, "share:"));
-    }
-    catch (Exception e)
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+            sharingIntent.setType("video/*");
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Title");
+            sharingIntent.putExtra(Intent.EXTRA_STREAM,
+                    Uri.parse(path));
+            startActivity(Intent.createChooser(sharingIntent, "share:"));
+        }
+        catch (Exception e)
         {
 
         }
     }
     public void delete(View v)
     {
-if(finall==null)
-    return;
+        if(finall==null)
+            return;
 
         if(finall.getId()==0)
         {
@@ -478,7 +464,7 @@ if(finall==null)
             boolean  anfffs= new File(path).delete();
         }
         else
-            {
+        {
             Uri uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, finall.getId());
             ContentResolver resolver = getContentResolver();
             resolver.delete(uri, null, null);
@@ -488,7 +474,34 @@ if(finall==null)
 
     public void rename(View v)
     {
-        storage_path();
+        String path = url+"/"+vidName;
+        String newPath = url+"/"+editText.getText();
+        try {
+            copy(new File(path),new File(newPath));
+
+        boolean  anfffs= new File(path).delete();
+
+        Uri uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, finall.getId());
+        ContentResolver resolver = getContentResolver();
+        resolver.delete(uri, null, null);
+
+        MediaScannerConnection.scanFile(getApplicationContext(), new String[]{newPath}, null,
+                new MediaScannerConnection.OnScanCompletedListener() {
+                    public void onScanCompleted(String path, Uri uri) {
+                        Log.i("ExternalStorage", "Scanned " + path + ":");
+                        Log.i("ExternalStorage", "-> uri=" + uri);
+                    }
+                });
+
+
+        Toast.makeText(Finish_popup.this, "Saved", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+        finish();
+//        storage_path();
 
     }
 

@@ -30,6 +30,7 @@ public class PrivacyPolicy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy_policy);
         TextView textView = findViewById(R.id.textview);
+        loadAds();
 
        /* if (HelperClass.isNetworkConnected(this)) {
             loadAds();
@@ -123,6 +124,7 @@ public class PrivacyPolicy extends AppCompatActivity {
 
     }
 
+*/
 
     private void loadAds() {
         if (!DataProvider.getInstance().buy) {
@@ -131,7 +133,7 @@ public class PrivacyPolicy extends AppCompatActivity {
                 LinearLayout frameLayout =
                         (LinearLayout) findViewById(R.id.adLayout);
                 UnifiedNativeAdView adView = (UnifiedNativeAdView) getLayoutInflater()
-                        .inflate(R.layout.ads_layout, null);
+                        .inflate(R.layout.big_native, null);
                 populateUnifiedNativeAdView(native_admob, adView);
                 frameLayout.removeAllViews();
                 frameLayout.addView(adView);
@@ -139,7 +141,7 @@ public class PrivacyPolicy extends AppCompatActivity {
                 DataProvider.getInstance().load_native_admob();
             }
         }
-    }*/
+    }
 
     private void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd, UnifiedNativeAdView adView) {
 

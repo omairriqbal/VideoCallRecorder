@@ -538,16 +538,6 @@ public class FloatingViewService_notification extends Service
             SharedPreferences settings1 = getSharedPreferences("shared preferences", MODE_PRIVATE);
             String path =  settings1.getString("storage path","storage/emulated/0/");
             String fullPath = path + "/Video Call Recorder";
-            /*String fullPath;
-            if(ch==1)
-                fullPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screen Recorder";//+ ;
-            else
-            {
-                fullPath = getExternalFilesDir("Screen Recorder").getAbsolutePath() ;
-                File f1 = new File("/storage/");
-                String[] list = f1.list();
-                fullPath = fullPath.replace("emulated/0",list[0]) ;
-            }*/
 
             String output = fullPath + name;
             stopScreenSharing();
@@ -558,18 +548,16 @@ public class FloatingViewService_notification extends Service
                             Log.i("ExternalStorage", "-> uri=" + uri);
                         }
                     });
-            // Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
-
-
+           Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
 
             notificationView.setTextViewText(R.id.text, "Recorder is ready.");
             myNotification.bigContentView = notificationView;
             notificationManager.notify(1, myNotification);
-          /*  Intent in=new Intent(FloatingViewService_notification.this,Finish_popup.class);
+            Intent in=new Intent(FloatingViewService_notification.this,Finish_popup.class);
             in.setFlags(FLAG_ACTIVITY_NEW_TASK);
             in.putExtra("name",name);
             in.putExtra("url",fullPath);
-            new Handler().postDelayed(() -> startActivity(in), 1000);*/
+            new Handler().postDelayed(() -> startActivity(in), 1000);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             {
                 update_Noti("stop");
@@ -630,6 +618,7 @@ public class FloatingViewService_notification extends Service
             mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mMediaRecorder.setVideoEncodingBitRate(3000000);
             mMediaRecorder.setVideoFrameRate(16);
+            Toast.makeText(getApplicationContext(), "Saved2nd", Toast.LENGTH_SHORT).show();
             //   int rotation = getWindowManager().getDefaultDisplay().getRotation();
             int orientation = ORIENTATIONS.get(0 + 90);
             mMediaRecorder.setOrientationHint(orientation);
