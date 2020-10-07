@@ -23,34 +23,18 @@ import java.util.List;
 
 public class PrivacyPolicy extends AppCompatActivity {
     private Toolbar toolbar;
-    private Handler handler_1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy_policy);
         TextView textView = findViewById(R.id.textview);
-        loadAds();
 
-       /* if (HelperClass.isNetworkConnected(this)) {
-            loadAds();
-        } else {
+       loadAds();
 
-            start_handler_network_connection();
-
-        }*/
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Privacy Policy");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
 
         textView.setText(Html.fromHtml(" <b> Privacy Policy </b><br><br>" +
-        "\n" +
+                "\n" +
                 "Global Apps built the Video Call Screen Recorder app as an Ad Supported app. This SERVICE is provided by Global Apps at no cost and is intended for use as is.\n" +
                 "\n" +
                 "This page is used to inform visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.\n" +
@@ -93,38 +77,6 @@ public class PrivacyPolicy extends AppCompatActivity {
                 "If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at kitoappsfeedback@gmail.com."));
     }
 
-  /*  public void start_handler_network_connection() {
-
-        handler_1 = new Handler();
-        handler_1.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-
-                if (HelperClass.isNetworkConnected(PrivacyPolicy.this)) {
-
-                    if (handler_1 != null)
-                        handler_1.removeCallbacksAndMessages(null);
-
-                    if (DataProvider.getInstance().read_data_remainig && !DataProvider.getInstance().load_request_send) {
-                        DataProvider.getInstance().on_complete();
-                        handler_1.postDelayed(this, 5000);
-                    }
-                    if (DataProvider.getInstance().get_Ads() != null && DataProvider.getInstance().get_Ads().size() > 0) {
-                        loadAds();
-
-                    }
-                } else if (!DataProvider.getInstance().load_request_send)
-                    handler_1.postDelayed(this, 5000);
-
-
-                //Do something after 100ms
-            }
-        }, 4000);
-
-    }
-
-*/
 
     private void loadAds() {
         if (!DataProvider.getInstance().buy) {
@@ -140,6 +92,8 @@ public class PrivacyPolicy extends AppCompatActivity {
 
                 DataProvider.getInstance().load_native_admob();
             }
+            else
+                DataProvider.getInstance().load_native_admob();
         }
     }
 
@@ -231,10 +185,10 @@ public class PrivacyPolicy extends AppCompatActivity {
 
         adView.setNativeAd(nativeAd);
     }
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed(); // one inherited from android.support.v4.app.FragmentActivity
 
-        return false;
+    public void backPress(View view) {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.right_in, android.R.anim.slide_out_right);
     }
+
 }

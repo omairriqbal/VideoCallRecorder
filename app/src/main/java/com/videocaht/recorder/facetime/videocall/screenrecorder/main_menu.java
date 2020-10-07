@@ -98,6 +98,8 @@ public class main_menu  extends BaseActivity
 
 
     boolean destroy=false;
+    private Handler handler_1;
+
     protected void onDestroy()
     {
         super.onDestroy();
@@ -119,9 +121,26 @@ public class main_menu  extends BaseActivity
         super.onCreate(icicle);
 
         AppRater.app_launched(this);
+        handler_1 = new Handler();
+        handler_1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-//        create_back_dialog();
-       //Ad_data();
+                if (HelperClass.isNetworkConnected(main_menu.this)) {
+
+                    if (handler_1 != null)
+                        handler_1.removeCallbacksAndMessages(null);
+
+                    if (DataProvider.getInstance().read_data_remainig && !DataProvider.getInstance().load_request_send) {
+                        DataProvider.getInstance().on_complete();
+                    }
+
+                } else if (!DataProvider.getInstance().load_request_send)
+                    handler_1.postDelayed(this, 5000);
+            }
+        }, 4000);
+
+
         Locale current = getResources().getConfiguration().locale;
         languagepair="en-"+current.getLanguage();
         if(current.getLanguage()!="en")

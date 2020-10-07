@@ -20,6 +20,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
@@ -42,6 +44,10 @@ import android.widget.TextView;
 import com.codekidlabs.storagechooser.Content;
 import com.codekidlabs.storagechooser.StorageChooser;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.VideoController;
+import com.google.android.gms.ads.formats.NativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,6 +58,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -62,33 +69,21 @@ import java.util.Map;
 
 public class Acc_Setting extends AppCompatActivity
 {
-    ListView lv,lv1,lv2;
-    RadioGroup r1,r2,r3,r4;
-    TextView title1;
-    Button ok,ok2,ok3;
-    String min[];
-    dataListAdapter adapter;
-    String choice,delay,Tfrom,Tto;
-    TextView t1,t2;
-    int pos,dd;
-    String formate="";
-    boolean refresh=false,list=false,close_app,showWidget,watermak,thmem=false;
-    int time[];
-    TextView from,to;
+    ListView lv;
 
-    private AdView mAdView;
-    private static final int REQUEST_INVITE =2 ;
-    private View parentLayout;
-    private PopupWindow popupWindow;
+
+    dataListAdapter adapter;
+
+    int dd;
+
+    boolean close_app,showWidget;
+
+
     int choice_vid,choice_img;
     private Dialog dialog;
     private int timmer;
-    boolean buy=main_menu.buy;
+
     ImageView ivback;
-
-    private boolean add1;
-
-    static boolean  add2=false;
 
     ArrayList<String> strings=new ArrayList<>();
 
@@ -96,6 +91,8 @@ public class Acc_Setting extends AppCompatActivity
     private StorageChooser.Builder builder = new StorageChooser.Builder();
     private static final int SDCARD_PERMISSION = 1;
     private TextView sec_text;
+    private Handler handler_1;
+    private RelativeLayout parentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -105,6 +102,9 @@ public class Acc_Setting extends AppCompatActivity
 
         checkStoragePermission();
         openDirectory();
+
+        loadAds();
+
         parentLayout = (RelativeLayout) findViewById(R.id.parent);
 
         ivback = findViewById(R.id.backarrow);
@@ -1111,6 +1111,114 @@ public class Acc_Setting extends AppCompatActivity
         }
         return status;
 
+    }
+
+    private void loadAds() {
+        if (!DataProvider.getInstance().buy) {
+            UnifiedNativeAd native_admob = DataProvider.getInstance().get_native_admob();
+            if (native_admob != null) {
+                LinearLayout frameLayout =
+                        (LinearLayout) findViewById(R.id.adLayout);
+                UnifiedNativeAdView adView = (UnifiedNativeAdView) getLayoutInflater()
+                        .inflate(R.layout.big_native, null);
+                populateUnifiedNativeAdView(native_admob, adView);
+                frameLayout.removeAllViews();
+                frameLayout.addView(adView);
+
+                DataProvider.getInstance().load_native_admob();
+            }
+            else
+                DataProvider.getInstance().load_native_admob();
+        }
+    }
+
+    private void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd, UnifiedNativeAdView adView) {
+
+        VideoController vc = nativeAd.getVideoController();
+
+        vc.setVideoLifecycleCallbacks(new VideoController.VideoLifecycleCallbacks() {
+            public void onVideoEnd() {
+
+                super.onVideoEnd();
+            }
+        });
+
+        com.google.android.gms.ads.formats.MediaView mediaView = (com.google.android.gms.ads.formats.MediaView) adView.findViewById(R.id.ad_media);
+        ImageView mainImageView = (ImageView) adView.findViewById(R.id.ad_image);
+
+        if (vc.hasVideoContent()) {
+            mediaView.setVisibility(View.VISIBLE);
+            adView.setMediaView(mediaView);
+            mainImageView.setVisibility(View.GONE);
+
+        } else {
+            mainImageView.setVisibility(View.VISIBLE);
+            adView.setImageView(mainImageView);
+            mediaView.setVisibility(View.GONE);
+
+            try {
+                List<NativeAd.Image> images = nativeAd.getImages();
+                if (images.size() > 0)
+                    mainImageView.setImageDrawable(images.get(0).getDrawable());
+
+            } catch (Exception e) {
+
+            }
+        }
+
+        adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
+        adView.setBodyView(adView.findViewById(R.id.ad_body));
+        adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
+        adView.setIconView(adView.findViewById(R.id.ad_app_icon));
+   /*     adView.setPriceView(adView.findViewById(R.id.ad_price));
+        adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
+        adView.setStoreView(adView.findViewById(R.id.ad_store));
+        adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));*/
+
+        // Some assets are guaranteed to be in every UnifiedNativeAd.
+        ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
+        ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
+        ((Button) adView.getCallToActionView()).setText(nativeAd.getCallToAction());
+        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // check before trying to display them.
+        if (nativeAd.getIcon() == null) {
+            adView.getIconView().setVisibility(View.GONE);
+        } else {
+            ((ImageView) adView.getIconView()).setImageDrawable(
+                    nativeAd.getIcon().getDrawable());
+            adView.getIconView().setVisibility(View.VISIBLE);
+        }
+
+        /*if (nativeAd.getPrice() == null) {
+            adView.getPriceView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getPriceView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getPriceView()).setText(nativeAd.getPrice());
+        }
+
+        if (nativeAd.getStore() == null) {
+            adView.getStoreView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getStoreView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
+        }
+
+        if (nativeAd.getStarRating() == null) {
+            adView.getStarRatingView().setVisibility(View.INVISIBLE);
+        } else {
+            ((RatingBar) adView.getStarRatingView())
+                    .setRating(nativeAd.getStarRating().floatValue());
+            adView.getStarRatingView().setVisibility(View.VISIBLE);
+        }*/
+
+       /* if (nativeAd.getAdvertiser() == null) {
+            adView.getAdvertiserView().setVisibility(View.INVISIBLE);
+        } else {
+            ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
+            adView.getAdvertiserView().setVisibility(View.VISIBLE);
+        }*/
+
+        adView.setNativeAd(nativeAd);
     }
 
 }

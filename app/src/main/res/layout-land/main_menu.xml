@@ -230,5 +230,5 @@
                 />
         </LinearLayout>
     </RelativeLayout>
-
+    <include layout="@layout/loading_layout"/>
 </RelativeLayout>

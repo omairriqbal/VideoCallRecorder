@@ -262,7 +262,6 @@ public class DataProvider {
         Ads.put("inter_admob_4", "ca-app-pub-3940256099942544/1033173712");
         Ads.put("inter_admob_5", "ca-app-pub-3940256099942544/1033173712");
 
-
         Ads.put("native_back", "ca-app-pub-3940256099942544/1044960115");
         Ads.put("native_admob_1", "ca-app-pub-3940256099942544/1044960115");
         Ads.put("native_admob_2", "ca-app-pub-3940256099942544/1044960115");
@@ -464,7 +463,7 @@ public class DataProvider {
 
         nativeAd = null;
 
-        String ADMOB_AD_UNIT_ID = "ca-app-pub-3940256099942544/1044960115";//ads_native_admob.get(native_admob);
+        String ADMOB_AD_UNIT_ID = ads_native_admob.get(native_admob);
         AdLoader.Builder builder = new AdLoader.Builder(mcontext, ADMOB_AD_UNIT_ID);
 
         builder.forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
@@ -488,7 +487,8 @@ public class DataProvider {
         AdLoader adLoader = builder.withAdListener(new AdListener() {
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                Toast.makeText(mcontext, "error loading ad" + errorCode, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mcontext, "native error loading ad" + errorCode, Toast.LENGTH_SHORT).show();
+
 
 
             }

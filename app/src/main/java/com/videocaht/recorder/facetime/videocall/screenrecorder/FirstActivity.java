@@ -35,6 +35,10 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
+        /*if (DataProvider.getInstance().read_data_remainig && !DataProvider.getInstance().load_request_send) {
+            DataProvider.getInstance().on_complete();
+        }*/
+
 
         enableButton = findViewById(R.id.enable_startup_button);
         disableButton = findViewById(R.id.disable_startup_button);

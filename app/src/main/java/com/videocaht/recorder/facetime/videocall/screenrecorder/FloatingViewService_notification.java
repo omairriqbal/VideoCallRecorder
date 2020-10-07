@@ -38,6 +38,8 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
@@ -90,7 +92,7 @@ public class FloatingViewService_notification extends Service
     static boolean recording=false;
     private boolean buy;
     private int mScreenDensity;
-
+    private InterstitialAd mInterstitialAd;
 
     private void openPermissionActivity()
     {
@@ -497,10 +499,10 @@ public class FloatingViewService_notification extends Service
     }
     public boolean check_Ad()
     {
-        if(!buy)
+        if(!DataProvider.getInstance().buy)
         {
             incremntCount();
-            check_InApp();
+            DataProvider.getInstance().check_InApp();
             SharedPreferences prefs = getApplicationContext().getSharedPreferences("recorder", 0);
             int count = prefs.getInt("count", 0);
             //   Toast.makeText(MainActivity.this, ""+count, Toast.LENGTH_SHORT).show();

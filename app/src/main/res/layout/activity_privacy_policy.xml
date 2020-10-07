@@ -25,13 +25,25 @@
             android:orientation="horizontal"
             android:showDividers="end">
 
+            <ImageView
+                android:id="@+id/backarrow"
+                android:onClick="backPress"
+                android:layout_width="25dp"
+                android:layout_height="38dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_leftarrow"
+                app:tint="@color/white" />
+
 
             <TextView
                 android:id="@+id/title_text"
                 style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                 android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/backarrow"
+                android:gravity="center"
                 android:paddingLeft="10dp"
                 android:text="Privacy Policy"
                 android:textAllCaps="false"
@@ -47,13 +59,13 @@
         android:layout_below="@+id/toolbar"
         android:layout_above="@+id/adLayout"
         android:orientation="vertical">
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_margin="5dp"
-        android:padding="10dp"
-        android:textSize="15sp"/>
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:padding="10dp"
+            android:textSize="15sp"/>
     </ScrollView>
 
     <LinearLayout

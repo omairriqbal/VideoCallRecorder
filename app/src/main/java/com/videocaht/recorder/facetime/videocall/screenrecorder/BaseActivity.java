@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.navigation.NavigationView;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +39,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     private ImageView hamburgIcon;
     private AlertDialog dialog;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +128,18 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigationMenuSettings:
-                startActivity(new Intent(this,Acc_Setting.class));
+                mInterstitialAd = DataProvider.getInstance().get_interstitial();
+                if ((mInterstitialAd.isLoaded() && DataProvider.show_ad)) {
+
+//                    ((RelativeLayout) findViewById(R.id.loading_adlayout)).setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(() ->
+                            show_ad(), 800);
+                } else {
+
+                    startActivity(new Intent(this,Acc_Setting.class));
+                }
+                DataProvider.toggle_ad_check();
+               
                 break;
 
             case R.id.navigationMenuRate:
@@ -154,6 +170,20 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return true;
+    }
+
+    private void show_ad() {
+//        ((RelativeLayout) findViewById(R.id.loading_adlayout)).setVisibility(View.GONE);
+        mInterstitialAd.show();
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                startActivity(new Intent(BaseActivity.this,Acc_Setting.class));
+
+                DataProvider.getInstance().reload_admob();
+            }
+        });
     }
 
     private void shareUrl() {

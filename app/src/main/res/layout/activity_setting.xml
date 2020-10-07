@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/parent">
-   <!-- <TextView
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary"
-        android:paddingTop="15dp"
-        android:paddingLeft="20dp"
-        android:paddingBottom="10dp"
-        android:text="Settings"
-        android:textAllCaps="false"
-        android:textColor="#fff"
-        android:textSize="20dp" />-->
+    <!-- <TextView
+         android:id="@+id/name"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:background="@color/colorPrimary"
+         android:paddingTop="15dp"
+         android:paddingLeft="20dp"
+         android:paddingBottom="10dp"
+         android:text="Settings"
+         android:textAllCaps="false"
+         android:textColor="#fff"
+         android:textSize="20dp" />-->
     <RelativeLayout
         android:id="@+id/toolbars"
         android:background="@drawable/toolbarmainbg"
@@ -83,4 +83,12 @@
         android:layout_alignParentTop="true">
     </ListView>
 
+    <LinearLayout
+        android:id="@+id/adLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"/>
+
+    <include layout="@layout/loading_layout"/>
 </RelativeLayout>

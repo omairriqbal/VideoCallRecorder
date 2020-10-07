@@ -88,6 +88,6 @@
          android:background="@drawable/whitecircle"
 
          />-->
-
+    <include layout="@layout/loading_layout"/>
 
 </LinearLayout>

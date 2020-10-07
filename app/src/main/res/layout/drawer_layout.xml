@@ -29,5 +29,6 @@
     </RelativeLayout>
 
     <include layout="@layout/navigation_view" />
+    <include layout="@layout/loading_layout"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
