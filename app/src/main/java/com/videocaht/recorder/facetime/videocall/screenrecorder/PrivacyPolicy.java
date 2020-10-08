@@ -92,8 +92,7 @@ public class PrivacyPolicy extends AppCompatActivity {
 
                 DataProvider.getInstance().load_native_admob();
             }
-            else
-                DataProvider.getInstance().load_native_admob();
+
         }
     }
 

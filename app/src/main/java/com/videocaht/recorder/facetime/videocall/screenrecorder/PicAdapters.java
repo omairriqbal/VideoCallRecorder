@@ -259,7 +259,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
         alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         alertDialog.show();
         Window window = alertDialog.getWindow();
-        window.setLayout(500, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setLayout(700, ViewGroup.LayoutParams.WRAP_CONTENT);
         alertDialog.setCancelable(false);
     }
 
@@ -304,7 +304,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
         alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         alertDialog.show();
         Window window = alertDialog.getWindow();
-        window.setLayout(600, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setLayout(750, ViewGroup.LayoutParams.WRAP_CONTENT);
 
     }
 }

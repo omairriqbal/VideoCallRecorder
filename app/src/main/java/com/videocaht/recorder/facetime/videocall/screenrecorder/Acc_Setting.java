@@ -1127,8 +1127,7 @@ public class Acc_Setting extends AppCompatActivity
 
                 DataProvider.getInstance().load_native_admob();
             }
-            else
-                DataProvider.getInstance().load_native_admob();
+
         }
     }
 

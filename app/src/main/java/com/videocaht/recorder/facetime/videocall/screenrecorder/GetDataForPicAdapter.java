@@ -22,7 +22,7 @@ import java.util.Date;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by KAMAL OLI on 14/08/2017.
+ * Created by umair .
  */
 
 public class GetDataForPicAdapter
@@ -122,8 +122,9 @@ public class GetDataForPicAdapter
                         || file.getName().endsWith(".webp"))
                 {
                     String temp = file.getPath().substring(0, file.getPath().lastIndexOf('/'));
-                    Bitmap resized = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(file.getAbsolutePath()), 180, 300);
-                    // Bitmap  bitmap= ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
+                   Bitmap resized = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(file.getAbsolutePath()), 300, 300);
+                    //  Bitmap  bitmap= ThumbnailUtils.createVideoThumbnail(file.getPath(), MediaStore.Images.Thumbnails.MINI_KIND);
+
                     VideoModel model=new VideoModel();
                     model.setName(file.getName());
                     String length = Formatter.formatFileSize(context, file.length());

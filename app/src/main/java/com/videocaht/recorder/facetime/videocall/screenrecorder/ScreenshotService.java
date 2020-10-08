@@ -207,8 +207,9 @@ String path;
                     ff.mkdir();
                 }
                 Calendar cc=Calendar.getInstance();
+
                 SharedPreferences settings= getSharedPreferences("MY_PREF",0);
-                int ch=settings.getInt("image formate",1);
+                int ch=settings.getInt("img formate",1);
                 String ext;
                 if(ch==1)
                     ext=".png";

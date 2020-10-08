@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/toolbarmainbg"
+        android:background="@drawable/ic_header_background"
 
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
@@ -34,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/ic_leftarrow"
-                app:tint="@color/white" />
+                app:tint="@android:color/white" />
 
 
             <TextView

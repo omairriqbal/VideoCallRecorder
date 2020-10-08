@@ -88,11 +88,12 @@ public class vidFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(first)
+        /*if(first)
         {
             first=!first;
             setRecyclerView();
-        }
+        }*/
+        setRecyclerView();
     }
     private ArrayList<VideoModel> getDataList(){
         for(int i=0;i<20;i++){
@@ -155,6 +156,7 @@ public class vidFragment extends Fragment {
                 break;
         }
     }
+
 
 
 }

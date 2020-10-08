@@ -23,7 +23,7 @@
         android:id="@+id/tabs"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@color/white"
+        android:background="@android:color/white"
         app:tabGravity="fill"
         android:elevation="@dimen/_5sdp"
         app:tabIndicatorColor="@color/colorPrimary"
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:textSize="14dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"

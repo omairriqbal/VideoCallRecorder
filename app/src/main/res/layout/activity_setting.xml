@@ -20,7 +20,7 @@
          android:textSize="20dp" />-->
     <RelativeLayout
         android:id="@+id/toolbars"
-        android:background="@drawable/toolbarmainbg"
+        android:background="@drawable/ic_header_background"
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
         android:layout_height="55dp">

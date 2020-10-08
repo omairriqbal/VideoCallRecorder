@@ -17,11 +17,19 @@ import android.util.Log;
 import android.view.View;
 import android.database.Cursor;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.VideoController;
+import com.google.android.gms.ads.formats.NativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jolta on 2/14/2018.
@@ -54,203 +63,125 @@ public class Finish_popup extends AppCompatActivity {
 
         vidName=getIntent().getStringExtra("name");
         url=getIntent().getStringExtra("url");
-        if(vidName!=null)
+       /* if(vidName!=null)
         {
             vidName=vidName.replace("/","");
             editText =  (EditText)findViewById(R.id.title);
             editText.setText(vidName);
-            finall= getFromSDCard();
 
-        }
+
+        }*/
+        finall= getFromSDCard();
+        loadAds();
 
     }
-    public void storage_path()
-    {
-        dialog = new Dialog(Finish_popup.this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog .setCancelable(false);
-        dialog .setContentView(R.layout.select_path);
-        dialog.show();
 
-        boolean isSDPresent=false;
-        File f1 = new File("/storage/");
-        String listOfStorages[]= f1.list();
-        if(listOfStorages[1].contains("emulated")||listOfStorages[0].contains("-"))
-        {
-            isSDPresent=true;
+
+    private void loadAds() {
+        if (!DataProvider.getInstance().buy) {
+            UnifiedNativeAd native_admob = DataProvider.getInstance().get_native_admob();
+            if (native_admob != null) {
+                LinearLayout frameLayout =
+                        (LinearLayout) findViewById(R.id.adLayout);
+                UnifiedNativeAdView adView = (UnifiedNativeAdView) getLayoutInflater()
+                        .inflate(R.layout.big_native, null);
+                populateUnifiedNativeAdView(native_admob, adView);
+                frameLayout.removeAllViews();
+                frameLayout.addView(adView);
+
+                DataProvider.getInstance().load_native_admob();
+            }
 
         }
-        if( isSDPresent)
-        {
-            // yes SD-card is present
-        }
-        else
-        {
-            // Sorry
-            RadioButton r1=(RadioButton) dialog.findViewById(R.id.sd);
-            r1.setEnabled(false);
-            r1.setText("No SD Card");
-        }
+    }
 
-        (dialog.findViewById(R.id.close)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
+    private void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd, UnifiedNativeAdView adView) {
 
+        VideoController vc = nativeAd.getVideoController();
+
+        vc.setVideoLifecycleCallbacks(new VideoController.VideoLifecycleCallbacks() {
+            public void onVideoEnd() {
+
+                super.onVideoEnd();
             }
         });
-        SharedPreferences settings1= getSharedPreferences("MY_PREF",0);
-        int ch=settings1.getInt("storage path",1);
-        selected=ch;
-        if(ch==1)
-        {
-            RadioButton r1=(RadioButton) dialog.findViewById(R.id.internal);
-            r1.setChecked(true);
-        }
-        if(ch==2)
-        {
-            RadioButton r1=(RadioButton) dialog.findViewById(R.id.sd);
-            r1.setChecked(true);
-        }
 
-        RadioGroup rr=(RadioGroup) dialog.findViewById(R.id.path);
-        rr.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+        com.google.android.gms.ads.formats.MediaView mediaView = (com.google.android.gms.ads.formats.MediaView) adView.findViewById(R.id.ad_media);
+        ImageView mainImageView = (ImageView) adView.findViewById(R.id.ad_image);
 
-            public void onCheckedChanged(RadioGroup buttonView, int ans)
-            {
-                // update your model (or other business logic) based on isChecked
-                switch(ans)
-                {
-                    case R.id.internal:
-                        selected=1;
-                        break;
+        if (vc.hasVideoContent()) {
+            mediaView.setVisibility(View.VISIBLE);
+            adView.setMediaView(mediaView);
+            mainImageView.setVisibility(View.GONE);
 
-                    case R.id.sd:
-                        selected=2;
-                        break;
+        } else {
+            mainImageView.setVisibility(View.VISIBLE);
+            adView.setImageView(mainImageView);
+            mediaView.setVisibility(View.GONE);
 
-                }
-                dialog.cancel();
-                EditText title=(EditText)findViewById(R.id.title);
-                String text=title.getText().toString();
+            try {
+                List<NativeAd.Image> images = nativeAd.getImages();
+                if (images.size() > 0)
+                    mainImageView.setImageDrawable(images.get(0).getDrawable());
 
-                String newPath;
-
-                if(!(title.getText().toString().equals(vidName)) || (selected!=ch))
-                {
-                    String path;
-                    try
-                    {
-                        path = finall.getUrl();
-                    }
-                    catch (Exception e)
-                    {
-                        path=url+"/"+vidName;
-                    }
-
-                    if(selected==1)
-                    {
-                        if(!path.contains("emulated"))
-                        {
-                            newPath= Environment.getExternalStorageDirectory().getAbsolutePath() + "/Screen Recorder";//+ ;
-                            if(!(new File(newPath).exists()))
-                            {
-                                new File(newPath).mkdir();
-                            }
-                            String name[]=vidName.split("\\.");
-                            String new_name[]=text.split("\\.");
-
-                            if((text.endsWith(".mp4")  ||(text.endsWith(".3gp")) ))
-                                newPath+="/"+title.getText().toString();
-                            else
-                            {
-                                SharedPreferences settings1= getSharedPreferences("MY_PREF",0);
-                                int ch=settings1.getInt("video formate",1);
-                                String ext;
-                                if(ch==1)
-                                    ext=".mp4";
-                                else
-                                    ext=".3gp";
-                                text.replace(".","");
-                                newPath+="/"+text+"."+ext;
-                            }
-
-                        }
-                        else
-                        {
-                            newPath = path.replace(vidName, title.getText().toString());
-                        }
-
-
-
-                    }
-                    else
-                    {
-                        if(path.contains("emulated"))
-                        {
-                            newPath = getExternalFilesDir("Screen Recorder").getAbsolutePath() ;
-                            File f1 = new File("/storage/");
-                            String[] list = f1.list();
-                            newPath = newPath.replace("emulated/0",list[0]) ;
-
-                            String name[]=vidName.split("\\.");
-                            String new_name[]=text.split("\\.");
-/*
-                            if(name[name.length-1].equals(new_name[new_name.length-1]))
-                                newPath+="/"+title.getText().toString()+"."+new_name[new_name.length-1];*/
-                            if((text.endsWith(".mp4")  ||(text.endsWith(".3gp")) ))
-                                newPath+="/"+title.getText().toString();
-                            else
-                            {
-                                SharedPreferences settings1= getSharedPreferences("MY_PREF",0);
-                                int ch=settings1.getInt("video formate",1);
-                                String ext;
-                                if(ch==1)
-                                    ext=".mp4";
-                                else
-                                    ext=".3gp";
-
-                                text.replace(".","");
-                                newPath+="/"+text+"."+ext;
-                            }
-
-                        }
-                        else
-                        {
-                            newPath = path.replace(vidName, title.getText().toString());
-                        }
-
-                    }
-                    boolean anss = new File(path).renameTo(new File(newPath));
-                    try {
-                        copy(new File(path),new File(newPath));
-                        boolean  anfffs= new File(path).delete();
-
-                        Uri uri = ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, finall.getId());
-                        ContentResolver resolver = getContentResolver();
-                        resolver.delete(uri, null, null);
-
-                        MediaScannerConnection.scanFile(getApplicationContext(), new String[]{newPath}, null,
-                                new MediaScannerConnection.OnScanCompletedListener() {
-                                    public void onScanCompleted(String path, Uri uri) {
-                                        Log.i("ExternalStorage", "Scanned " + path + ":");
-                                        Log.i("ExternalStorage", "-> uri=" + uri);
-                                    }
-                                });
-                    } catch (IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-
-
-                    Toast.makeText(Finish_popup.this, "Saved", Toast.LENGTH_SHORT).show();
-
-                }
-                finish();
+            } catch (Exception e) {
 
             }
-        });
+        }
+
+        adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
+        adView.setBodyView(adView.findViewById(R.id.ad_body));
+        adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
+        adView.setIconView(adView.findViewById(R.id.ad_app_icon));
+   /*     adView.setPriceView(adView.findViewById(R.id.ad_price));
+        adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
+        adView.setStoreView(adView.findViewById(R.id.ad_store));
+        adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));*/
+
+        // Some assets are guaranteed to be in every UnifiedNativeAd.
+        ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
+        ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
+        ((Button) adView.getCallToActionView()).setText(nativeAd.getCallToAction());
+        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // check before trying to display them.
+        if (nativeAd.getIcon() == null) {
+            adView.getIconView().setVisibility(View.GONE);
+        } else {
+            ((ImageView) adView.getIconView()).setImageDrawable(
+                    nativeAd.getIcon().getDrawable());
+            adView.getIconView().setVisibility(View.VISIBLE);
+        }
+
+        /*if (nativeAd.getPrice() == null) {
+            adView.getPriceView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getPriceView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getPriceView()).setText(nativeAd.getPrice());
+        }
+
+        if (nativeAd.getStore() == null) {
+            adView.getStoreView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getStoreView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
+        }
+
+        if (nativeAd.getStarRating() == null) {
+            adView.getStarRatingView().setVisibility(View.INVISIBLE);
+        } else {
+            ((RatingBar) adView.getStarRatingView())
+                    .setRating(nativeAd.getStarRating().floatValue());
+            adView.getStarRatingView().setVisibility(View.VISIBLE);
+        }*/
+
+       /* if (nativeAd.getAdvertiser() == null) {
+            adView.getAdvertiserView().setVisibility(View.INVISIBLE);
+        } else {
+            ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
+            adView.getAdvertiserView().setVisibility(View.VISIBLE);
+        }*/
+
+        adView.setNativeAd(nativeAd);
     }
 
     public static void copy(File src, File dst) throws IOException
@@ -313,63 +244,6 @@ public class Finish_popup extends AppCompatActivity {
 
 
             }
-        }
-        return model;
-    }
-    public VideoModel getVideoData()
-    {
-        ArrayList<VideoModel> models=new ArrayList<>();
-        contentResolver=getContentResolver();
-        String[] projection={MediaStore.Video.Media._ID,MediaStore.Video.Media.SIZE,MediaStore.Video.Media.DATA,
-                MediaStore.Video.Media.DISPLAY_NAME};
-        // String[] selectionArgs=new String[]{"FbVideoDownload"};
-        String selection=MediaStore.Video.Media.DATA +" like?";
-        String[] selectionArgs=new String[]{"%Screen Recorder%"};
-        cursor= contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-                projection,selection,selectionArgs,MediaStore.Video.Media.DATE_TAKEN);
-        if(cursor!=null){
-            if(cursor.moveToFirst()) {
-                int id = cursor.getColumnIndex(MediaStore.Video.Media._ID);
-                int name = cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME);
-                int data = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
-
-
-                do {
-                    String nn=cursor.getString(name);
-                    if(nn!=null)
-                        if (nn.equals(vidName))
-                        {
-                            model = new VideoModel();
-                            model.setName(cursor.getString(name));
-                            model.setUrl(cursor.getString(data));
-                            model.setId(cursor.getInt(id));
-                            Bitmap bitmap = MediaStore.Video.Thumbnails.getThumbnail(contentResolver, model.getId(), MediaStore.Images.Thumbnails.MINI_KIND,
-                                    null);
-                            if (bitmap == null)
-                            {
-                                bitmap = ThumbnailUtils.createVideoThumbnail(model.getUrl(), MediaStore.Images.Thumbnails.FULL_SCREEN_KIND);
-                            }
-                            model.setImageBitmap(bitmap);
-                            if(bitmap!=null)
-                                scaleBitmap(bitmap);
-                            else
-                                finish();
-                            models.add(model);
-
-                            Log.e("video file name",
-                                    cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)));
-                            break;
-                        }
-                } while (cursor.moveToNext());
-
-            }
-            else{
-                Log.e("No media file","Present in the selected directory");
-            }
-            Log.e("Cursor",cursor.toString());
-        }
-        else{
-            Log.e("No data in Cursor",cursor.toString()+"");
         }
         return model;
     }

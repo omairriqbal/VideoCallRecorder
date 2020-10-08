@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="400dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/dailog_background"
@@ -24,6 +24,7 @@
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:gravity="center"
+        android:layout_gravity="center"
         android:textSize="13sp"
          android:fontFamily="sans-serif-medium"
         android:textStyle="normal"
@@ -33,25 +34,16 @@
 problem you're facing?" />
 
 
-    <EditText
-        android:id="@+id/edtFeedback"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="11sp"
-        android:textColor="#000000"
-        android:lineSpacingExtra="2.5sp"
-        android:layout_margin="15dp"
-        android:hint="Give your feedback here"/>
 
     <TextView
         android:id="@+id/feedbackSubmit"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/enable_button"
-        android:textColor="@color/white"
+        android:textColor="@android:color/white"
         android:textSize="11sp"
         android:gravity="center"
-        android:text="Submit"
+        android:text="Write feedback?"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -62,7 +54,7 @@ problem you're facing?" />
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/disabe_button"
-        android:textColor="@color/black"
+        android:textColor="@android:color/black"
         android:textSize="11sp"
         android:gravity="center"
         android:text="Later"

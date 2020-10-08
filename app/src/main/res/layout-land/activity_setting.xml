@@ -20,7 +20,7 @@
          android:textSize="20dp" />-->
     <RelativeLayout
         android:id="@+id/toolbars"
-        android:background="@drawable/toolbarmainbg"
+        android:background="@drawable/ic_header_background"
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
         android:layout_height="55dp">
@@ -31,7 +31,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:tint="@color/white"
+            android:tint="@android:color/white"
             android:src="@drawable/ic_leftarrow" />
         <TextView
             android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
         android:layout_marginTop="50dp"
         android:padding="5dp"
         android:scrollbars="none"
-        android:divider="@color/white"
+        android:divider="@android:color/white"
         android:dividerHeight="0dp"
         android:layout_below="@+id/toolbars"
         android:id="@+id/list"
@@ -135,8 +135,8 @@
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:progressTint="@color/white"
-                android:indeterminateTint="@color/white"
+                android:progressTint="@android:color/white"
+                android:indeterminateTint="@android:color/white"
 
                 />
             <TextView
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:text="Loading Ad"
                 android:layout_gravity="center"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/loading_ad_text"
                 />

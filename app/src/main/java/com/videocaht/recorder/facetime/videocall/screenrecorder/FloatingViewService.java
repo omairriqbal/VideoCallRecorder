@@ -688,7 +688,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         {
             closeButton = new Intent(this, FloatingViewService.class);
             closeButton.setAction(ACTION_PAUSE_PLAY);
-            notificationView.setImageViewResource(R.id.btn_play, R.mipmap.ic_rec);
+            notificationView.setImageViewResource(R.id.btn_play, R.drawable.ic_notification_play);
             circle_1.setImageResource(R.mipmap.widget_rec);
             circle_1.setId(R.id.rec);
 
@@ -1643,7 +1643,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
     {
         windowManagerPanel = (WindowManager) getSystemService(WINDOW_SERVICE);
         circle_1 = new ImageView(this);
-        circle_1.setImageResource(R.mipmap.widget_rec);
+        circle_1.setImageResource(R.drawable.ic_notification_play);
         circle_1.setMaxWidth(10);
         circle_1.setMaxHeight(10);
         circle_1.setId(R.id.rec);
@@ -1654,7 +1654,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
 
 
         circle_2 = new ImageView(this);
-        circle_2.setImageResource(R.mipmap.widget_stop);
+        circle_2.setImageResource(R.drawable.ic_notification_stop);
         circle_2.setMaxWidth(10);
         circle_2.setMaxHeight(10);
         circle_2.setId(R.id.stop);
@@ -1664,7 +1664,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         circle_2.setOnClickListener(this);
 
         circle_3 = new ImageView(this);
-        circle_3.setImageResource(R.mipmap.screen_shot);
+        circle_3.setImageResource(R.drawable.ic_notification_screen_shot);
         circle_3.setMaxWidth(10);
         circle_3.setMaxHeight(10);
         circle_3.setId(R.id.screen_shot);
@@ -1674,7 +1674,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         circle_3.setOnClickListener(this);
 
         circle_4 = new ImageView(this);
-        circle_4.setImageResource(R.mipmap.widget_more);
+        circle_4.setImageResource(R.drawable.ic_notification_view);
         circle_4.setMaxWidth(10);
         circle_4.setMaxHeight(10);
         circle_4.setId(R.id.openApp);
@@ -1684,7 +1684,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         circle_4.setOnClickListener(this);
 
         circle_5 = new ImageView(this);
-        circle_5.setImageResource(R.mipmap.widget_close);
+        circle_5.setImageResource(R.drawable.ic_notification_exit);
         circle_5.setMaxWidth(10);
         circle_5.setMaxHeight(10);
         circle_5.setId(R.id.cc);

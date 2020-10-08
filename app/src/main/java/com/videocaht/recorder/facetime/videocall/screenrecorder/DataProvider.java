@@ -487,7 +487,7 @@ public class DataProvider {
         AdLoader adLoader = builder.withAdListener(new AdListener() {
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                Toast.makeText(mcontext, "native error loading ad" + errorCode, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mcontext, "native error loading ad" + errorCode, Toast.LENGTH_SHORT).show();
 
 
 

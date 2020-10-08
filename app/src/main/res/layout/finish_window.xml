@@ -1,120 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="330dp"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FAFAFA"
-    android:layout_gravity="center">
-
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/top"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        >
-        <ImageView
-            android:layout_width="210dp"
-            android:layout_height="210dp"
-            android:scaleType="fitCenter"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/frame_border"
-            android:layout_marginTop="0dp"
-            android:layout_centerHorizontal="true"
-
-            />
-        <ImageView
-            android:layout_width="200dp"
-            android:id="@+id/thubnail"
-            android:layout_height="200dp"
-            android:scaleType="fitCenter"
-
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_centerHorizontal="true"
-
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/play_btn"
-            android:tint="@color/colorPrimaryDark"
-            android:layout_centerHorizontal="true"
-           android:layout_centerInParent="true"
-            />
-    </RelativeLayout>
-
-
-    <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_alignEnd="@+id/dd"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:tint="@android:color/tab_indicator_text"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:id="@+id/close"
-        android:layout_alignParentRight="true"
-        android:onClick="close"
-        />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/title"
-        android:textSize="12dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:text="@string/app_name"
-        android:layout_below="@+id/top"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="30dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-
-        />
+    android:layout_gravity="center"
+    app:cardCornerRadius="@dimen/_10sdp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:weightSum="4"
-        android:orientation="horizontal"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_below="@id/title"
-    android:showDividers="end"
-        >
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/icon_play"
-            android:tint="@color/colorPrimaryDark"
-            android:layout_weight="1"
-            android:onClick="playMedia"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-            />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/icon_share"
-            android:layout_weight="1"
-            android:onClick="share"
+        <androidx.cardview.widget.CardView
+            android:layout_width="320dp"
+            android:layout_height="120dp"
+            android:id="@+id/top"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_10sdp"
+            app:cardCornerRadius="7dp">
 
-            />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/icon_save"
-            android:layout_weight="1"
-            android:onClick="rename"
-            />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/icon_del"
-            android:layout_weight="1"
-android:onClick="delete"
-            />
+            <ImageView
+                android:layout_width="match_parent"
+                android:id="@+id/thubnail"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/adLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/share"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:background="@drawable/disabe_button"
+                android:textColor="@android:color/black"
+                android:onClick="share"
+                android:textSize="11sp"
+                android:gravity="center"
+                android:text="Share"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:background="@drawable/enable_button"
+                android:layout_toRightOf="@+id/share"
+                android:textColor="@android:color/white"
+                android:textSize="11sp"
+                android:gravity="center"
+                android:text="Play Video"
+                android:onClick="playMedia"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textAllCaps="false"/>
+        </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

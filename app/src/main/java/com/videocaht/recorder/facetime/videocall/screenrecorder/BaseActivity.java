@@ -76,16 +76,30 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                                            public void onDrawerSlide(View drawerView, float slideOffset) {
 
                                                // Scale the View based on current slide offset
-                                               final float diffScaledOffset = slideOffset * (1 - END_SCALE);
+                                             /*  final float diffScaledOffset = slideOffset * (1 - END_SCALE);
                                                final float offsetScale = 1 - diffScaledOffset;
                                                contentView.setScaleX(offsetScale);
-                                               contentView.setScaleY(offsetScale);
+//                                               contentView.setScaleY(offsetScale);
 
                                                // Translate the View, accounting for the scaled width
                                                final float xOffset = drawerView.getWidth() * slideOffset;
                                                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
+                                               final float yOffsetDiff = contentView.getWidth() * diffScaledOffset / 5;
                                                final float xTranslation = xOffset - xOffsetDiff;
+                                               final float yTranslation = xOffset - yOffsetDiff;
                                                contentView.setTranslationX(xTranslation);
+                                               contentView.setTranslationY(yTranslation);*/
+
+                                               float slideX = drawerView.getWidth() * slideOffset;
+                                               float slideY = (drawerView.getWidth()/4) * slideOffset;
+
+
+
+                                               contentView.setTranslationY(slideY);
+                                               contentView.setTranslationX(slideX);
+
+                                               contentView.setScaleX(1 - (slideOffset / 10f));
+                                               contentView.setScaleY(1 - (slideOffset / 7f));
                                            }
 
                                            @Override
@@ -139,7 +153,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(new Intent(this,Acc_Setting.class));
                 }
                 DataProvider.toggle_ad_check();
-               
+
                 break;
 
             case R.id.navigationMenuRate:
@@ -153,6 +167,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     drawerLayout.closeDrawer(Gravity.LEFT);
 
                 shareUrl();
+                break;
             case R.id.navigationMenuRemoveAd:
                 if (drawerLayout.isDrawerOpen(Gravity.LEFT))
                     drawerLayout.closeDrawer(Gravity.LEFT);
@@ -214,9 +229,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         TextView cancel = view.findViewById(R.id.feedbackCancel);
 
         yes.setOnClickListener((View v) ->{
-            String msg = "Thanks for your support";
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-            finish(); });
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                    "mailto", "globalapp.feedback@gmail.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback Truck Gps Navigation");
+            startActivity(Intent.createChooser(emailIntent, null));
+            dialog.cancel();});
 
         cancel.setOnClickListener((View v) ->{
             InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
@@ -230,7 +247,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         dialog.show();
         Window window = dialog.getWindow();
-        window.setLayout(500, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setLayout(700, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
     }
 
@@ -250,7 +267,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         cancel.setOnClickListener((View v) ->{
 
-           finish(); });
+            finish(); });
 
         textBuilder.setView(view);
         dialog = textBuilder.create();
@@ -258,7 +275,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         Window window = dialog.getWindow();
-        window.setLayout(500, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setLayout(700, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
     }
 }

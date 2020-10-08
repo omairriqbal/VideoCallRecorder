@@ -344,7 +344,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
             alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             alertDialog.show();
             Window window = alertDialog.getWindow();
-            window.setLayout(600, ViewGroup.LayoutParams.WRAP_CONTENT);
+            window.setLayout(750, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
 
         @SuppressLint("RestrictedApi")
@@ -432,7 +432,7 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
         alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         alertDialog.show();
         Window window = alertDialog.getWindow();
-        window.setLayout(500, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setLayout(700, ViewGroup.LayoutParams.WRAP_CONTENT);
         alertDialog.setCancelable(false);
     }
 }

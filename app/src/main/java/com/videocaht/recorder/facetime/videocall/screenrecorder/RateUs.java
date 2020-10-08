@@ -46,11 +46,11 @@ public class RateUs extends Activity {
                 if (rating == 1) {
                     imageView.setImageDrawable(getResources().getDrawable(R.drawable.smiley1));
                 } else if (rating == 2) {
-                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.smiley2));
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.smiley4));
                 } else if (rating == 3) {
                     imageView.setImageDrawable(getResources().getDrawable(R.drawable.smiley3));
                 } else if (rating == 4) {
-                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.smiley4));
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.smiley2));
                 } else if (rating == 5) {
                     imageView.setImageDrawable(getResources().getDrawable(R.drawable.smiley5));
                 }
@@ -99,7 +99,7 @@ public class RateUs extends Activity {
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         Window window = dialog.getWindow();
-        window.setLayout(500, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setLayout( 700, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
     }
 
@@ -129,7 +129,7 @@ public class RateUs extends Activity {
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         Window window = dialog.getWindow();
-        window.setLayout(500, ViewGroup.LayoutParams.WRAP_CONTENT);
+        window.setLayout( 700, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
     }
 

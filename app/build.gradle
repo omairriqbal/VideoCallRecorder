@@ -42,7 +42,7 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         setProperty("archivesBaseName", "Screen Recorder-$versionName-$versionCode")
         manifestPlaceholders = [
-                onesignal_app_id: 'cd9b7860-677e-4dfa-948f-e6424e17109d',
+                onesignal_app_id: 'da393735-0659-4cbc-82a1-4e7fa5ad2563',
                 onesignal_google_project_number: 'REMOTE'
         ]
 
