@@ -120,6 +120,8 @@ public class main_menu  extends BaseActivity
         setContentView(R.layout.drawer_layout);
         super.onCreate(icicle);
 
+        DataProvider.getInstance().log_event("application_launched", "true");
+
         AppRater.app_launched(this);
         handler_1 = new Handler();
         handler_1.postDelayed(new Runnable() {

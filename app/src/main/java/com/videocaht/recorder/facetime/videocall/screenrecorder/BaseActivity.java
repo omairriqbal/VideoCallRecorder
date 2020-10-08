@@ -149,7 +149,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
                     new Handler().postDelayed(() ->
                             show_ad(), 800);
                 } else {
-
+                    DataProvider.getInstance().log_event("setting_screen_launched", "from_drawer");
                     startActivity(new Intent(this,Acc_Setting.class));
                 }
                 DataProvider.toggle_ad_check();
@@ -194,6 +194,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onAdClosed() {
                 super.onAdClosed();
+                DataProvider.getInstance().log_event("setting_screen_launched", "from_drawer");
                 startActivity(new Intent(BaseActivity.this,Acc_Setting.class));
 
                 DataProvider.getInstance().reload_admob();

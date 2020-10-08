@@ -284,7 +284,7 @@ public class FloatingViewService_notification extends Service
         {
             closeButton = new Intent(this, FloatingViewService_notification.class);
             closeButton.setAction(ACTION_PAUSE_PLAY);
-            notificationView.setImageViewResource(R.id.btn_play,R.mipmap.ic_rec);
+            notificationView.setImageViewResource(R.id.btn_play,R.drawable.ic_notification_play);
 
 
         }

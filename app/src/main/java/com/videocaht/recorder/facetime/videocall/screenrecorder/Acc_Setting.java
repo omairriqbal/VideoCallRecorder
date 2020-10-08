@@ -151,7 +151,7 @@ public class Acc_Setting extends AppCompatActivity
                 else if(i==5)
                 {
                     //select storage
-
+                    DataProvider.getInstance().log_event("clicked_on_change_path", "setting_screen");
                     directoryChooser();
 //                    storage_path();
                 }

@@ -179,10 +179,12 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
                 public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
                     switch ((item.getItemId())) {
                         case R.id.rename:
+                            DataProvider.getInstance().log_event("clicked_rename_dailog", "video_adapter_menu");
                             String oldName = dataList.get(position).getName();
                             renameDailog(oldName);
                             break;
                         case R.id.shareLink:
+                            DataProvider.getInstance().log_event("clicked_share_dailog", "video_adapter_menu");
                             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                             sharingIntent.setType("video/*");
                             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Title");
@@ -191,6 +193,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
                             context.startActivity(Intent.createChooser(sharingIntent, "share:"));
                             break;
                         case R.id.deleteListItem:
+                            DataProvider.getInstance().log_event("clicked_delete_dailog", "video_adapter_menu");
                             getDeleteDialog(position);
                             break;
                     }

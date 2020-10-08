@@ -4,6 +4,9 @@ package com.videocaht.recorder.facetime.videocall.screenrecorder;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.StrictMode;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.onesignal.OneSignal;
 
@@ -19,6 +22,8 @@ public class VideoCallRecorderApplication extends Application {
         super.onCreate();
         instance = this;
         context=getApplicationContext();
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
        DataProvider.getInstance();
         AppRater.app_launched(getContext());

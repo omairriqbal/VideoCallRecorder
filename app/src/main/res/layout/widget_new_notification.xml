@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
+    android:background="#16EDEDED"
     android:orientation="horizontal"
     android:layout_margin="5dp">
 
@@ -27,7 +28,7 @@
         android:layout_width="40dp"
         android:layout_height="45dp"
         android:layout_margin="@dimen/_5sdp"
-        android:src="@drawable/ic_app_icon"
+        android:src="@drawable/app_icon"
         android:scaleType="fitCenter"/>
 
 
@@ -37,25 +38,41 @@
         android:weightSum="4"
         android:padding="5dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:layout_weight="1.5"
-            android:textSize="12sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textColor="#565656"
-            android:lineSpacingExtra="0.8sp"
-            android:text="Video Call Recorder" />
+            android:orientation="vertical"
+            android:layout_weight="1.6">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.6"
+                android:textSize="12sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:textColor="#565656"
+                android:lineSpacingExtra="0.8sp"
+                android:text="Video Call Recorder" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="9.5sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="#565656"
+                android:lineSpacingExtra="0.5sp"
+                android:text="App is running in background"
+                />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/btn_play"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_notification_play"
-            android:padding="5dp"
+            android:outlineProvider="bounds"
+            android:elevation="@dimen/_10sdp"
             android:layout_weight="0.8"
             android:text="Resume" />
         <ImageView
@@ -63,7 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_notification_stop"
-            android:padding="5dp"
+            android:elevation="@dimen/_5sdp"
             android:layout_weight="0.8"
             android:text="Stop" />
 
@@ -71,7 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_notification_view"
-            android:padding="5dp"
+            android:elevation="@dimen/_5sdp"
             android:layout_weight="0.8"
             android:id="@+id/openApp" />
 
