@@ -57,9 +57,12 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.unity3d.ads.misc.Utilities.runOnUiThread;
 
 public class FloatingViewService extends Service implements View.OnClickListener
 {
@@ -130,6 +133,8 @@ public class FloatingViewService extends Service implements View.OnClickListener
     private View countdown;
     private TextView counter;
     private boolean buy;
+    private Timer timer;
+    private int currentTime = 0;
 
 
     private void getScreenSize()
@@ -253,6 +258,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
 
                 case ACTION_PAUSE:
                     // pause or play song
+                    Toast.makeText(this, "pause", Toast.LENGTH_SHORT).show();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                     {
                         try {
@@ -272,11 +278,12 @@ public class FloatingViewService extends Service implements View.OnClickListener
                     break;
                 case ACTION_RESUME:
                     // pause or play song
+                    Toast.makeText(this, "resume", Toast.LENGTH_SHORT).show();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                     {
                         try {
                             mMediaRecorder.resume();
-                            current_Time = startTime;
+                            startTime = current_Time;
                             customHandler.postDelayed(updateTimerThread, 0);
                             update_Noti("play");
                         }
@@ -899,7 +906,9 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 {
                     try {
                         mMediaRecorder.pause();
-                        customHandler.removeCallbacks(updateTimerThread);
+                        timer.cancel();
+                       /* startTime=current_Time;
+                        customHandler.removeCallbacks(updateTimerThread);*/
                         update_Noti("pause");
                     }
                     catch (Exception e)
@@ -914,8 +923,22 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 {
                     try {
                         mMediaRecorder.resume();
-                        startTime=current_Time;
-                        customHandler.postDelayed(updateTimerThread, 0);
+                        /*startTime=current_Time;
+                        customHandler.postDelayed(updateTimerThread, 0);*/
+                        timer = new Timer();
+                        timer.scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        currentTime += 1;
+
+                                        collapsed_iv.setImageDrawable(getApplicationContext().getResources().getDrawable(R.mipmap.ic_empty));
+                                        timmer.setText(TimeFormatUtil.toDisplayString(currentTime));
+                                    }
+                                });
+                            }
+                        }, 0, 10);
                         update_Noti("play");
                     }
                     catch (Exception e)
@@ -1045,9 +1068,26 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 {
 
                 }
-                startTime = SystemClock.uptimeMillis();
+//                startTime = SystemClock.uptimeMillis();
                 if(!showWidget)
-                    customHandler.postDelayed(updateTimerThread, 0);
+//                    customHandler.postDelayed(updateTimerThread, 0);
+                    timer = new Timer();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                currentTime += 1;
+
+                                // update ui
+                                collapsed_iv.setImageDrawable(getApplicationContext().getResources().getDrawable(R.mipmap.ic_empty));
+
+                                timmer.setText(TimeFormatUtil.toDisplayString(currentTime));
+//
+                            }
+                        });
+                    }
+                }, 0, 10);
                 try {
                     initRecorder();
                     shareScreen();
@@ -1340,6 +1380,8 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 }
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                timer.cancel();
+                currentTime = 0;
                 update_Noti("stop");
             }
 

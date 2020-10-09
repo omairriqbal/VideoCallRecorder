@@ -27,6 +27,7 @@
         android:layout_width="40dp"
         android:layout_height="45dp"
         android:layout_margin="@dimen/_5sdp"
+        android:layout_gravity="center"
         android:src="@drawable/app_icon"
         android:scaleType="fitCenter"/>
 
