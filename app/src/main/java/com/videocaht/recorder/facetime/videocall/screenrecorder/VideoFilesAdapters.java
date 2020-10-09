@@ -30,8 +30,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +81,11 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
     public void onBindViewHolder(GridViewHolder holder, int position) {
         model = dataList.get(position);
         holder.setViews(model);
+        if((position + 1) == 2){
+            holder.load_Ads();
+        } else
+            holder.frameLayout.setVisibility(View.GONE);
+
         if((position + 1) % 4 == 0){
             holder.load_Ads();
         } else
@@ -151,7 +154,6 @@ public class VideoFilesAdapters extends RecyclerView.Adapter<VideoFilesAdapters.
         }
 
         private void show_ad() {
-//            ((RelativeLayout) itemView.findViewById(R.id.loading_adlayout)).setVisibility(View.GONE);
             mInterstitialAd.show();
             mInterstitialAd.setAdListener(new AdListener() {
                 @Override

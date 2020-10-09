@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:background="#16EDEDED"
     android:orientation="horizontal"
     android:layout_margin="5dp">
 
@@ -53,17 +52,8 @@
                 android:textStyle="bold"
                 android:textColor="#565656"
                 android:lineSpacingExtra="0.8sp"
-                android:text="Video Call Recorder" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="9.5sp"
-                android:fontFamily="sans-serif"
-                android:textStyle="normal"
-                android:textColor="#565656"
-                android:lineSpacingExtra="0.5sp"
-                android:text="App is running in background"
-                />
+                android:text="@string/app_name" />
+
         </LinearLayout>
 
         <ImageView
@@ -71,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_notification_play"
-            android:outlineProvider="bounds"
+            android:layout_gravity="center"
             android:elevation="@dimen/_10sdp"
             android:layout_weight="0.8"
             android:text="Resume" />
@@ -80,6 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_notification_stop"
+            android:layout_gravity="center"
             android:elevation="@dimen/_5sdp"
             android:layout_weight="0.8"
             android:text="Stop" />
@@ -88,6 +79,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_notification_view"
+            android:layout_gravity="center"
             android:elevation="@dimen/_5sdp"
             android:layout_weight="0.8"
             android:id="@+id/openApp" />

@@ -242,13 +242,11 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 case ACTION_STOP:
                     // go to previous song
                     stop();
-
                     break;
 
 
                 case ACTION_PAUSE_PLAY:
                     // pause or play song
-
                     record();
                     break;
 
@@ -278,14 +276,12 @@ public class FloatingViewService extends Service implements View.OnClickListener
                     {
                         try {
                             mMediaRecorder.resume();
-                            startTime=current_Time;
+                            current_Time = startTime;
                             customHandler.postDelayed(updateTimerThread, 0);
                             update_Noti("play");
                         }
                         catch (Exception e)
-                        {
-
-                        }
+                        {}
 
                     }
 
@@ -392,15 +388,11 @@ public class FloatingViewService extends Service implements View.OnClickListener
             int height = displayMetrics.heightPixels;
             int width = displayMetrics.widthPixels;
 
-
-
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
                 if(gestureDetector.onTouchEvent(event))
-                {
-
-                }
+                { }
                 else {
                     switch (event.getAction())
                     {
@@ -441,8 +433,6 @@ public class FloatingViewService extends Service implements View.OnClickListener
 
                         case MotionEvent.ACTION_MOVE:
                         {
-
-
 
                             if (MathUtil.betweenExclusive(params.x, -10, 70) && MathUtil.betweenExclusive(params.y, -150+screen_height / 3, screen_height / 2)) {
                                 if(!recording)
@@ -688,8 +678,8 @@ public class FloatingViewService extends Service implements View.OnClickListener
         {
             closeButton = new Intent(this, FloatingViewService.class);
             closeButton.setAction(ACTION_PAUSE_PLAY);
-            notificationView.setImageViewResource(R.id.btn_play, R.drawable.ic_notification_play);
-            circle_1.setImageResource(R.mipmap.widget_rec);
+            notificationView.setImageViewResource(R.id.btn_play, R.drawable.widget_icon_record);
+            circle_1.setImageResource(R.drawable.widget_icon_record);
             circle_1.setId(R.id.rec);
 
         }
@@ -708,7 +698,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
     }
     private long startTime = 0L;
     private Handler customHandler = new Handler();
-    private long current_Time=0l;
+    private long current_Time=0L;
     private Runnable updateTimerThread = new Runnable()
     {
 
@@ -717,7 +707,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
             long timeInMilliseconds = 0L;
             long timeSwapBuff = 0L;
             long updatedTime = 0L;
-            timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
+            timeInMilliseconds = SystemClock.uptimeMillis() - current_Time;
 
             updatedTime = timeSwapBuff + timeInMilliseconds;
             current_Time=updatedTime;
@@ -1256,10 +1246,10 @@ public class FloatingViewService extends Service implements View.OnClickListener
     }
     public boolean check_Ad()
     {
-        if(!buy)
+        if(!DataProvider.getInstance().buy)
         {
             incremntCount();
-            check_InApp();
+           DataProvider.getInstance().check_InApp();
             SharedPreferences prefs = getApplicationContext().getSharedPreferences("recorder", 0);
             int count = prefs.getInt("count", 0);
             //   Toast.makeText(MainActivity.this, ""+count, Toast.LENGTH_SHORT).show();
@@ -1364,13 +1354,13 @@ public class FloatingViewService extends Service implements View.OnClickListener
         editor.putInt("count",count);
         editor.commit();
     }
-    public void resettCount()
+    /*public void resettCount()
     {
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("recorder", 0);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt("count",0);
         editor.commit();
-    }
+    }*/
     private void initRecorder()
     {
         Calendar cc=Calendar.getInstance();
@@ -1446,6 +1436,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         mVirtualDisplay = createVirtualDisplay();
         mMediaRecorder.start();
     }
+
     private VirtualDisplay createVirtualDisplay()
     {
         return mMediaProjection.createVirtualDisplay("MainActivity",
@@ -1498,10 +1489,6 @@ public class FloatingViewService extends Service implements View.OnClickListener
         //  Log.i(TAG, "MediaProjection Stopped");
     }
 
-
-
-
-    //this class is written to move the image to either corners if touch_up
     private class MoveAnimator implements Runnable {
 
         private Handler handler = new Handler(Looper.getMainLooper());
@@ -1643,7 +1630,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
     {
         windowManagerPanel = (WindowManager) getSystemService(WINDOW_SERVICE);
         circle_1 = new ImageView(this);
-        circle_1.setImageResource(R.drawable.ic_notification_play);
+        circle_1.setImageResource(R.drawable.widget_icon_record);
         circle_1.setMaxWidth(10);
         circle_1.setMaxHeight(10);
         circle_1.setId(R.id.rec);
@@ -1654,7 +1641,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
 
 
         circle_2 = new ImageView(this);
-        circle_2.setImageResource(R.drawable.ic_notification_stop);
+        circle_2.setImageResource(R.drawable.widget_icon_stop);
         circle_2.setMaxWidth(10);
         circle_2.setMaxHeight(10);
         circle_2.setId(R.id.stop);
@@ -1664,7 +1651,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         circle_2.setOnClickListener(this);
 
         circle_3 = new ImageView(this);
-        circle_3.setImageResource(R.drawable.ic_notification_screen_shot);
+        circle_3.setImageResource(R.drawable.widget_icon_picture);
         circle_3.setMaxWidth(10);
         circle_3.setMaxHeight(10);
         circle_3.setId(R.id.screen_shot);
@@ -1674,7 +1661,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         circle_3.setOnClickListener(this);
 
         circle_4 = new ImageView(this);
-        circle_4.setImageResource(R.drawable.ic_notification_view);
+        circle_4.setImageResource(R.drawable.widget_icon_view);
         circle_4.setMaxWidth(10);
         circle_4.setMaxHeight(10);
         circle_4.setId(R.id.openApp);
@@ -1684,7 +1671,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         circle_4.setOnClickListener(this);
 
         circle_5 = new ImageView(this);
-        circle_5.setImageResource(R.drawable.ic_notification_exit);
+        circle_5.setImageResource(R.drawable.widget_icon_exit);
         circle_5.setMaxWidth(10);
         circle_5.setMaxHeight(10);
         circle_5.setId(R.id.cc);
@@ -2062,54 +2049,6 @@ public class FloatingViewService extends Service implements View.OnClickListener
 
         return height;
     }
-    public void check_InApp()
-    {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("ads", 0);
-        buy = pref.getBoolean("buy", false);
-        if(buy) {
-            boolean foever = pref.getBoolean("forever", false);
-            if (!foever) {
-                Calendar cal = Calendar.getInstance();
-                long time = cal.getTimeInMillis();
-                long prev = pref.getLong("Ad_time", 0);
-                Date current = new Date(time);
-                Date previous = new Date(prev);
-                int duration = pref.getInt("duration", 0);
-                if (duration == 0)
-                    return;
-                long diff = current.getTime() - previous.getTime();
-                long days = TimeUnit.MILLISECONDS.toDays(diff);
-                if (duration != 6) {
-                    if (days >= duration)
-                    {
-                        SharedPreferences prefs = getApplicationContext().getSharedPreferences("ads", 0);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("buy", false);
-                        editor.putLong("Ad_time", 0);
-                        editor.putString("duration", "0");
-                        editor.commit();
-                        buy = false;
-                    }
 
-                }
-                else if (duration == 6) {
-                    duration = 6 * 30;
-                    if (days >= duration) {
-                        SharedPreferences prefs = getApplicationContext().getSharedPreferences("ads", 0);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("buy", false);
-                        editor.putLong("Ad_time", 0);
-                        editor.putString("duration", "0");
-                        editor.commit();
-                        buy = false;
-                    }
-                }
-
-
-            }
-        }
-
-
-    }
 }
 /*button_recorder*/

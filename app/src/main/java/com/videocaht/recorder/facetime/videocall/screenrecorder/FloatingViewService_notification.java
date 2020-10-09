@@ -298,17 +298,13 @@ public class FloatingViewService_notification extends Service
 //        windowManagerPanel.updateViewLayout(layout_1,params_1);
         notificationManager.notify(1, myNotification);
 
-
     }
-
-
 
     RemoteViews notificationView;
     Notification myNotification;
     NotificationManager notificationManager;
     private void createRecordNotification()
     {
-
 
         Intent play = new Intent(this, FloatingViewService_notification.class);
         play.setAction(ACTION_PAUSE_PLAY);
@@ -396,7 +392,6 @@ public class FloatingViewService_notification extends Service
         notificationManager.cancelAll();
     }
 
-
     CountDownTimer cdt;
     public void start_Timer(long time)
     {
@@ -417,13 +412,11 @@ public class FloatingViewService_notification extends Service
 
                 long seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
 
-
             }
 
             @Override
             public void onFinish()
             {
-
 
                 try {
                     initRecorder();
@@ -507,12 +500,10 @@ public class FloatingViewService_notification extends Service
             int count = prefs.getInt("count", 0);
             //   Toast.makeText(MainActivity.this, ""+count, Toast.LENGTH_SHORT).show();
             if (count >= 5) {
-
                 Intent mainIntent = new Intent(getApplicationContext(), Ad_Acc.class);
                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(mainIntent);
                 return true;
-
 
             }
         }
@@ -620,7 +611,6 @@ public class FloatingViewService_notification extends Service
             mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mMediaRecorder.setVideoEncodingBitRate(3000000);
             mMediaRecorder.setVideoFrameRate(16);
-            Toast.makeText(getApplicationContext(), "Saved2nd", Toast.LENGTH_SHORT).show();
             //   int rotation = getWindowManager().getDefaultDisplay().getRotation();
             int orientation = ORIENTATIONS.get(0 + 90);
             mMediaRecorder.setOrientationHint(orientation);
@@ -717,55 +707,4 @@ public class FloatingViewService_notification extends Service
         //  Log.i(TAG, "MediaProjection Stopped");
     }
 
-
-
-    public void check_InApp()
-    {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("ads", 0);
-        buy = pref.getBoolean("buy", false);
-        if(buy) {
-            boolean foever = pref.getBoolean("forever", false);
-            if (!foever) {
-                Calendar cal = Calendar.getInstance();
-                long time = cal.getTimeInMillis();
-                long prev = pref.getLong("Ad_time", 0);
-                Date current = new Date(time);
-                Date previous = new Date(prev);
-                int duration = pref.getInt("duration", 0);
-                if (duration == 0)
-                    return;
-                long diff = current.getTime() - previous.getTime();
-                long days = TimeUnit.MILLISECONDS.toDays(diff);
-                if (duration != 6) {
-                    if (days >= duration)
-                    {
-                        SharedPreferences prefs = getApplicationContext().getSharedPreferences("ads", 0);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("buy", false);
-                        editor.putLong("Ad_time", 0);
-                        editor.putString("duration", "0");
-                        editor.commit();
-                        buy = false;
-                    }
-
-                }
-                else if (duration == 6) {
-                    duration = 6 * 30;
-                    if (days >= duration) {
-                        SharedPreferences prefs = getApplicationContext().getSharedPreferences("ads", 0);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putBoolean("buy", false);
-                        editor.putLong("Ad_time", 0);
-                        editor.putString("duration", "0");
-                        editor.commit();
-                        buy = false;
-                    }
-                }
-
-
-            }
-        }
-
-
-    }
 }

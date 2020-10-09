@@ -28,16 +28,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.VideoController;
+import com.google.android.gms.ads.formats.NativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -74,7 +81,13 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
     public void onBindViewHolder(GridViewHolder holder, int position) {
         VideoModel model=dataList.get(position);
         holder.setViews(model);
+        if(position ==2 || (position + 1) % 4 == 0){
+            holder.load_Ads();
+        } else
+            holder.frameLayout.setVisibility(View.GONE);
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -82,6 +95,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
     }
 
     class GridViewHolder extends RecyclerView.ViewHolder{
+        private final LinearLayout frameLayout;
         PopupMenu popupMenu;
         ImageView videoThumbnail;
         TextView name,size,date;
@@ -94,6 +108,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
             size = itemView.findViewById(R.id.video_size);
             menu = itemView.findViewById(R.id.menu);
             date = itemView.findViewById(R.id.date);
+            frameLayout = (LinearLayout) itemView.findViewById(R.id.adLayout);
 
             videoThumbnail.setOnClickListener((View v)->{
                 VideoModel model=dataList.get(getAdapterPosition());
@@ -122,6 +137,104 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
 
             });
         }
+
+        private void load_Ads() {
+
+            if (!DataProvider.getInstance().buy) {
+                UnifiedNativeAd native_admob = DataProvider.getInstance().get_native_admob();
+                if (native_admob != null) {
+
+                    UnifiedNativeAdView adView = (UnifiedNativeAdView) LayoutInflater.from(itemView.getContext())
+                            .inflate(R.layout.native_admob, null);
+                    populateUnifiedNativeAdView(native_admob, adView);
+                    frameLayout.removeAllViews();
+                    frameLayout.addView(adView);
+                    frameLayout.setVisibility(View.VISIBLE);
+                    DataProvider.getInstance().load_native_admob();
+                }
+
+            }
+        }
+
+        private void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd, UnifiedNativeAdView adView) {
+
+            VideoController vc = nativeAd.getVideoController();
+
+            vc.setVideoLifecycleCallbacks(new VideoController.VideoLifecycleCallbacks() {
+                public void onVideoEnd() {
+
+                    super.onVideoEnd();
+                }
+            });
+
+//            com.google.android.gms.ads.formats.MediaView mediaView = (com.google.android.gms.ads.formats.MediaView) adView.findViewById(R.id.ad_media);
+            ImageView mainImageView = (ImageView) adView.findViewById(R.id.ad_image);
+
+            adView.setImageView(mainImageView);
+
+            try {
+                List<NativeAd.Image> images = nativeAd.getImages();
+                if (images.size() > 0)
+                    mainImageView.setImageDrawable(images.get(0).getDrawable());
+
+            } catch (Exception e) {
+
+            }
+            adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
+            adView.setBodyView(adView.findViewById(R.id.ad_body));
+            adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
+            adView.setIconView(adView.findViewById(R.id.ad_app_icon));
+   /*     adView.setPriceView(adView.findViewById(R.id.ad_price));
+        adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
+        adView.setStoreView(adView.findViewById(R.id.ad_store));
+        adView.setAdvertiserView(adView.findViewById(R.id.ad_advertiser));*/
+
+            // Some assets are guaranteed to be in every UnifiedNativeAd.
+            ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
+            ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
+            ((Button) adView.getCallToActionView()).setText(nativeAd.getCallToAction());
+            // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+            // check before trying to display them.
+           /* if (nativeAd.getIcon() == null) {
+                adView.getIconView().setVisibility(View.GONE);
+            } else {
+                ((ImageView) adView.getIconView()).setImageDrawable(
+                        nativeAd.getIcon().getDrawable());
+                adView.getIconView().setVisibility(View.VISIBLE);
+            }
+*/
+        /*if (nativeAd.getPrice() == null) {
+            adView.getPriceView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getPriceView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getPriceView()).setText(nativeAd.getPrice());
+        }
+
+        if (nativeAd.getStore() == null) {
+            adView.getStoreView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getStoreView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
+        }
+
+        if (nativeAd.getStarRating() == null) {
+            adView.getStarRatingView().setVisibility(View.INVISIBLE);
+        } else {
+            ((RatingBar) adView.getStarRatingView())
+                    .setRating(nativeAd.getStarRating().floatValue());
+            adView.getStarRatingView().setVisibility(View.VISIBLE);
+        }*/
+
+       /* if (nativeAd.getAdvertiser() == null) {
+            adView.getAdvertiserView().setVisibility(View.INVISIBLE);
+        } else {
+            ((TextView) adView.getAdvertiserView()).setText(nativeAd.getAdvertiser());
+            adView.getAdvertiserView().setVisibility(View.VISIBLE);
+        }*/
+
+            adView.setNativeAd(nativeAd);
+        }
+
         public void setViews(VideoModel model) {
 
             try {
@@ -135,6 +248,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
             }
 
         }
+
         public void scaleBitmap(Bitmap srcBmp)
         {
             Bitmap dstBmp;
@@ -164,6 +278,7 @@ public class PicAdapters extends RecyclerView.Adapter<PicAdapters.GridViewHolder
         }
 
     }
+
 
 
         @SuppressLint("RestrictedApi")

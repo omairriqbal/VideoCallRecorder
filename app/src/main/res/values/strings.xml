@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"> Video Call Recorder</string>
+    <string name="app_name"> Video Call Screen Recorder</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="msg">Please let us know about the problem you faced.\nThanks for your support!</string>
     <string name="notify_record">Notify rec</string>
