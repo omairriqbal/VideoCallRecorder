@@ -79,11 +79,11 @@
         <service
             android:name=".FloatingViewService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
         <service
             android:name=".FloatingViewService_notification"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false"/>
         <!--
         <service
             android:name=".Activity.FloatingViewService_new"

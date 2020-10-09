@@ -727,7 +727,6 @@ public class FloatingViewService extends Service implements View.OnClickListener
             timmer.setText(String.format("%02d", mins) + ":"
                     + String.format("%02d", secs));
 
-
             customHandler.postDelayed(this, 0);
         }
 
@@ -954,7 +953,11 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 break;
 
             case R.id.stop:
+                timer.cancel();
+                currentTime = 0;
                 stop();
+                collapsed_iv.setImageDrawable(getApplicationContext().getResources().getDrawable(R.drawable.button_recorder));
+
                 break;
 
             case R.id.cc:
@@ -1001,21 +1004,18 @@ public class FloatingViewService extends Service implements View.OnClickListener
                                 .putExtra(ScreenshotService.EXTRA_RESULT_INTENT, resultData);
 
 
-
-
                 bg.setVisibility(View.INVISIBLE);
                 mFloatingView.setVisibility(View.INVISIBLE);
                 hide_circle();
                 handler.postDelayed(() ->
                 {
                     {
-
                         bg.setVisibility(View.VISIBLE);
                         mFloatingView.setVisibility(View.VISIBLE);
                         show_Circle();
                     }
 
-                }, 2000);
+                }, 3000);
                 startService(ii);
                 break;
             case R.id.bg:
@@ -1382,6 +1382,8 @@ public class FloatingViewService extends Service implements View.OnClickListener
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 timer.cancel();
                 currentTime = 0;
+                collapsed_iv.setImageDrawable(getApplicationContext().getResources().getDrawable(R.drawable.button_recorder));
+
                 update_Noti("stop");
             }
 

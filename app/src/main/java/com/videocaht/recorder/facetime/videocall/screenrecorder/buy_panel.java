@@ -34,7 +34,7 @@ public class buy_panel extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.buy_panel);
+        setContentView(R.layout.remove_ads);
         In_app();
 
 

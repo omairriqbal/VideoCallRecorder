@@ -21,7 +21,7 @@
             android:icon="@drawable/ic_share"/>
         <item
             android:id="@+id/navigationMenuRemoveAd"
-            android:title="Remove Ad"
+            android:title="Remove Ads"
             android:icon="@drawable/ic_remove_ads"/>
         <item
             android:id="@+id/navigationMenuMore"

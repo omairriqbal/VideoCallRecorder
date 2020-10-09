@@ -4,10 +4,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -22,6 +26,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.perf.FirebasePerformance;
+import com.google.firebase.perf.metrics.Trace;
 
 public class FirstActivity extends AppCompatActivity {
 
@@ -30,6 +36,8 @@ public class FirstActivity extends AppCompatActivity {
     ImageView enableButton,disableButton;
     SharedPreferences preferences;
     private boolean previouslyStarted;
+    private MediaProjectionManager mediaProjectionManager;
+    private Trace myTrace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +49,9 @@ public class FirstActivity extends AppCompatActivity {
             DataProvider.getInstance().on_complete();
         }
 
-
+        myTrace = FirebasePerformance.getInstance().newTrace("test_trace");
+        myTrace.start();
+        myTrace.incrementMetric("item_cache_hit", 1);
         enableButton = findViewById(R.id.enable_startup_button);
         disableButton = findViewById(R.id.disable_startup_button);
 
@@ -55,8 +65,15 @@ public class FirstActivity extends AppCompatActivity {
         if(!previouslyStarted) {
             firstTimeLayout.setVisibility(View.VISIBLE);
         } else {
-            startActivity(new Intent(this,main_menu.class));
-            finish();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(FirstActivity.this,main_menu.class));
+                    finish();
+                }
+
+            }, 2000);
+
         }
 
 
@@ -110,5 +127,77 @@ public class FirstActivity extends AppCompatActivity {
             finish();
 
         });
+
+     /*   SharedPreferences prefs = getSharedPreferences("launches", 0);
+        int count=prefs.getInt("count",112);
+        if(count==11)
+        {
+            if (isServiceRunning(getApplicationContext()))
+            {
+                if(getIntent().getAction()!= "com.open.by.main")
+                {
+                    Intent in = new Intent(getApplicationContext(), main_menu.class);
+                    in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(in);
+                    finish();
+                }
+                else
+                {
+                    mediaProjectionManager = (MediaProjectionManager) getApplicationContext().getSystemService(MEDIA_PROJECTION_SERVICE);
+                    startActivityForResult(mediaProjectionManager.createScreenCaptureIntent(), 1);
+
+                }
+            }
+            else
+            {
+                mediaProjectionManager = (MediaProjectionManager) getApplicationContext().getSystemService(MEDIA_PROJECTION_SERVICE);
+                startActivityForResult(mediaProjectionManager.createScreenCaptureIntent(), 1);
+            }
+        }
+        else
+        {
+            if(getIntent().getAction()!= "com.open.by.main")
+            {
+
+                Intent in = new Intent(getApplicationContext(), main_menu.class);
+                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(in);
+                this.finish();
+            }
+
+
+        }*/
     }
+
+    public static boolean isServiceRunning(Context queryingContext)
+    {
+        try {
+            ActivityManager manager = (ActivityManager) queryingContext.getSystemService(Context.ACTIVITY_SERVICE);
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+            {
+                if ((queryingContext.getPackageName()+".FloatingViewService").equals(service.service.getClassName()))
+                    return true;
+            }
+        } catch (Exception ex)
+        {
+        }
+        return false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+      /*  if(!haspermission())
+        {
+            Intent in = new Intent(getApplicationContext(), main_menu.class);
+            in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(in);
+            this.finish();
+            return;
+        }
+*/
+
+
+    }
+
 }

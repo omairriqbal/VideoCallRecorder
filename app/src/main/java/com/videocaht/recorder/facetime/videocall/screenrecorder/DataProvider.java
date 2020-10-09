@@ -62,9 +62,9 @@ public class DataProvider {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
         mInterstitialAd = new InterstitialAd(VideoCallRecorderApplication.getContext());
         check_InApp();
-        //     Ad_data();
+        //      Ad_data();
 
-             ((new check_Ads())).execute();
+          ((new check_Ads())).execute();
 
 
     }
@@ -172,7 +172,7 @@ public class DataProvider {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-        DocumentReference docRef = db.collection("Ads").document("test_ads");
+        DocumentReference docRef = db.collection("Ads").document("real_ads");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                @Override
                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -183,9 +183,9 @@ public class DataProvider {
                                                        read_data_remainig = true;
 
                                                        (new write_ads_to_db()).execute();
-                                                       Toast.makeText(mcontext, "write", Toast.LENGTH_SHORT).show();
+//                                                       Toast.makeText(mcontext, "write", Toast.LENGTH_SHORT).show();
                                                    } else {
-                                                       Toast.makeText(mcontext, "read", Toast.LENGTH_SHORT).show();
+//                                                       Toast.makeText(mcontext, "read", Toast.LENGTH_SHORT).show();
                                                        ((new get_Ads_from_db())).execute();
                                                    } }}); }
 
@@ -286,7 +286,7 @@ public class DataProvider {
 
 
 
-        db.collection("Ads").document("test_ads")
+        db.collection("Ads").document("real_ads")
                 .set(Ads)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

@@ -21,8 +21,6 @@ import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
 import com.onesignal.OneSignal;
 
-
-
 public class PermissionActivity extends Activity {
     public static final String ACTION_PERMISSION=  "myAction.Activity.Permissions";
     private MediaProjectionManager mediaProjectionManager;
