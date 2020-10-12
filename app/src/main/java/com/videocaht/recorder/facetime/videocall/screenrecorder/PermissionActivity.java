@@ -14,12 +14,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+
 import androidx.core.app.ActivityCompat;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.metrics.Trace;
 import com.onesignal.OneSignal;
+
 
 public class PermissionActivity extends Activity {
     public static final String ACTION_PERMISSION=  "myAction.Activity.Permissions";
@@ -36,12 +38,6 @@ public class PermissionActivity extends Activity {
         myTrace = FirebasePerformance.getInstance().newTrace("test_trace");
         myTrace.start();
         myTrace.incrementMetric("item_cache_hit", 1);
-
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.None)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
-        OneSignal.setLocationShared(false);
 
     }
     private boolean haspermission() {
@@ -61,7 +57,7 @@ public void onResume()
 
     if(!haspermission())
     {
-        Intent in = new Intent(getApplicationContext(), main_menu.class);
+        Intent in = new Intent(getApplicationContext(), FirstActivity.class);
         in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(in);
         this.finish();
